@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "Hello",
+    "identified_intent": "greeting",
+    "bot_response": "Hello! Welcome to SRM Admission Enquiry Chatbot. How can I assist you today?"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "What courses does SRM offer?",
+    "identified_intent": "courses",
+    "bot_response": "SRM offers a wide range of courses:\n\n📚 Undergraduate (UG):\nB.Tech, B.Sc, BBA, B.Com, BCA, B.Design, BHM\n\n🎓 Postgraduate (PG):\nM.Tech, M.Sc, MBA, MCA, M.Design\n\n🔬 Doctoral Programs:\nPh.D in Engineering, Ph.D in Science, Ph.D in Management\n\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "Tell me about B.Tech programs",
+    "identified_intent": "courses",
+    "bot_response": "SRM offers a wide range of courses:\n\n📚 Undergraduate (UG):\nB.Tech, B.Sc, BBA, B.Com, BCA, B.Design, BHM\n\n🎓 Postgraduate (PG):\nM.Tech, M.Sc, MBA, MCA, M.Design\n\n🔬 Doctoral Programs:\nPh.D in Engineering, Ph.D in Science, Ph.D in Management\n\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "What is the eligibility for B.Tech?",
+    "identified_intent": "eligibility",
+    "bot_response": "📋 Eligibility Criteria:\n\n• BTECH: 10+2 with Physics, Chemistry, and Mathematics with minimum 50% aggregate\n• BSC: 10+2 with Science subjects with minimum 50% aggregate\n• BBA: 10+2 in any stream with minimum 50% aggregate\n• MTECH: B.Tech/B.E degree with minimum 50% aggregate\n• MBA: Bachelor degree in any discipline with minimum 50% aggregate\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "How much are the fees for MBA?",
+    "identified_intent": "courses",
+    "bot_response": "SRM offers a wide range of courses:\n\n📚 Undergraduate (UG):\nB.Tech, B.Sc, BBA, B.Com, BCA, B.Design, BHM\n\n🎓 Postgraduate (PG):\nM.Tech, M.Sc, MBA, MCA, M.Design\n\n🔬 Doctoral Programs:\nPh.D in Engineering, Ph.D in Science, Ph.D in Management\n\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "What entrance exams are required for engineering?",
+    "identified_intent": "entrance",
+    "bot_response": "📝 Entrance Examinations:\n\nFor B.Tech: SRMJEEE (SRM Joint Engineering Entrance Examination), JEE Main\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "How do I apply for admission?",
+    "identified_intent": "application",
+    "bot_response": "📋 Application Process:\n\n1. Visit the official SRM admission portal\n2. Register with your email and phone number\n3. Fill in the application form with personal and academic details\n4. Upload required documents (photos, marksheets, ID proof)\n5. Pay the application fee online\n6. Submit the application and note your application number\n7. Appear for the entrance examination (if applicable)\n8. Check results and attend counseling if selected\n\n💡 For detailed guidance, visit: www.srmist.edu.in"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "Are there any scholarships available?",
+    "identified_intent": "unknown",
+    "bot_response": "I'm sorry, I didn't quite understand your query. I can help you with:\n• Courses and programs\n• Eligibility criteria\n• Fees and costs\n• Entrance exams\n• Application process\n• Scholarships\n• Placements\n• Contact information\n\nPlease rephrase your question or ask about any of these topics."
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "What are the placement statistics?",
+    "identified_intent": "placement",
+    "bot_response": "💼 Placement Information:\n\n📊 Placement Rate: 90%+\n💵 Average Package: Rs. 6-8 LPA\n🏆 Highest Package: Rs. 40+ LPA\n\n🏢 Top Recruiters:\nGoogle, Microsoft, Amazon, TCS, Infosys, Wipro, Cognizant, Accenture"
+  },
+  {
+    "timestamp": "2025-11-06 16:01:32",
+    "user_query": "How can I contact the admissions office?",
+    "identified_intent": "contact",
+    "bot_response": "📞 Contact Information:\n\n📱 Phone: +91-44-27417000\n📧 Email: admissions@srmist.edu.in\n🌐 Website: www.srmist.edu.in\n📍 Address: SRM Institute of Science and Technology, Kattankulathur, Chennai - 603203\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:09:16",
+    "user_query": "Tell me about B.Tech programs",
+    "identified_intent": "courses",
+    "bot_response": "SRM offers a wide range of courses:\n\n📚 Undergraduate (UG):\nB.Tech, B.Sc, BBA, B.Com, BCA, B.Design, BHM\n\n🎓 Postgraduate (PG):\nM.Tech, M.Sc, MBA, MCA, M.Design\n\n🔬 Doctoral Programs:\nPh.D in Engineering, Ph.D in Science, Ph.D in Management\n\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:25:58",
+    "user_query": "Hello!",
+    "identified_intent": "greeting",
+    "bot_response": "Greetings! I can help you with information about SRM admissions. What are you interested in?"
+  },
+  {
+    "timestamp": "2025-11-06 16:26:07",
+    "user_query": "What entrance exams are required?",
+    "identified_intent": "entrance",
+    "bot_response": "📝 Entrance Examinations:\n\nEngineering: SRMJEEE (SRM Joint Engineering Entrance Examination), JEE Main\nManagement: CAT, MAT, XAT, CMAT, ATMA, SRMHCAT\nOther programs: Program-specific entrance tests conducted by SRM\n"
+  },
+  {
+    "timestamp": "2025-11-06 16:26:14",
+    "user_query": "Hello! when eterance examce required ",
+    "identified_intent": "greeting",
+    "bot_response": "Hello! Welcome to SRM Admission Enquiry Chatbot. How can I assist you today?"
+  },
+  {
+    "timestamp": "2025-11-06 16:26:21",
+    "user_query": "entrance exam",
+    "identified_intent": "entrance",
+    "bot_response": "📝 Entrance Examinations:\n\nEngineering: SRMJEEE (SRM Joint Engineering Entrance Examination), JEE Main\nManagement: CAT, MAT, XAT, CMAT, ATMA, SRMHCAT\nOther programs: Program-specific entrance tests conducted by SRM\n"
+  }
+]

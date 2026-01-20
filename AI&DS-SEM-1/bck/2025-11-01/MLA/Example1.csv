@@ -1,0 +1,11 @@
+Age,Competition,Type,Profit
+old,yes,S/W,Down
+old,no,S/W,Down
+old,no,H/W,Down
+mid,yes,S/W,Down
+mid,yes,H/W,Down
+mid,no,H/W,Up
+mid,no,S/W,Up
+new,yes,S/W,Up
+new,no,H/W,Up
+new,no,S/W,Up
