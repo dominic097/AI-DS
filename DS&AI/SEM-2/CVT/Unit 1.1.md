@@ -69,6 +69,55 @@ Improves the visual quality and interpretability of images by adjusting brightne
 - **Purpose:** Make images more suitable for display or analysis
 - **Example:** Adjusting contrast in dark photos
 
+### Spatial Filtering (Spatial Filters)
+- A **spatial filter** works directly on pixels using a **neighborhood** around each pixel.
+- Implemented by sliding a **kernel / mask** (small matrix) over the image.
+
+#### Linear filtering (convolution)
+Replace each pixel with a **linear combination** of its neighbors.
+
+For an image $f$ of size $M\times N$ and a mask $w$ of size $m\times n$:
+
+$$g(x,y)=\sum_{s=-a}^{a}\sum_{t=-b}^{b} w(s,t)\,f(x+s,y+t)$$
+
+where $a=\frac{m-1}{2}$ and $b=\frac{n-1}{2}$.
+
+#### 1) Smoothing filters (Low-pass filters)
+Used for **noise reduction / blurring** (remove high-frequency details).
+
+- **Mean / Box filter (linear)**
+
+$$\frac{1}{9}\begin{bmatrix}
+1&1&1\\
+1&1&1\\
+1&1&1
+\end{bmatrix}$$
+
+- **Gaussian filter (weighted average, linear)**
+
+$$\frac{1}{16}\begin{bmatrix}
+1&2&1\\
+2&4&2\\
+1&2&1
+\end{bmatrix}$$
+
+- **Order-statistics filters (non-linear)**
+  - **Median filter:** replace pixel with the **median** of its neighborhood (very good for *salt & pepper* noise)
+  - **Mode filter:** replace pixel with the **most frequent** value in the neighborhood
+
+#### 2) Sharpening filters (High-pass filters)
+Used for **edge/detail enhancement** (emphasize high-frequency components).
+
+- **Basic high-pass kernel** (highlights center, subtracts surrounding average)
+
+$$\begin{bmatrix}
+-1&-1&-1\\
+-1&8&-1\\
+-1&-1&-1
+\end{bmatrix}$$
+
+- **Note:** Laplacian and LoG (Laplacian of Gaussian) are covered later in this unit under the Laplacian sections.
+
 ## 3. Restoration
 Removes or minimizes degradation in images caused by motion blur, noise, or optical defects. Unlike enhancement, restoration uses mathematical models of degradation.
 - **Techniques:** Deblurring, noise removal, inpainting
