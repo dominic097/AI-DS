@@ -30,6 +30,23 @@ Importance of Natural Language Processing:
 1. **Text Classification**: It is the task of assigning a label to a given text. For example, classifying an email as spam or not spam.
 2. **Named Entity Recognition**: It is the task of identifying and classifying named entities in a text. For example, identifying and classifying names of people, organizations, and locations in a news article.
 3. **Part of Speech Tagging**: It is the task of assigning a part of speech tag to each word in a text. For example, identifying whether a word is a noun, verb, adjective, etc.
+
+   **Detailed Definition:**
+   
+   In corpus linguistics, part-of-speech tagging (POS tagging or PoS tagging or POST), also called grammatical tagging or word-category disambiguation, is the process of marking up a word in a text (corpus) as corresponding to a particular part of speech, based on both its definition and its context.
+   
+   A simplified form of this is the identification of words as nouns, verbs, adjectives, adverbs, etc.
+   
+   **Example:** "She sells seashells on the seashore"
+   - She → PRP (Personal Pronoun)
+   - sells → VBZ (Verb, 3rd person singular present)
+   - seashells → NNS (Noun, plural)
+   - on → IN (Preposition)
+   - the → DT (Determiner)
+   - seashore → NN (Noun, singular)
+   
+   **Tagset Reference:** [Penn Treebank POS Tags](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html)
+
 4. **Sentiment Analysis**: It is the task of determining the sentiment expressed in a text. For example, determining whether a product review is positive, negative, or neutral.
 5. **Machine Translation**: It is the task of translating a text from one language to another. For example, translating a news article from English to Hindi.
 6. **Text Summarization**: It is the task of generating a summary of a given text. For example, generating a summary of a news article.
@@ -132,6 +149,37 @@ These notebooks contain complete code examples for all text preprocessing techni
 ### what is Count Vectorization?
 Count Vectorization is a technique used to convert text data into a numerical format that can be used by machine learning algorithms. It works by counting the number of times each word appears in a document and creating a vector representation of the document based on these counts. The resulting vector is called a "bag of words" representation, where the order of the words is not considered, only their frequency.
 
+#### **Bag of Words Model**
+
+**Simple Explanation:**
+
+The Bag of Words (BoW) model converts text into numbers by:
+1. **Ignoring word order and grammar** - only counts how many times each word appears
+2. **Creating a vocabulary** - a list of all unique words from all documents
+3. **Counting frequencies** - each document becomes a vector showing word counts
+4. **Used for classification** - helps machines understand and classify text
+
+**Example:** 
+
+Raw Text: "it is a puppy and it is extremely cute"
+
+Bag-of-words vector representation:
+```
+it        → 2
+they      → 0
+puppy     → 1
+and       → 1
+cat       → 0
+aardvark  → 0
+cute      → 1
+extremely → 1
+...       → ...
+```
+
+**Note:** The vocabulary size can be very large (thousands of words), and most entries will be 0 for any given document.
+
+---
+
 ``` python
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -194,6 +242,37 @@ print(vector.toarray())
 
 ### what is TF-IDF Vectorization?
 TF-IDF (Term Frequency-Inverse Document Frequency) Vectorization is a technique used to convert text data into a numerical format that can be used by machine learning algorithms. It works by calculating the term frequency (TF) of each word in a document, which is the number of times the word appears in the document, and the inverse document frequency (IDF) of each word, which is a measure of how important the word is in the entire corpus. The resulting vector is called a "TF-IDF" representation, where each word is weighted based on its importance in the document and the corpus.
+
+#### **TF-IDF Vectors - Detailed Explanation**
+
+**Key Points:**
+
+- TF-IDF (term frequency times inverse document frequency) is a scheme to weight individual tokens
+- One advantage of TF-IDF is to **reduce the impact of tokens that occur very frequently**, hence offering little to none in terms of information
+
+**Mathematical Formula:**
+
+$$TFIDF \text{ score for term } i \text{ in document } j = TF(i,j) \times IDF(i)$$
+
+**Where:**
+
+$$TF = \text{Term Frequency}$$
+
+$$IDF = \text{Inverse Document Frequency}$$
+
+**Term Frequency (TF):**
+
+$$TF(i,j) = \frac{\text{Term i frequency in document j}}{\text{Total words in document j}}$$
+
+**Inverse Document Frequency (IDF):**
+
+$$IDF(i) = \log_2\left(\frac{\text{Total documents}}{\text{documents with term i}}\right)$$
+
+**Variables:**
+- $t$ = Term
+- $j$ = Document
+
+---
 
 ``` python
 from sklearn.feature_extraction.text import TfidfVectorizer
