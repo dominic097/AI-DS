@@ -273,6 +273,98 @@ $$IDF(i) = \log_2\left(\frac{\text{Total documents}}{\text{documents with term i
 - $j$ = Document
 
 ---
+---
+
+### Example of TF-IDF Vectorization:
+
+#### **Manual Calculation Example**
+
+**Given Documents:**
+- **Document #1**: "He is a good boy. She is also good."
+- **Document #2**: "Radhika is a good person."
+
+**Step 1: Calculate Term Frequency (TF)**
+
+**Word Counts:**
+
+| Word    | Doc #1 Count | Word    | Doc #2 Count |
+|---------|--------------|---------|--------------|
+| He      | 1            | Radhika | 1            |
+| is      | 2            | is      | 1            |
+| a       | 1            | a       | 1            |
+| good    | 2            | good    | 1            |
+| boy     | 1            | person  | 1            |
+| she     | 1            |         |              |
+| also    | 1            |         |              |
+| **Total** | **9**      | **Total** | **5**      |
+
+**TF Formula:** 
+
+$$TF = \frac{\text{Frequency of the word in a Doc}}{\text{Total number of words in the Doc}}$$
+
+**TF Calculations:**
+
+| Word | TF(word, doc#1) | TF(word, doc#2) |
+|------|-----------------|------------------|
+| He   | 1/9 = 0.11      | 0/5 = 0          |
+| good | 2/9 = 0.22      | 1/5 = 0.2        |
+
+> **Note:** TF captures how important a word is to the document (without looking at other documents in the dataset)
+
+---
+
+**Step 2: Calculate Inverse Document Frequency (IDF)**
+
+**IDF Formula:**
+
+$$IDF = \log\left(\frac{\text{Num of Docs}}{\text{Word in Num of Docs}}\right)$$
+
+**IDF Calculations:**
+
+| Word | Calculation    | IDF Value |
+|------|----------------|-----------|
+| He   | log(2/1)       | 0.301     |
+| good | log(2/2)       | 0         |
+
+> **Note:** IDF tells us if a word (feature) can be used to distinguish documents. If a word appears in majority of the documents then IDF will be close to '0' i.e. give low weightage to that feature.
+
+---
+
+**Step 3: Calculate TF-IDF Scores**
+
+**TF-IDF = TF × IDF**
+
+**TF-IDF Calculations (TF × IDF):**
+
+| Word | TF-IDF(word, doc#1)     | TF-IDF(word, doc#2)    |
+|------|-------------------------|------------------------|
+| He   | 0.11 × 0.301 = 0.03311  | 0 × 0.301 = 0          |
+| good | 0.22 × 0 = 0            | 0.2 × 0 = 0            |
+
+---
+
+**Step 4: TF-IDF Vector Representation**
+
+**Vocabulary (from both documents):**
+a, also, boy, good, He, is, person, She, Radhika
+
+**Final TF-IDF Vector Table:**
+
+|            | a | also | boy | good | He      | is | person | She | Radhika |
+|------------|---|------|-----|------|---------|-------|--------|-----|---------|
+| **Index**  | 0 | 1    | 2   | 3    | 4       | 5     | 6      | 7   | 8       |
+| **Doc #1** |   |      |     | 0    | 0.03311 |       |        |     |         |
+| **Doc #2** |   |      |     | 0    | 0       |       |        |     |         |
+
+**Key Insight:** 
+- Word "good" appears in both documents → IDF = 0 → TF-IDF = 0 (not useful for distinguishing)
+- Word "He" appears only in doc#1 → Higher IDF → Non-zero TF-IDF (useful for distinguishing)
+
+---
+
+#### **Python Implementation Example**
+
+---
 
 ``` python
 from sklearn.feature_extraction.text import TfidfVectorizer

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DS&AI/SEM-2/NLP/Into - NLP - Unit 1.0.md",
+                "file": "DS&AI/SEM-2/NLP/Unit 2/[Print] NLP Technique - Unit 2.0.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Into - NLP - Unit 1.0"
+              "title": "[Print] NLP Technique - Unit 2.0"
             }
           }
         ]
@@ -185,20 +185,25 @@
   },
   "active": "e3730e3eca80bb46",
   "lastOpenFiles": [
+    "DS&AI/SEM-2/NLP/Unit 2/image.png",
     "DS&AI/SEM-2/NLP/GL Notes/Module-1_Statistical NLP .pdf",
-    "DS&AI/SEM-2/NLP/text normalization (1).ipynb",
+    "DS&AI/SEM-2/NLP/Unit 2/Unit 2.0.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 2/[Print] NLP Technique - Unit 2.0.md",
+    "DS&AI/SEM-2/NLP/Unit 2/[Print]NLP Technique - Unit 2.0.md",
+    "DS&AI/SEM-2/NLP/Unit 2/[Print] Into - NLP Technique - Unit 2.0.md",
+    "DS&AI/SEM-2/NLP/Unit 1/[Print] Into_NLP_Unit 1.0 text preprocessing.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/[Print] Into - NLP - Unit 1.0.md",
+    "DS&AI/SEM-2/NLP/Unit 2",
+    "DS&AI/SEM-2/NLP/Unit 1/Unit 2",
+    "DS&AI/SEM-2/NLP/Unit 1/text normalization (1).ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/sms_spam_filter.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/npl_stemming.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/NLPA_S2-sms-Spam-Filter-From-GL-Staff.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/nlp-text-pre-processing.ipynb",
     "DS&AI/SEM-2/NLP/Into - NLP - Unit 1.0.md",
-    "DS&AI/SEM-2/NLP/GL Notes/Word Vectors.pdf",
-    "DS&AI/SEM-2/NLP/Into_NLP_Unit 1.0 text preprocessing.ipynb",
-    "DS&AI/SEM-2/NLP/Into_NLP_Unit1.0-text-preprocessing.ipynb",
-    "DS&AI/SEM-2/NLP/nlp_lemmatization.ipynb",
-    "DS&AI/SEM-2/NLP/npl_stemming.ipynb",
+    "DS&AI/SEM-2/NLP/Unit 1/Into - NLP - Unit 1.0.md",
     "Notes/key vault.md",
     "DS&AI/SEM-2/CVT/Unit 2 - .md",
-    "DS&AI/SEM-2/NLP/NLPA_S2-sms-Spam-Filter-From-GL-Staff.ipynb",
-    "DS&AI/SEM-2/NLP/NLPA_S2 (1).ipynb",
-    "DS&AI/SEM-2/NLP/data/sms-spam-collection-dataset.zip",
-    "DS&AI/SEM-2/NLP/data/spam.csv",
     "DS&AI/SEM-2/NLP/GL Notes /QB/CT1-Answer-Sheet.md",
     "DS&AI/SEM-2/NLP/GL-pptx/QB/CT1-Answer-Sheet.md",
     "DS&AI/SEM-2/CVT/Unit 2.md",
@@ -222,11 +227,6 @@
     "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.3.md",
     "DS&AI/SEM-2/DLA/M1 - Fundamentals of DL/M1.X - Recap .md",
     "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M1.X - Recap .md",
-    "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.4 - Back Propagation in NN.md",
-    "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.3 - recap .md",
-    "DS&AI/SEM-2/NLP/intro.md",
-    "M2 - Deep Learning Approaches/M2.1 - Gradient Descent.md",
-    "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.2 Adaptive Learning Rate Optimizers.md",
-    "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.1 - Gradient Descent.md"
+    "DS&AI/SEM-2/DLA/M2 - Deep Learning Approaches/M2.4 - Back Propagation in NN.md"
   ]
 }
