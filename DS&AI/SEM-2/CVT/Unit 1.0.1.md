@@ -94,6 +94,8 @@ Quick link to examples:
 - **Spatial domain:** change pixels directly (local operations).
 - **Frequency domain:** change frequency components (global view via Fourier transform).
 
+---
+---
 
 
 ## Log Transformation
@@ -129,6 +131,9 @@ Where:
 
 - This transformation is commonly used for gamma correction, which adjusts the brightness of an image. A gamma value less than 1 will brighten the image, while a gamma value greater than 1 will darken the image. It is widely used in display systems and image processing applications to achieve desired brightness levels.
 
+---
+---
+
 ## Contrast Stretching
 - **Contrast stretching** is a point operation that enhances the contrast of an image by stretching the range of intensity values. It is defined as:
 $$s = \frac{(r - r_{min}) \cdot (s_{max} - s_{min})}{r_{max} - r_{min}} + s_{min}$$
@@ -142,9 +147,242 @@ Where:
 - Contrast stretching can enhance the visibility of features in an image and is commonly used in applications such as medical imaging and remote sensing.
 
 
-# Thresholding 
-    - **Thresholding** is a fundamental technique in image processing used to segment an image into different regions based on pixel intensity values. It is commonly used in edge detection to classify pixels as either edge or non-edge based on their gradient magnitude, and more broadly to separate objects from backgrounds or to distinguish between multiple objects with different intensity levels.
-    -- continue in Unit 1.1
+# Thresholding
+
+**Thresholding** is a fundamental technique in image processing used to segment an image into different regions based on pixel intensity values. It is commonly used in edge detection to classify pixels as either edge or non-edge based on their gradient magnitude, and more broadly to separate objects from backgrounds or to distinguish between multiple objects with different intensity levels.
+
+## Fundamentals of Thresholding
+
+The core concept of thresholding is to use one or more **threshold values** to partition an image's intensity histogram into distinct regions. Each region typically corresponds to a specific object or the background.
+
+**Visual Concept:**
+
+Consider an image with:
+- **Background** (gray region)
+- **Object 1** (white circle, O₁)
+- **Object 2** (white triangle, O₂)
+
+The intensity histogram of this image shows distinct peaks:
+```
+Intensity Distribution:
+         ↑
+         │    ╱‾‾╲                ╱‾‾╲        ╱‾‾╲
+         │   ╱ bg ╲              ╱ O₁ ╲      ╱ O₂ ╲
+         │  ╱      ╲            ╱      ╲    ╱      ╲
+         │_╱________╲__________╱________╲__╱________╲___→ Intensity
+                    T₁                  T₂
+
+         Background  │  Object 1  │  Object 2
+```
+
+Where:
+- **Background peak**: Low intensity values
+- **Object 1 peak**: Medium intensity values
+- **Object 2 peak**: High intensity values
+- **T₁, T₂**: Threshold values separating different regions
+
+## Mathematical Formulation
+
+For an image $f(x, y)$ with pixel intensity values, the output segmented image $O(x, y)$ is defined as:
+
+**Simple notation (as commonly written):**
+
+$$O(x, y) = \begin{cases} 
+\text{background} & \text{if } f(x, y) \leq T_1 \\ 
+\text{object 1} & \text{if } T_1 < f(x, y) \leq T_2 \\ 
+\text{object 2} & \text{if } f(x, y) > T_2 
+\end{cases}$$
+
+**Practical Example:**
+
+For the image shown (with background, circle O₁, and triangle O₂):
+
+```
+O(x,y) = background  if  f(x,y) ≤ T₁
+
+       = object 1    if  T₁ < f(x,y) ≤ T₂
+
+       = object 2    if  f(x,y) > T₂
+    
+    So, T₁ < f(x,y) ≤ T₂ corresponds to the white circle (O₁)
+    and f(x,y) > T₂ corresponds to the white triangle (O₂)
+```
+
+This is called **Multiple Thresholding** (or Multi-level Thresholding).
+
+### Binary Thresholding: Two Common Cases
+
+For **single threshold** binary segmentation, the output depends on the relative intensities of objects and background:
+
+**Case 1: Lighter Objects & Darker Background**
+
+When objects are brighter than the background:
+
+```
+O(x,y) = 1  if  f(x,y) > T
+
+       = 0  if  f(x,y) ≤ T
+```
+
+- Output value **1** (white) represents the **object** (foreground)
+- Output value **0** (black) represents the **background**
+- Example: White text on black paper, bright objects in dark scenes
+
+**Case 2: Darker Objects & Lighter Background**
+
+When objects are darker than the background:
+
+```
+O(x,y) = 1  if  f(x,y) ≤ T
+
+       = 0  if  f(x,y) > T
+```
+
+- Output value **1** (white) represents the **object** (foreground)
+- Output value **0** (black) represents the **background**
+- Example: Black text on white paper, dark objects in bright scenes
+- This is the **inverted** version of Case 1
+
+**Key Note:**
+The choice between these two formulations depends on:
+- The nature of your image (bright objects vs dark objects)
+- What you want to highlight in the output
+- Whether you want objects to be white (1) or black (0) in the binary result
+
+Where:
+- $f(x, y)$ is the intensity value at pixel $(x, y)$
+- $T_1, T_2$ are threshold values that separate the three regions
+- **Background**: Darkest region (lowest intensity)
+- **Object 1 (O₁)**: Medium intensity (the white circle)
+- **Object 2 (O₂)**: Highest intensity (the white triangle)
+
+**Key Insights:**
+- **Single threshold** (Binary): Uses one threshold $T$ to separate image into two classes (foreground/background)
+- **Multiple thresholds** (Multi-level): Uses $n$ thresholds to separate image into $n+1$ classes
+- **Threshold selection**: Critical for accurate segmentation (can be manual or automatic)
+- The thresholds typically correspond to **valleys** (minima) in the intensity histogram between peaks
+
+## Types of Thresholding
+1. **Simple Thresholding**: In simple thresholding, a single threshold value is chosen. Pixels with intensity values above the threshold are classified as edges (or foreground), while those below are classified as non-edges (or background). The result is a binary image where edges are represented as white pixels and non-edges as black pixels.
+
+   **Mathematical Definition:**
+   $$T(x, y) = \begin{cases} 
+   1 & \text{if } M(x, y) \geq T \\ 
+   0 & \text{if } M(x, y) < T 
+   \end{cases}$$
+
+   Where:
+   - $M(x, y)$ is the gradient magnitude at pixel $(x, y)$
+   - $T$ is the chosen threshold value
+
+   
+
+   The Results of the Image Thresholding depends on 
+   1) - Separation between peaks 
+   2) - Noise content of the image
+   3) - Relative size of the objects and background
+   4) - Illumination & Reflectance of images conditions
+
+
+# Global Thresholding
+
+**Global thresholding** is a simple and widely used method for image segmentation where a single threshold value is applied to the entire image. The threshold is determined based on the intensity histogram of the image, and it is used to separate the foreground (objects) from the background.
+
+This can be used if we have an image with a single background and a single object, and the intensity values of the object and background are well separated.
+
+**Algorithm to Estimate Global Threshold (Iterative Method):**
+
+**Step 1: Initialize Threshold**
+- Choose an initial threshold value $T_0$
+- Common initialization methods:
+  - **Mean intensity**: $T_0 = \frac{1}{MN} \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)$ (average of all pixel intensities)
+  - **Median intensity**: Middle value of sorted pixel intensities
+  - **Midpoint**: $T_0 = \frac{\text{max intensity} + \text{min intensity}}{2}$
+- The choice affects convergence speed but not the final result
+
+**Step 2: Segment Image into Two Groups**
+- Using current threshold $T$, partition all pixels into two groups:
+  - **Group G1** (foreground/object): All pixels where $f(x,y) > T$
+  - **Group G2** (background): All pixels where $f(x,y) \leq T$
+- This creates a binary classification of the entire image
+- Each pixel is assigned to exactly one group
+
+**Step 3: Compute Mean Intensity of Each Group**
+- Calculate the average intensity for each group:
+  
+  **For G1 (object):**
+  $$\mu_1 = \frac{1}{N_1} \sum_{f(x,y) > T} f(x,y)$$
+  
+  **For G2 (background):**
+  $$\mu_2 = \frac{1}{N_2} \sum_{f(x,y) \leq T} f(x,y)$$
+  
+  Where:
+  - $N_1$ = number of pixels in G1
+  - $N_2$ = number of pixels in G2
+  - $N_1 + N_2 = M \times N$ (total pixels)
+
+**Step 4: Update Threshold Value**
+- Compute new threshold as the average of the two group means:
+  $$T_{new} = \frac{\mu_1 + \mu_2}{2}$$
+  
+- This places the threshold **midway** between the average intensities of object and background
+- Intuition: The optimal threshold lies between the two regions
+
+**Step 5: Check for Convergence**
+- Compare the new threshold with the previous threshold:
+  $$|T_{new} - T| < \Delta T$$
+  
+  Where $\Delta T$ is a predefined tolerance (e.g., 1, 0.5% of intensity range, or 1% of $T$)
+  
+- **If converged** ($|T_{new} - T| < \Delta T$): Stop and use $T_{new}$ as final threshold
+- **If not converged**: Set $T = T_{new}$ and return to Step 2
+
+**Step 6: Repeat Until Convergence**
+- Continue the iteration loop (Steps 2-5) until the threshold stabilizes
+- Typically converges in 3-5 iterations
+- The algorithm is guaranteed to converge because:
+  - Each iteration moves the threshold closer to the optimal position
+  - The threshold value is bounded (between min and max intensity)
+
+**Convergence Criteria Options:**
+- Absolute difference: $|T_{new} - T| < 1$
+- Relative difference: $\frac{|T_{new} - T|}{T} < 0.01$ (1% change)
+- Maximum iterations: Stop after N iterations (e.g., 10-20) to prevent infinite loops
+
+
+# Optimal Thresholding - Otsu's Method
+
+**Otsu's Method** is an automatic, optimal thresholding technique that determines the best threshold value by analyzing the histogram of the image. It aims to find the threshold that **minimizes intra-class variance** (variance within each class) or equivalently, **maximizes inter-class variance** (variance between classes).
+
+## Key Concept
+
+The method works by treating the thresholding problem as a **statistical classification problem**: finding the threshold that best separates two classes (foreground and background) by maximizing the separation between them.
+
+## Image Setup and Notation
+
+Consider an image with:
+- **White objects** on a **gray background** (or any two-tone image)
+- Intensity values ranging from **0 to L-1**, where:
+  - $L$ is the number of intensity levels (typically $L = 256$ for 8-bit images)
+  - Possible intensities: $\{0, 1, 2, 3, ..., L-1\}$
+
+### Basic Parameters
+
+**Image dimensions:**
+- $M \times N$ = Total number of pixels in the image
+- $M$ = number of rows
+- $N$ = number of columns
+
+**Histogram notation:**
+- $C_i$ = Count (frequency) of pixels with intensity level $i$
+- Where $i \in \{0, 1, 2, ..., L-1\}$
+
+**Verification:**
+$$\sum_{i=0}^{L-1} C_i = M \times N$$
+
+This confirms that the sum of all pixel counts equals the total number of pixels.
+
+
 
 > Note: Spatial filters (smoothing + sharpening) and edge operators are consolidated in **Unit 1.1** under **Enhancement → Spatial Filtering** (to keep notes in one place).
 
