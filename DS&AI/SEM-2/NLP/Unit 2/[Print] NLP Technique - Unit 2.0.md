@@ -214,7 +214,7 @@ flowchart LR
     w4[the]
   end
 
-  h["Hidden layer (embedding lookup, avg sum)"]
+  h["Hidden layer (embedding lookup, avg/sum)"]
   o["Output layer (softmax over vocab)"]
   t["rises (target word)"]
 
@@ -222,7 +222,8 @@ flowchart LR
   w2 --> h
   w3 --> h
   w4 --> h
-  h --> o --> t
+  h --> o
+  o --> t
 ```
 
 Key idea: CBOW learns word embeddings by repeatedly answering: **“Given neighbouring words, what is the most likely middle word?”**
