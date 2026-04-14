@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Neural Networks.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="neural-networks---deep-learning">Neural Networks - Deep Learning</h2>
+<p>A <strong>Neural Network</strong> is a machine learning model inspired by the structure and function of the human brain. It is built from layers of interconnected nodes called <strong>neurons</strong> that collectively learn to map input data to a desired output. Neural Networks excel at tasks involving complex, high-dimensional data — including image recognition, natural language processing, and speech recognition.</p>
+<h3 id="biological-vs-artificial-neuron">Biological vs. Artificial Neuron</h3>
+<p>The design of an artificial neuron is a direct analogy to the biological neuron:</p>
+<table>
+<thead>
+<tr>
+<th>Biological Neuron</th>
+<th>Artificial Neuron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dendrites receive signals</td>
+<td>Inputs (X1, X2, … Xn) received</td>
+</tr>
+<tr>
+<td>Cell body processes signals</td>
+<td>Weighted sum computed</td>
+</tr>
+<tr>
+<td>Axon transmits the result</td>
+<td>Activation function applied → Output produced</td>
+</tr>
+</tbody>
+</table>
+<p>Just as a biological neuron &quot;fires&quot; only when the incoming signal is strong enough, an artificial neuron activates only when its weighted input crosses a threshold — controlled by the <strong>activation function</strong>.</p>
+<p><img src="Pasted image 20260413185616.png" alt="alt text"></p>
+<hr>
+<h2 id="artificial-neural-networks-anns">Artificial Neural Networks (ANNs)</h2>
+<p>An <strong>Artificial Neural Network (ANN)</strong> consists of an input layer, one or more hidden layers, and an output layer. Every neuron in one layer connects to every neuron in the next — this is a <strong>fully connected</strong> (or <strong>dense</strong>) architecture.</p>
+<h3 id="key-components">Key Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input Layer</strong></td>
+<td>Receives raw features (X1, X2, X3). One neuron per feature.</td>
+</tr>
+<tr>
+<td><strong>Hidden Layers</strong></td>
+<td>Extract and transform features progressively. Each additional layer learns more abstract representations.</td>
+</tr>
+<tr>
+<td><strong>Output Layer</strong></td>
+<td>Produces the final prediction (Y_Pred). Single neuron for regression/binary; multiple for multi-class.</td>
+</tr>
+<tr>
+<td><strong>Weights (W)</strong></td>
+<td>Learnable parameters on every connection. Adjusted during training via backpropagation.</td>
+</tr>
+<tr>
+<td><strong>Bias (B)</strong></td>
+<td>An extra parameter per layer (B1, B2, B3…) that shifts the activation function, allowing the model to fit data that doesn't pass through the origin.</td>
+</tr>
+<tr>
+<td><strong>Activation Function</strong></td>
+<td>Introduces non-linearity inside each neuron (e.g., Sigmoid, ReLU, Tanh). Without it, the network collapses to a simple linear model regardless of depth.</td>
+</tr>
+<tr>
+<td><strong>Loss Function</strong></td>
+<td>Quantifies the error between predicted and actual output (e.g., Cross-Entropy, MSE). The training goal is to minimise this.</td>
+</tr>
+<tr>
+<td><strong>Optimizer</strong></td>
+<td>Algorithm that updates weights to reduce the loss (e.g., SGD, Adam, RMSProp).</td>
+</tr>
+</tbody>
+</table>
+<p><img src="image.png" alt="alt text"></p>
+<blockquote>
+<p><strong>Reading the diagram:</strong> All three inputs (X1, X2, X3) fan out to <strong>every</strong> neuron in the 1st Hidden Layer. Those neurons then fan out to every neuron in the 2nd Hidden Layer, which finally connects to the single Output neuron (Y_Pred). The green <strong>Bias neurons</strong> (B1, B2, B3) inject a constant offset into each layer independently — they are not connected to the input.</p>
+</blockquote>
+<hr>
+<h2 id="inside-a-neuron--weighted-sum--activation">Inside a Neuron — Weighted Sum &amp; Activation</h2>
+<p>Every neuron performs exactly <strong>two operations</strong>:</p>
+<p><strong>Step 1 — Accumulate</strong> (weighted sum of inputs + bias):</p>
+<p>$$\text{ACC} = X_1 \cdot W_{11} + X_2 \cdot W_{12} + X_3 \cdot W_{13} + b$$</p>
+<p><strong>Step 2 — Activate</strong> (apply a non-linear function):</p>
+<p>$$\text{Output} = \sigma(\text{ACC}) = \text{Sigmoid}(\text{ACC}) = \frac{1}{1 + e^{-\text{ACC}}}$$</p>
+<p><img src="image-1.png" alt="alt text"></p>
+<p>This same two-step computation runs at <strong>every neuron</strong> across every layer. The weights $W_{ij}$ are what the network <em>learns</em> — backpropagation computes the gradient of the loss with respect to each weight, and the optimizer updates them to reduce the error.</p>
+<h3 id="common-activation-functions">Common Activation Functions</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Formula</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sigmoid</strong></td>
+<td>$\frac{1}{1+e^{-x}}$</td>
+<td>Binary classification output layer</td>
+</tr>
+<tr>
+<td><strong>ReLU</strong></td>
+<td>$\max(0, x)$</td>
+<td>Hidden layers (most common)</td>
+</tr>
+<tr>
+<td><strong>Softmax</strong></td>
+<td>$\frac{e^{x_i}}{\sum e^{x_j}}$</td>
+<td>Multi-class classification output layer</td>
+</tr>
+<tr>
+<td><strong>Tanh</strong></td>
+<td>$\frac{e^x - e^{-x}}{e^x + e^{-x}}$</td>
+<td>Hidden layers when output needs to be in [-1, 1]</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="training-a-neural-network">Training a Neural Network</h2>
+<p>Training adjusts the weights and biases so the network's predictions get closer to the true labels. The process follows four steps every iteration:</p>
+<ol>
+<li><strong>Forward Pass</strong> — Input flows through the network layer by layer, producing a prediction.</li>
+<li><strong>Loss Computation</strong> — The loss function measures how wrong the prediction is.</li>
+<li><strong>Backward Pass (Backpropagation)</strong> — The gradient of the loss is computed with respect to every weight using the chain rule.</li>
+<li><strong>Weight Update</strong> — The optimizer nudges each weight in the direction that reduces the loss:
+$W \leftarrow W - \eta \cdot \nabla_W \mathcal{L}$  (where $\eta$ is the <strong>learning rate</strong>)</li>
+</ol>
+<p>This loop repeats for many <strong>epochs</strong> until the loss converges.</p>
+<hr>
+<h2 id="deep-neural-networks-dnns">Deep Neural Networks (DNNs)</h2>
+<p>A Neural Network with <strong>two or more hidden layers</strong> is called a <strong>Deep Neural Network (DNN)</strong> — the foundation of modern <strong>Deep Learning</strong>.</p>
+<p>The depth is what makes DNNs powerful: each layer builds on the previous one, learning increasingly abstract representations:</p>
+<pre class="hljs"><code><div>Raw pixels  →  Edges  →  Shapes  →  Parts  →  Objects
+   (Input)    (Layer 1)  (Layer 2)  (Layer 3)  (Output)
+</div></code></pre>
+<p>This hierarchical feature learning makes DNNs especially effective for:</p>
+<ul>
+<li><strong>Image recognition</strong> — detecting objects, faces, diseases in images</li>
+<li><strong>NLP</strong> — understanding sentiment, translating languages, summarising text</li>
+<li><strong>Speech</strong> — transcribing audio, detecting speaker identity</li>
+</ul>
+<blockquote>
+<p>In Keras, a fully connected layer is implemented as <code>Dense(units, activation='relu')</code>. Stacking multiple <code>Dense</code> layers gives you a DNN.</p>
+</blockquote>
+<hr>
+<h2 id="mathematical-foundations-reference-only--no-derivations-needed">Mathematical Foundations <em>(reference only — no derivations needed)</em></h2>
+<p>Two theorems form the theoretical backbone of why neural networks work. You don't need to prove them — just understand what they <em>guarantee</em>.</p>
+<hr>
+<h3 id="a-kolmogorovs-theorem">a. Kolmogorov's Theorem</h3>
+<blockquote>
+<p><em>Any continuous function f defined on an n-dimensional cube is representable by sums and superpositions of continuous functions of only one variable.</em></p>
+</blockquote>
+<p>$$f(x_1, x_2, \ldots, x_n) = \sum_{q=1}^{2n+1} g!\left(\sum_{p=1}^{n} \lambda_p ,\phi_q(x_p)\right)$$</p>
+<p><strong>Simple way to think about it:</strong><br>
+Imagine predicting house prices — the price depends on size, location, age, number of rooms — many variables at once. That's a complex, multi-variable function. Kolmogorov said: no matter how complicated that relationship is, you can always break it down into simpler single-variable functions stacked together.</p>
+<p>A neural network does exactly that — each neuron handles a small, simple piece of the problem. Stack enough of them together and the network can model <strong>any</strong> relationship, no matter how complex.</p>
+<blockquote>
+<p><strong>The guarantee:</strong> A neural network is powerful enough to learn <em>any</em> pattern in data. This is formalised as the <strong>Universal Approximation Theorem</strong>.</p>
+</blockquote>
+<hr>
+<h3 id="b-covers-theorem">b. Cover's Theorem</h3>
+<blockquote>
+<p><em>Given a set of training data that is not linearly separable, one can with high probability transform it into a training set that is linearly separable by projecting it into a higher-dimensional space via some non-linear transformation.</em></p>
+</blockquote>
+<pre class="hljs"><code><div>X1 ──┐                          y = f(x)
+     ├──► [ Model / Transform P ] ──► separable in higher-dim space
+X2 ──┘
+</div></code></pre>
+<p><strong>Simple way to think about it:</strong><br>
+Imagine red and blue dots scattered on a table — completely mixed up, no single straight line can separate them. Now imagine picking up all the blue dots and placing them on a raised platform (a new dimension). Suddenly, looking from the side, blue is <em>above</em> and red is <em>below</em> — a flat horizontal cut separates them perfectly.</p>
+<p>That &quot;raised platform&quot; is what a hidden layer does. It transforms the data into a new space where the problem becomes simpler to solve. Each additional hidden layer adds another dimension to work with.</p>
+<blockquote>
+<p><strong>The guarantee:</strong> No matter how tangled your data is, enough hidden layers can always untangle it into something separable.</p>
+</blockquote>
+<p><strong>Together in one line:</strong> Kolmogorov says a network <em>can</em> learn anything. Cover says <em>why</em> adding layers makes it <em>easier</em> to learn hard things.</p>
+<h2 id="types-of-nueral-networks-based-on-the-achitecture">Types of Nueral Networks based on the achitecture</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>** <strong>Feedforward Neural Network (FNN)</strong></td>
+<td>Data flows in one direction from input to output. No cycles.</td>
+<td>Basic classification/regression tasks</td>
+</tr>
+<tr>
+<td>** <strong>Convolutional Neural Network (CNN)</strong></td>
+<td>Uses convolutional layers to capture spatial hierarchies.</td>
+<td>Image recognition, object detection</td>
+</tr>
+<tr>
+<td><strong>Recurrent Neural Network (RNN)</strong></td>
+<td>Has loops to maintain state across sequences.</td>
+<td>Time series, language modeling</td>
+</tr>
+<tr>
+<td><strong>Transformer</strong></td>
+<td>Uses self-attention to capture long-range dependencies.</td>
+<td>NLP, sequence modeling</td>
+</tr>
+<tr>
+<td><strong>Generative Adversarial Network (GAN)</strong></td>
+<td></td>
+<td>Two networks (generator and discriminator) compete to create realistic data.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="feedforward-neural-network-fnn">Feedforward Neural Network (FNN)</h3>
+<ul>
+<li>The simplest type of neural network.</li>
+<li>Data flows in one direction: from input layer → hidden layers → output layer.</li>
+<li>No cycles or loops.</li>
+<li>Used for basic classification and regression tasks.</li>
+</ul>
+<p>It has a straightforward architecture, making it easy to understand and implement. However, it may struggle with complex data like images or sequences, which is why more specialized architectures (like CNNs and RNNs) were developed.</p>
+<p><strong>Single-layer FNN (Perceptron)</strong> — can only learn linear decision boundaries:</p>
+<pre class="hljs"><code><div>         i/p          μL (hidden)       o/p
+          
+          ○ ─────────── ○
+         /               \
+        ○                 ○ ──── ○
+         \               /
+          ○ ─────────── ○
+</div></code></pre>
+<p>Single layer FNNs are also known as <strong>Perceptrons</strong> — they can only learn linear decision boundaries. Adding hidden layers allows the network to learn non-linear relationships, making it much more powerful.</p>
+<p><strong>Multi-layer FNN (MLP)</strong> — fully connected across layers, can learn non-linear boundaries:</p>
+<pre class="hljs"><code><div>         i/p          μL (hidden)       o/p
+
+          ○ ──────────── ○
+          │ ╲          ╱ │
+          │   ╲      ╱   │
+          │     ╲  ╱     ├──── ○
+          │     ╱  ╲     │
+          │   ╱      ╲   │
+          ○ ──────────── ○
+</div></code></pre>
+<blockquote>
+<p>Every input node connects to <strong>every</strong> hidden node (hence the crossing lines), and every hidden node connects to the output — this is the <strong>fully connected</strong> property.</p>
+</blockquote>
+<p>Muti-layer FNNs are the foundation of deep learning, but they are not the best choice for all tasks. For example, they don't capture spatial relationships in images (where CNNs excel) or temporal dependencies in sequences (where RNNs shine).</p>
+<p>Radial Basis Networks (RBNs) are a type of FNN that uses radial basis functions as activation functions. They have a single hidden layer prototype vector and are often used for function approximation and classification tasks. However, they are less common than other architectures in modern deep learning applications.</p>
+<h3 id="convolutional-neural-network-cnn">Convolutional Neural Network (CNN)</h3>
+<ul>
+<li>Designed to process data with a grid-like topology (e.g., images).</li>
+<li>Uses convolutional layers to capture spatial hierarchies and local patterns.</li>
+<li>Commonly used for image recognition, object detection, and similar tasks.</li>
+<li>The convolution operation allows the network to learn filters that detect specific features (edges, textures, shapes) in the input data.</li>
+</ul>
+<p><img src="image-2.png" alt="alt text"></p>
+<p>The convolutional layers recognise local patterns in the input data, pixel by pixel, and build up to more complex features as you go deeper into the network. This makes CNNs particularly effective for image-related tasks, where spatial relationships are crucial.</p>
+<h3 id="recurrent-neural-network-rnn">Recurrent Neural Network (RNN)</h3>
+<ul>
+<li>Designed to handle sequential data (e.g., time series, text).</li>
+<li>Has loops that allow information to persist across time steps.</li>
+<li>Commonly used for language modeling, machine translation, and time series prediction.</li>
+<li>The recurrent connections enable the network to maintain a &quot;memory&quot; of previous inputs, which is essential for understanding context in sequences.</li>
+</ul>
+<p><img src="image-3.png" alt="alt text"></p>
+<p><strong>How it works — the loop:</strong></p>
+<pre class="hljs"><code><div>              ↑  Y (output)
+              │
+  past info ──►  [ RNN ]
+              │    ▲
+              │    │
+              └────┘  ← feeds back its own output as &quot;past info&quot; next step
+              │
+             input
+</div></code></pre>
+<p>At every time step the RNN takes <strong>two things</strong>:</p>
+<ol>
+<li>The <strong>current input</strong> (e.g., the next word in a sentence)</li>
+<li>The <strong>hidden state</strong> from the previous step — this is its &quot;memory&quot; of what came before</li>
+</ol>
+<p>It combines both, produces an output, and passes the new hidden state forward to the next step. This loop is what makes RNNs fundamentally different from FNNs.</p>
+<p><strong>Real-world example — Google Autotyping:</strong></p>
+<p>When you type <em>&quot;Quick brown fox…&quot;</em> into Google search, it suggests completions like <em>&quot;jumps over the lazy dog&quot;</em>. The model doesn't look at just the last word — it reads the whole sequence so far and predicts what comes next. That's an RNN at work.</p>
+<pre class="hljs"><code><div>  &quot;Quick&quot;  →  &quot;brown&quot;  →  &quot;fox&quot;  →  [ predicts: &quot;jumps&quot; ]
+     ↓           ↓          ↓
+  hidden₁ → hidden₂ → hidden₃   (memory flows left to right)
+</div></code></pre>
+<p><img src="image-4.png" alt="alt text"></p>
+<blockquote>
+<p><strong>Key limitation:</strong> Vanilla RNNs struggle to retain information over <strong>long sequences</strong> — the memory &quot;fades&quot; after many steps. This is the <strong>vanishing gradient</strong> problem. More advanced variants like <strong>LSTM</strong> (Long Short-Term Memory) and <strong>GRU</strong> (Gated Recurrent Unit) were designed specifically to solve this.</p>
+</blockquote>
+<h4 id="variants-of-rnns">Variants of RNNs</h4>
+<ul>
+<li><strong>LSTM (Long Short-Term Memory)</strong>: Introduces gates to control the flow of information, allowing it to retain long-term dependencies.</li>
+<li><strong>GRU (Gated Recurrent Unit)</strong>: A simpler alternative to LSTM with fewer parameters, also designed to handle long-term dependencies.</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Neural Networks are powerful models inspired by the human brain, capable of learning complex patterns in data</li>
+<li>Any Nerual Network that has one hidden layer with enough neurons can approximate any function (Kolmogorov's Theorem) is called shallow neural network</li>
+<li>Adding more hidden layers (deep neural networks) allows the model to learn more complex representations and solve more difficult problems (Cover's Theorem)</li>
+<li>Different architectures (FNN, CNN, RNN, Transformers) are suited to different types of data and tasks.</li>
+</ul>
+
+</body>
+</html>

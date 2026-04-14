@@ -58,3 +58,8 @@ htmlcov/
 # Distribution / packaging
 *.tar.gz
 *.zip
+
+dataset/
+datasets/
+models/
+DS&AI/SEM-2/DLA/socofing/

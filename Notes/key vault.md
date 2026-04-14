@@ -4,6 +4,9 @@ IP address: 172.30.36.100
 username: aziro  
 Password: MsysAziro#2026
 
+VM IP:172.30.62.31  
+username: aziron  
+password: $tag!ng#2026
 
 Dev server 
 172.30.47.194
@@ -44,11 +47,29 @@ OTLP gRPC: [172.30.38.246:4317](http://172.30.38.246:4317)
 OTLP HTTP: [http://172.30.38.246:4318](http://172.30.38.246:4318)
 
 
-Prod. 26 
+Prod. 172.30.63.26 
 aziro
 App$tage@2025
 
 
-Kulu poc grafana IP 
+Stg - 02
+  HostName 172.30.62.31
+  User aziron
+  Password: $tag!ng#2026
 
 
+
+
+Kubernetes setup details
+
+	Master node# 172.30.46.174
+	Worker node# 172.30.46.175
+	Worker node# 172.30.46.176
+
+username# root
+
+Password# msys#123
+
+
+AWS_ACCESS_KEY_ID=<redacted>
+AWS_SECRET_ACCESS_KEY=<redacted>

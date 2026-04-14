@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sequential Models in NLP.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="sequential-models-in-nlp">Sequential Models in NLP</h1>
+<h2 id="sequential-data">Sequential Data</h2>
+<p><strong>Sequential data</strong> is any data where the <strong>order of elements matters</strong>. Shuffle the elements and the meaning changes — or disappears entirely.</p>
+<p>In NLP, text is inherently sequential. Words form meaning through their position relative to each other, not in isolation.</p>
+<blockquote>
+<p><strong>Example:</strong><br>
+<em>&quot;The dog bit the man&quot;</em> ≠ <em>&quot;The man bit the dog&quot;</em><br>
+Same words, completely different meaning — because the order changed.</p>
+</blockquote>
+<p>Sequential models are built specifically to capture these <strong>order-dependent dependencies</strong>, making them the backbone of tasks like language modeling, machine translation, sentiment analysis, and speech recognition.</p>
+<p>What kind og Applications that we can build with Sequential Data?</p>
+<ul>
+<li><strong>Language Modeling</strong>: Predicting the next word in a sentence (e.g., GPT). - Email autocomplete</li>
+<li><strong>Machine Translation</strong>: Translating text from one language to another (e.g., Google Translate).</li>
+<li><strong>Sentiment Analysis</strong>: Determining the sentiment of a piece of text (e.g., positive, negative, neutral). - Grammerly, Google reviews</li>
+<li><strong>Speech Recognition</strong>: Converting spoken language into text (e.g., Siri, Alexa).</li>
+<li><strong>Text Generation</strong>: Creating new text based on a given prompt (e.g., story generation, code generation).</li>
+<li>Document Summarization: Condensing long documents into shorter summaries while retaining key information.</li>
+<li><strong>Named Entity Recognition (NER)</strong>: Identifying and classifying entities in text (e.g., people, locations, organizations).</li>
+<li>Part-of-Speech Tagging: Assigning grammatical categories to words (e.g., noun, verb, adjective).</li>
+<li>Question Answering: Building systems that can answer questions based on a given context (e.g., chatbots, search engines).</li>
+</ul>
+<hr>
+<p>How do we build models that can understand and generate sequential data? We need architectures that can <strong>remember</strong> previous inputs while processing new ones — and that can capture the complex dependencies between words across a sequence.</p>
+<p>The simplest approach is a <strong>Feedforward (Dense) network</strong> — text goes in, gets tokenised and vectorised, and a prediction comes out:</p>
+<pre class="hljs"><code><div>Raw Text  →  Tokenize  →  Vectorize  →  Feed Forward NN  →  Output
+&quot;The rain     ['The',       [0.2, 0.8,     [Dense layers]     &quot;Positive&quot;
+stopped&quot;      'rain', ...]   0.1, ...]                        (prediction)
+</div></code></pre>
+<blockquote>
+<p>The pipeline is: raw sentence → split into tokens (<code>'The', 'rain', 'stopped', ...</code>) → convert each token to a number vector → pass through a Dense network → predict the answer.</p>
+</blockquote>
+<p>But before the network can process words, we need to convert them to numbers. The <strong>vectorization</strong> step can be done in several ways:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CountVectorizer</strong></td>
+<td>Counts word frequency per document — simple but ignores order</td>
+</tr>
+<tr>
+<td><strong>TF-IDF</strong></td>
+<td>Weights words by how unique they are across documents</td>
+</tr>
+<tr>
+<td><strong>One Hot Encoding</strong></td>
+<td>Each word gets a binary vector (1 at its index, 0 elsewhere)</td>
+</tr>
+<tr>
+<td><strong>Word2Vec / GloVe / FastText</strong></td>
+<td>Dense embeddings that encode semantic meaning (similar words are close in vector space)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="building-blocks-of-sequential-models">Building Blocks of Sequential Models</h2>
+<p>Before feeding text to any model, it goes through a standard <strong>pre-processing pipeline</strong>:</p>
+<pre class="hljs"><code><div>Raw Text  →  Text Cleaning  →  Tokenization  →  Vectorization  →  Model Input
+              (lowercase,        (split into      (word index
+               remove noise)      words, build     lookup)
+                                  vocabulary)
+</div></code></pre>
+<ol>
+<li><strong>Text Cleaning</strong> — remove punctuation, lowercase, strip noise</li>
+<li><strong>Tokenization</strong> — break sentences into words, build a vocabulary, assign an index to each unique word</li>
+<li><strong>Vectorization</strong> — replace each word with its vocabulary index</li>
+</ol>
+<p>Once every word has an index, they are fed into an <strong>Embedding Layer</strong> — the first trainable block in the model:</p>
+<pre class="hljs"><code><div>Word Index  →  One-Hot Encoding  →  Dense (Weight Matrix)  →  Word Embedding
+    42           [0,0,...,1,...,0]      × W (learned)           [0.2, -0.5, 0.8, ...]
+                  (vocab_size,)                                  (embedding_size,)  e.g. 50
+</div></code></pre>
+<p>The Embedding Layer works in two steps internally:</p>
+<ol>
+<li><strong>One Hot Encoding</strong> — converts the word index into a sparse binary vector</li>
+<li><strong>Dense Layer</strong> — multiplies it by a learned weight matrix, producing a compact dense vector (e.g., 50 numbers per word)</li>
+</ol>
+<blockquote>
+<p>If we feed a sentence of 300 words with embedding size 50, the output shape is <strong>(300 × 50)</strong> — 300 words, each represented by 50 learned numbers.</p>
+</blockquote>
+<p>These embeddings then flow into the model. For a <strong>feedforward network with Word2Vec embeddings</strong>, the full pipeline looks like this:</p>
+<pre class="hljs"><code><div>7 words  →  Embedding Layer  →  Flatten  →  Dense (Hidden)  →  Output
+             (50 per word)       350 nums     layers              prediction
+             7 × 50 = 350
+</div></code></pre>
+<ul>
+<li>7 words → Embedding layer (size 50 each) → <strong>350 numbers</strong> total → stacked Dense (Hidden) layers → Output layer → prediction</li>
+</ul>
+<p><strong>But there's a problem.</strong> How many output neurons does the network need if the task is to <em>predict the next word</em>?</p>
+<pre class="hljs"><code><div>Output Layer (Softmax)
+┌─────────────────────────────┐
+│  neuron_1  → P(&quot;the&quot;)       │
+│  neuron_2  → P(&quot;rain&quot;)      │
+│  ...                        │
+│  neuron_10000 → P(&quot;zebra&quot;)  │  ← one per vocabulary word
+└─────────────────────────────┘
+</div></code></pre>
+<blockquote>
+<p>The output layer must have <strong>as many neurons as the vocabulary size</strong> — one probability per possible next word (via Softmax). For a 10,000-word vocabulary, that's 10,000 output neurons.</p>
+</blockquote>
+<p>What if the sequence has more words? Or if the important information is far apart? A feedforward network treats all 350 inputs as a flat vector — it has no concept of <em>which word came first</em> or <em>how words relate in order</em>. We need models that can <strong>maintain a memory</strong> of previous inputs and <strong>capture long-range dependencies</strong> — which is exactly where RNNs, LSTMs, GRUs, and Transformers come in.</p>
+<hr>
+<h2 id="types-of-sequential-models">Types of Sequential Models</h2>
+<h3 id="1-recurrent-neural-networks-rnn">1. Recurrent Neural Networks (RNN)</h3>
+<p>RNNs process sequences <strong>one element at a time</strong>, maintaining a <strong>hidden state</strong> that acts as memory — carrying forward information from previous steps.</p>
+<pre class="hljs"><code><div>  x₁ → [RNN] → h₁
+               ↓
+  x₂ → [RNN] → h₂
+               ↓
+  x₃ → [RNN] → h₃ → output
+</div></code></pre>
+<p>At each step, the hidden state $h_t$ is computed from both the current input $x_t$ and the previous state $h_{t-1}$:</p>
+<p>$$s_t = \tanh(W \cdot S_{t-1} + b_w + U \cdot X_t + b_u)$$</p>
+<ul>
+<li>$W \cdot S_{t-1} + b_w$ — recurrent term: how much the <strong>previous memory</strong> contributes, scaled by weight matrix $W$ and its bias $b_w$</li>
+<li>$U \cdot X_t + b_u$ — input term: how much the <strong>current word</strong> contributes, scaled by weight matrix $U$ and its bias $b_u$</li>
+<li>$\tanh$ — squashes the combined result to $[-1, 1]$, keeping values stable across many steps</li>
+</ul>
+<blockquote>
+<p><strong>Limitation — Vanishing Gradient Problem:</strong><br>
+During backpropagation through many time steps, gradients get multiplied by small numbers repeatedly and shrink toward zero. The network effectively &quot;forgets&quot; what happened early in the sequence, making it hard to learn <strong>long-range dependencies</strong>.</p>
+</blockquote>
+<hr>
+<h3 id="2-long-short-term-memory-lstm">2. Long Short-Term Memory (LSTM)</h3>
+<p>LSTMs are a specialised RNN designed to solve the vanishing gradient problem. They introduce a <strong>cell state</strong> — a separate memory lane that can carry information across many steps without decay — controlled by three <strong>gates</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Forget gate</strong></td>
+<td>Decides what to erase from cell state</td>
+</tr>
+<tr>
+<td><strong>Input gate</strong></td>
+<td>Decides what new information to write</td>
+</tr>
+<tr>
+<td><strong>Output gate</strong></td>
+<td>Decides what to read out as the hidden state</td>
+</tr>
+</tbody>
+</table>
+<p>This gating mechanism lets LSTMs selectively <strong>remember or forget</strong> information, making them effective for long sequences like paragraphs or documents.</p>
+<hr>
+<h3 id="3-gated-recurrent-unit-gru">3. Gated Recurrent Unit (GRU)</h3>
+<p>GRUs are a streamlined version of LSTMs — same core idea, fewer parameters, faster to train. They merge the cell state and hidden state into one, and use only two gates (reset + update) instead of three.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>LSTM</th>
+<th>GRU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gates</td>
+<td>3 (forget, input, output)</td>
+<td>2 (reset, update)</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>More</td>
+<td>Fewer</td>
+</tr>
+<tr>
+<td>Training speed</td>
+<td>Slower</td>
+<td>Faster</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Slightly better on long sequences</td>
+<td>Comparable on most tasks</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="4-transformers">4. Transformers</h3>
+<p>Transformers abandon the sequential step-by-step approach entirely. Instead, they process the <strong>whole sequence at once</strong> using <strong>self-attention</strong> — letting every word directly attend to every other word, regardless of distance.</p>
+<pre class="hljs"><code><div>  &quot;The  cat  sat  on  the  mat&quot;
+    ↕    ↕    ↕   ↕    ↕    ↕
+   [  Self-Attention across all positions  ]
+</div></code></pre>
+<blockquote>
+<p><strong>Self-attention</strong> assigns a weight to every word in the sequence relative to the current word being processed — so when encoding &quot;sat&quot;, the model can directly look at &quot;cat&quot; (subject) and &quot;mat&quot; (location) without having to pass through intermediate hidden states.</p>
+</blockquote>
+<p>This eliminates the vanishing gradient problem entirely and enables <strong>massive parallelism</strong> during training, which is why Transformers (GPT, BERT, etc.) now dominate NLP.</p>
+<hr>
+<h3 id="comparison-at-a-glance">Comparison at a Glance</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Handles long deps?</th>
+<th>Parallel training?</th>
+<th>Key idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RNN</strong></td>
+<td>Poor</td>
+<td>No</td>
+<td>Hidden state loop</td>
+</tr>
+<tr>
+<td><strong>LSTM</strong></td>
+<td>Good</td>
+<td>No</td>
+<td>Gated cell memory</td>
+</tr>
+<tr>
+<td><strong>GRU</strong></td>
+<td>Good</td>
+<td>No</td>
+<td>Simplified gating</td>
+</tr>
+<tr>
+<td><strong>Transformer</strong></td>
+<td>Excellent</td>
+<td>Yes</td>
+<td>Self-attention</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rnn---recurrent-neural-networks">RNN - Recurrent Neural Networks</h1>
+<p>RNN is a type of neural network designed to handle sequential data. It processes input sequences one element at a time, maintaining a hidden state that captures information about previous elements in the sequence. This allows RNNs to model dependencies across time steps, making them suitable for tasks like language modeling, machine translation, and speech recognition.</p>
+<p>Input to an RNN is a word embedding ($X_t$) <strong>plus</strong> the previous hidden state ($S_{t-1}$) — its memory of everything seen so far. The output is an updated hidden state ($S_t$) that now encodes what was just read.</p>
+<p><strong>Step t=0 — first word, no memory yet:</strong></p>
+<p>At the very start, $S_{t-1}$ is empty — the model has no knowledge of the sequence. The first word (<em>&quot;The&quot;</em>) is fed in as $X_{t=0}$, and the RNN produces $S_t$ — a hidden state that now holds <em>knowledge of &quot;The&quot;</em>.</p>
+<pre class="hljs"><code><div>S_{t-1} = [0, 0, ..., 0]   ← empty memory
+X_{t=0} = embedding(&quot;The&quot;) ← first word
+         ↓
+      [ RNN Cell ]
+         ↓
+  S_t = tanh(W·S_{t-1} + U·X_t)  ← updated memory: knows &quot;The&quot;
+</div></code></pre>
+<blockquote>
+<p>$S_{t-1}$ (no prior knowledge) + $X_{t=0}$ (<em>&quot;The&quot;</em>) → RNN → $S_t$ (memory: <em>&quot;The&quot;</em>)</p>
+</blockquote>
+<p><strong>Step t+1 — second word, memory carries forward:</strong></p>
+<p>The hidden state $S_t$ from the previous step (carrying knowledge of <em>&quot;The&quot;</em>) is now fed back in alongside the next input $X_{t+1}$ (<em>&quot;rain&quot;</em>). The RNN merges both and produces an updated state $S_{t+1}$ — now aware of <em>&quot;The, rain&quot;</em> together.</p>
+<pre class="hljs"><code><div>S_t     = [memory of &quot;The&quot;]  ← looped back
+X_{t+1} = embedding(&quot;rain&quot;)  ← new word
+         ↓
+      [ RNN Cell ]
+         ↓
+  S_{t+1} = tanh(W·S_t + U·X_{t+1})  ← memory: &quot;The, rain&quot;
+</div></code></pre>
+<blockquote>
+<p>$S_t$ (knowledge of <em>&quot;The&quot;</em>) + $X_{t+1}$ (<em>&quot;rain&quot;</em>) → RNN → $S_{t+1}$ (memory: <em>&quot;The, rain&quot;</em>)</p>
+</blockquote>
+<p>This continues for every word in the sentence. Each step the memory grows richer — accumulating context word by word.</p>
+<p><strong>Final step — full sentence processed:</strong></p>
+<p>After all seven words (<em>&quot;The, rain, stopped, and, the, sky, is&quot;</em>) have been processed, the final hidden state $S_{t+6}$ holds a compressed understanding of the <strong>entire sentence</strong>. This is the feature representation the model will use to make a prediction.</p>
+<pre class="hljs"><code><div>&quot;The&quot; → [RNN] → S_t
+                  ↓
+&quot;rain&quot; → [RNN] → S_{t+1}
+                   ↓
+&quot;stopped&quot; → [RNN] → S_{t+2}
+                      ↓
+&quot;and&quot; → [RNN] → S_{t+3}
+                  ↓
+&quot;the&quot; → [RNN] → S_{t+4}
+                  ↓
+&quot;sky&quot; → [RNN] → S_{t+5}
+                  ↓
+&quot;is&quot; → [RNN] → S_{t+6}  ← final state: knows the full sentence
+</div></code></pre>
+<blockquote>
+<p><strong>Final memory (state) = feature output of the RNN for the given sequence.</strong><br>
+It's a single vector that summarises the whole sentence — like a sentence embedding produced step-by-step.</p>
+</blockquote>
+<p><strong>Making a prediction — output layer:</strong></p>
+<p>The final hidden state $S_{t+6}$ is passed through a <strong>Dense output layer</strong>, which maps it to the prediction (e.g., <em>&quot;Clear?&quot;</em> — whether the sky is clear). For next-word prediction, the output layer has vocabulary-size neurons with Softmax.</p>
+<pre class="hljs"><code><div>S_{t+6}  →  Dense (Output Layer)  →  Softmax  →  &quot;Clear&quot; / next word
+(200 nums)   (vocab_size neurons)     (probs)
+</div></code></pre>
+<blockquote>
+<p><strong>Full pipeline:</strong><br>
+Words → [RNN loop, step by step] → final hidden state → Output Layer (Dense) → prediction</p>
+</blockquote>
+<p><strong>Putting it all together — RNN unrolled over time:</strong></p>
+<p>Each step above was explained individually. Here is the full picture — the RNN &quot;unrolled&quot; across every time step in one diagram:</p>
+<pre class="hljs"><code><div>&quot;The&quot;  &quot;rain&quot;  &quot;stopped&quot;  &quot;and&quot;  &quot;the&quot;  &quot;sky&quot;  &quot;is&quot;
+  ↓       ↓        ↓        ↓      ↓      ↓      ↓
+[Emb]  [Emb]    [Emb]    [Emb]  [Emb]  [Emb]  [Emb]   ← shared Embedding layer
+  ↓       ↓        ↓        ↓      ↓      ↓      ↓
+[RNN]→[RNN] →  [RNN] → [RNN] →[RNN]→[RNN]→[RNN]       ← hidden state flows right
+                                                  ↓
+                                             S_{t+6}
+                                                  ↓
+                                          [Dense Output]
+                                                  ↓
+                                            &quot;Clear?&quot;
+</div></code></pre>
+<blockquote>
+<p>Words flow through a shared <strong>Embedding layer</strong> first (converting each word to a vector), then enter the RNN chain one by one. At every step the hidden state carries forward everything the model has seen so far. By the end, $S_{t+6}$ encodes the full sentence, which is passed to the Dense output layer for the final prediction.<br>
+<strong>&quot;RNN will build knowledge of sequence over time.&quot;</strong></p>
+</blockquote>
+<hr>
+<p><strong>DNN vs RNN — why the loop matters:</strong></p>
+<p>A plain <strong>Dense Neural Network (DNN)</strong> treats the sentence as a flat block: Embedding → Hidden Layer → Output. It has no concept of word order or memory — all words go in at once and are processed identically.</p>
+<p>An <strong>RNN</strong> replaces the single hidden layer with a chain of recurrent cells, one per word, each passing its hidden state to the next. The same prediction task (<em>&quot;Clear?&quot;</em>) now benefits from the model having read the sentence left-to-right, accumulating context at every step.</p>
+<pre class="hljs"><code><div>DNN:                                RNN:
+All words → [Embedding]             Word_1 → [RNN] → S_1
+            [Flatten: 350 nums]                        ↓
+            [Dense Hidden]          Word_2 → [RNN] → S_2
+            [Output: &quot;Clear?&quot;]                         ↓
+                                    ...     → [RNN] → S_n
+                                                       ↓
+                                             [Dense Output: &quot;Clear?&quot;]
+</div></code></pre>
+<blockquote>
+<p><strong>How many outputs do we get?</strong><br>
+For a <strong>classification task</strong> (e.g., is the sky clear? yes/no) — the output layer produces <strong>1 or 2 values</strong> (a single sigmoid or two softmax neurons).<br>
+For a <strong>next-word prediction task</strong> — the output layer must produce <strong>one probability per word in the vocabulary</strong> (e.g., 10,000 neurons for a 10,000-word vocab).<br>
+This is the same vocabulary-size constraint seen in the feedforward case — RNNs don't escape it, they just get to the output layer with far richer context.</p>
+</blockquote>
+<p>However, RNNs suffer from the vanishing gradient problem, which makes it difficult for them to learn long-range dependencies in sequences. This led to the development of more advanced architectures like LSTMs and GRUs.</p>
+<h3 id="how-many-output-neurons-does-the-output-layer-need-for-next-word-prediction">How many output neurons does the output layer need for next-word prediction?</h3>
+<p>The output layer needs <strong>as many neurons as the vocabulary size</strong>. Each neuron corresponds to a possible next word, and the output is a probability distribution over the entire vocabulary (via Softmax). For example, if the vocabulary has 10,000 words, the output layer must have 10,000 neurons to predict the next word.</p>
+<p><strong>How big is the RNN's hidden state (memory)?</strong></p>
+<p>The hidden state size is a <strong>hyperparameter you choose</strong> — e.g., 200 neurons. This means every RNN cell outputs a vector of 200 numbers, and that same 200-number vector is passed as memory to the next time step.</p>
+<pre class="hljs"><code><div>Step 1:  S_1 = [0.3, -0.1, 0.7, ..., 0.2]   ← 200 numbers, after word 1
+Step 2:  S_2 = [0.1,  0.4, 0.2, ..., 0.9]   ← 200 numbers, after word 2  (values changed)
+Step 3:  S_3 = [0.8, -0.3, 0.5, ..., 0.1]   ← 200 numbers, after word 3  (values changed again)
+                ↑___________________________↑
+                size always = 200  (set once as hyperparameter, never changes)
+</div></code></pre>
+<blockquote>
+<p><strong>Key insight from the diagram:</strong><br>
+The hidden state size stays <strong>fixed at 200 throughout the entire sequence</strong> — it doesn't grow as more words are read. What changes at every step are the <em>values</em> inside those 200 numbers, not the size. The RNN continuously rewrites its memory to encode the most relevant context seen so far.</p>
+<p>Compare with the DNN (top): the hidden layer also has 200 neurons, but it only sees the whole sequence once as a flat vector. The RNN processes the same sentence <strong>word by word</strong>, updating those 200 numbers at each step, so the final state $S_{t+6}$ carries a time-aware summary of the entire sentence.</p>
+</blockquote>
+<h2 id="rnn---cell-structure-and-mathematics">RNN - Cell Structure and Mathematics</h2>
+<p>The core of an RNN is the <strong>recurrent cell</strong> — a small neural network that takes the current input and the previous hidden state to produce a new hidden state:</p>
+<p>$$s_t = \tanh(W \cdot S_{t-1} + b_w + U \cdot X_t + b_u)$$</p>
+<pre class="hljs"><code><div>         S_{t-1} (prev memory, 200 nums)
+            ↓
+        [Dense: W]  ← recurrent path
+            ↓
+  WS_{t-1} + b_w
+            ↓
+            (+) ←── UX_t + b_u  ←  [Dense: U]  ←  X_t (word embedding, 50 nums)
+            ↓
+          tanh
+            ↓
+           S_t (updated memory, 200 nums)  →  loops back as next S_{t-1}
+</div></code></pre>
+<p><strong>Variables:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Size</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$X_t$</td>
+<td><code>(embedding_size,)</code></td>
+<td>Current word embedding, e.g. 50 numbers</td>
+</tr>
+<tr>
+<td>$S_{t-1}$</td>
+<td><code>(hidden_size,)</code></td>
+<td>Previous hidden state, e.g. 200 numbers</td>
+</tr>
+<tr>
+<td>$s_t$</td>
+<td><code>(hidden_size,)</code></td>
+<td>New hidden state — same size as $S_{t-1}$</td>
+</tr>
+<tr>
+<td>$U$</td>
+<td><code>(hidden_size × embedding_size)</code></td>
+<td>Maps input → hidden space</td>
+</tr>
+<tr>
+<td>$W$</td>
+<td><code>(hidden_size × hidden_size)</code></td>
+<td>Maps previous hidden → new hidden</td>
+</tr>
+<tr>
+<td>$b_w,\ b_u$</td>
+<td><code>(hidden_size,)</code></td>
+<td>Bias for the recurrent and input paths</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the hidden size stays constant:</strong><br>
+The output of $\tanh(\ldots)$ always has the same shape as $S_{t-1}$ — <code>(hidden_size,)</code>. This is what makes the loop possible: $s_t$ feeds back in as $S_{t-1}$ at the next step, and the dimensions must match. You pick <code>hidden_size</code> once (e.g. 200) and it stays fixed for every word in the sequence. Only the <em>values</em> change — the model overwrites its memory at each step.</p>
+<h2 id="rnn-gradient-of-loss-with-respect-to-weights-using-the-chain-rule">RNN Gradient of Loss with respect to Weights using the Chain Rule</h2>
+<p><strong>What is the Loss?</strong></p>
+<p>After the RNN processes a full sequence and makes a prediction via the output layer, we measure how wrong the prediction was — this is the <strong>Loss</strong>. For next-word prediction (classification over vocabulary), the standard loss is <strong>Cross-Entropy Loss</strong>:</p>
+<p>$$\text{Loss} = -\sum_{t} y_t \cdot \log(\hat{y}_t)$$</p>
+<p>Where $y_t$ is the true label (one-hot) and $\hat{y}_t$ is the predicted probability from Softmax. Lower loss = better prediction.</p>
+<hr>
+<p><strong>How do we update the weights?</strong></p>
+<p>To improve, we need to know how much each weight $W$ contributed to the loss — that's the <strong>gradient</strong> $\frac{dLoss}{dW}$. In a standard DNN, this is just backpropagation. In an RNN, the same weight $W$ is used <strong>at every time step</strong>, so the gradient has to flow <em>back through time</em> — through every step the RNN took.</p>
+<p>This is called <strong>BackPropagation Through Time (BPTT)</strong>.</p>
+<hr>
+<p><strong>How BPTT works — the chain rule unrolled:</strong></p>
+<p>Say the RNN ran for 4 steps ($t$, $t+1$, $t+2$, $t+3$) and produced an output $O_{t+3}$. The path from Loss back to $W$ runs:</p>
+<p>$$\text{Loss} \rightarrow O_{t+3} \rightarrow S_{t+3} \rightarrow S_{t+2} \rightarrow S_{t+1} \rightarrow S_t \rightarrow W$$</p>
+<p>Applying the <strong>chain rule</strong> across every link in that path gives:</p>
+<p>$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \ast \frac{dO_{t+3}}{dS_{t+3}} \ast \frac{dS_{t+3}}{dS_{t+2}} \ast \frac{dS_{t+2}}{dS_{t+1}} \ast \frac{dS_{t+1}}{dS_t} \ast \frac{dS_t}{dW}$$</p>
+<p>Each term $\frac{dS_{t+1}}{dS_t}$ involves the derivative of $\tanh$ multiplied by $W$ — a number typically less than 1. Multiply several of these together across many steps, and the gradient <strong>shrinks exponentially</strong> toward zero as it travels back through early time steps. This is the <strong>Vanishing Gradient Problem</strong> — the RNN stops learning anything about words seen far back in the sequence.</p>
+<p><strong>Why each step simplifies to $W$:</strong></p>
+<p>Since $S_{t+n} = \tanh(W S_{t+n-1} + U X_{t+n})$, differentiating with respect to the previous state gives:</p>
+<p>$$\frac{dS_{t+n}}{dS_{t+n-1}} = W \quad \text{(multiplied by the tanh gradient)}$$</p>
+<p>So the full chain collapses to repeated multiplications by $W$:</p>
+<p>$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \ast \frac{dO_{t+3}}{dS_{t+3}} \ast W \ast W \ast W \ast \frac{dS_t}{dW}$$</p>
+<pre class="hljs"><code><div>Loss
+  ↑
+dLoss/dO_{t+3}        ← how wrong was the output?
+  ↑
+dO_{t+3}/dS_{t+3}     ← how did output depend on last hidden state?
+  ↑
+× W                   ← step back: S_{t+3} → S_{t+2}
+  ↑
+× W                   ← step back: S_{t+2} → S_{t+1}
+  ↑
+× W                   ← step back: S_{t+1} → S_t
+  ↑
+dS_t/dW               ← how did S_t depend on W directly?
+</div></code></pre>
+<blockquote>
+<p><strong>Gradient calculation requires repeated multiplication by $W$.</strong><br>
+<strong>Gradient always results in $W$ (multiplied by tanh gradient).</strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<h3 id="why-did-rnn-struggle-to-learn">Why did RNN struggle to learn?</h3>
+<p>Because training an RNN requires <strong>BackPropagation Through Time (BPTT)</strong> — the gradient of the loss must travel backwards through every time step, multiplying by $W$ (and the $\tanh$ gradient) at each step.</p>
+<ul>
+<li>If $|W| &lt; 1$ → gradients <strong>vanish</strong> to near-zero → early words contribute nothing to learning</li>
+<li>If $|W| &gt; 1$ → gradients <strong>explode</strong> to huge values → training becomes unstable</li>
+</ul>
+<p>In practice, $|W| &lt; 1$ is far more common (due to $\tanh$ squashing), so RNNs <strong>lose the signal from early words</strong>. The model effectively develops short-term memory only — it can remember the last few words well but forgets the beginning of a long sentence.</p>
+<p><strong>This is the core motivation for LSTM and GRU:</strong><br>
+Both architectures replace the direct $W \cdot S_{t-1}$ recurrence with <strong>gating mechanisms</strong> that control how much the gradient is allowed to flow back — keeping it from vanishing across many steps.</p>
+</blockquote>
+<h1 id="lstm---long-short-term-memory">LSTM - Long Short-Term Memory</h1>
+<p>LSTM is a type of RNN designed to solve the vanishing gradient problem. It introduces a <strong>cell state</strong> — a separate memory lane that can carry information across many time steps without decay — controlled by three <strong>gates</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Forget gate</strong></td>
+<td>Decides what to erase from cell state</td>
+</tr>
+<tr>
+<td><strong>Input gate</strong></td>
+<td>Decides what new information to write</td>
+</tr>
+<tr>
+<td><strong>Output gate</strong></td>
+<td>Decides what to read out as the hidden state</td>
+</tr>
+</tbody>
+</table>
+<p>Both RNN and LSTM have the same input and output structure, but differ in how they build memory.</p>
+<blockquote>
+<blockquote>
+<p>LSTM's internal architecture allows it to maintain long-range dependencies much better than a standard RNN. The gates in an LSTM control the flow of information, allowing it to selectively remember or forget parts of the sequence as needed.</p>
+</blockquote>
+</blockquote>
+<p>In order to understand all these Three gates, we need to understand the concept of <strong>cell state</strong> — a separate memory lane that runs through the entire sequence, alongside the hidden state. The cell state can carry information across many time steps without being overwritten, while the hidden state is what gets passed to the output layer at each step.</p>
+<p>Lets assume the size of the cell state is 5, we intialise both the cell state and hidden state to some random values at the start of the sequence:</p>
+<pre class="hljs"><code><div>Cell State   (C_t) = [3, 1, 0, 4, -2]       ← initial cell state   (long-term memory)
+Hidden State (S_t) = [0.5, 2, 1, 0.1, -3]   ← initial hidden state (short-term / working memory)
+</div></code></pre>
+<h2 id="forget-gate--decides-what-to-erase-from-the-cell-state"><strong>Forget Gate</strong> — decides what to erase from the cell state</h2>
+<p>The forget gate looks at the <strong>current input</strong> $X_t$ and the <strong>previous hidden state</strong> $h_{t-1}$, and decides how much of the existing cell state (long-term memory) to keep.</p>
+<p>$$f_t = \sigma(U_f X_t + W_f h_{t-1})$$</p>
+<ul>
+<li>$U_f$ — weight matrix for the <strong>input</strong> path</li>
+<li>$W_f$ — weight matrix for the <strong>hidden state</strong> path</li>
+<li>$\sigma$ — sigmoid, squashes output to $[0, 1]$: 0 = forget completely, 1 = keep completely</li>
+<li>The LSTM forget gate uses <strong>two separate Dense layers</strong> — one for $X_t$ and one for $h_{t-1}$ — then adds and applies sigmoid</li>
+</ul>
+<p><img src="image-21.png" alt="alt text"></p>
+<p><strong>Numerical example:</strong></p>
+<p>$$f_t = \sigma(U_f X_t + W_f h_{t-1}) = [1.0,\ 0.2,\ 0,\ 0.9,\ 0.5]$$</p>
+<p>The forget gate output $f_t$ is then multiplied element-wise with the previous cell state $C_{t-1}$:</p>
+<p>$$C_{t-1} \odot f_t = [3,1,0,4,-2] \odot [1.0, 0.2, 0, 0.9, 0.5] = [3.0,\ 0.2,\ 0,\ 3.6,\ -1.0]$$</p>
+<blockquote>
+<p>The third element of $C_{t-1}$ was 0 — and $f_t[2] = 0$ — so that slot is <strong>erased</strong>. Elements with $f_t$ near 1 are <strong>kept unchanged</strong>. This is the forget operation.</p>
+</blockquote>
+<hr>
+<h2 id="input-gate--decides-what-new-information-to-write-to-the-cell-state"><strong>Input Gate</strong> — decides what new information to write to the cell state</h2>
+<p>The input gate is responsible for <strong>adding new information</strong> to long-term memory. It works in two parallel steps:</p>
+<p><img src="image-22.png" alt="alt text"></p>
+<p><strong>Step 1 — How much to add</strong> (Input gate output $i_t$):</p>
+<p>$$i_t = \sigma(U_i X_t + W_i h_{t-1})$$</p>
+<ul>
+<li>Output is in $[0, 1]$: controls which positions in the cell state will be updated</li>
+<li>$i_t = [0.4,\ 0,\ 0.9,\ 1.0,\ 0.7]$ — position 2 is blocked (0), positions 3 &amp; 4 are fully open</li>
+</ul>
+<p><strong>Step 2 — What to add</strong> (Candidate cell state $\hat{c}_t$):</p>
+<p>$$\hat{c}<em>t = \tanh(U_c X_t + W_c h</em>{t-1})$$</p>
+<ul>
+<li>Output is in $[-1, 1]$: the actual new content proposed for the cell state</li>
+<li>$\hat{c}_t = [0.9,\ 0.1,\ -0.3,\ 0.6,\ 1.0]$ — the candidate values influenced by the current input</li>
+</ul>
+<p>The actual addition to the cell state is the element-wise product $i_t \odot \hat{c}_t$:</p>
+<p>$$i_t \odot \hat{c}_t = [0.4, 0, 0.9, 1.0, 0.7] \odot [0.9, 0.1, -0.3, 0.6, 1.0] = [0.36,\ 0,\ -0.27,\ 0.6,\ 0.7]$$</p>
+<p><img src="image-23.png" alt="alt text"></p>
+<hr>
+<h2 id="new-cell-state--combining-forget--input"><strong>New Cell State</strong> — combining forget + input</h2>
+<p>After applying both gates, the updated cell state $C_t$ is:</p>
+<p>$$C_t = C_{t-1} \cdot f_t + i_t \cdot \hat{c}_t$$</p>
+<p><img src="image-25.png" alt="alt text"></p>
+<p><strong>Numerical example end-to-end:</strong></p>
+<p>$$C_t = \underbrace{[3.0,\ 0.2,\ 0,\ 3.6,\ -1.0]}<em>{\text{kept from } C</em>{t-1}} + \underbrace{[0.36,\ 0,\ -0.27,\ 0.6,\ 0.7]}_{\text{new information}} = [3.36,\ 0.2,\ -0.27,\ 4.2,\ -0.3]$$</p>
+<blockquote>
+<p>This is $C_t$ — the updated long-term memory after processing the current word. It flows unchanged along the cell state highway to the next time step (unless the next forget gate erases something).</p>
+</blockquote>
+<h2 id="output-gate--decides-what-to-read-out-as-the-hidden-state"><strong>Output Gate</strong> — decides what to read out as the hidden state</h2>
+<p>The output gate determines what information from the updated cell state $C_t$ should be exposed as the new hidden state $h_t$ — which is both <strong>passed to the output layer</strong> and <strong>fed back</strong> into the next time step.</p>
+<p>$$o_t = \sigma(U_o X_t + W_o h_{t-1})$$</p>
+<ul>
+<li>$U_o$ — weight matrix for the <strong>input</strong> path</li>
+<li>$W_o$ — weight matrix for the <strong>hidden state</strong> path</li>
+<li>$\sigma$ — sigmoid, output in $[0, 1]$: controls which parts of the cell state to expose</li>
+</ul>
+<p>The hidden state is then computed by squashing $C_t$ and gating it:</p>
+<p>$$h_t = o_t \odot \text{tanh/ReLU}(C_t)$$</p>
+<p>The cell state is first passed through an <strong>activation function</strong> (tanh squashes to $[-1,1]$, ReLU clips negatives to 0), then the output gate $o_t$ decides which values to let through.</p>
+<p><img src="image-24.png" alt="alt text"></p>
+<p><strong>Numerical example:</strong></p>
+<p>$$o_t = [0,\ 1.0,\ 0.7,\ 0.1,\ 0.3]$$</p>
+<p>Cell state from previous step: $C_t = [3.36,\ 0.2,\ -0.27,\ 4.2,\ -0.3]$</p>
+<p>With <strong>ReLU</strong> (negatives → 0):</p>
+<p>$$\text{ReLU}(C_t) = [3.36,\ 0.2,\ 0,\ 4.2,\ 0]$$</p>
+<p>Final hidden state:</p>
+<p>$$h_t = o_t \odot \text{ReLU}(C_t) = [0,\ 1.0,\ 0.7,\ 0.1,\ 0.3] \odot [3.36,\ 0.2,\ 0,\ 4.2,\ 0] = [0,\ 0.2,\ 0,\ 0.42,\ 0]$$</p>
+<blockquote>
+<p>$h_t = [0, 0.2, 0, 0.42, 0]$ — the new hidden state. Positions where $o_t = 0$ are fully blocked regardless of what's in $C_t$. This is what gets passed to the output layer <strong>and</strong> looped back as $h_{t-1}$ for the next word.</p>
+</blockquote>
+<h2 id="lstm-summary---putting-it-all-together-lstm-cell-structure">LSTM Summary - Putting it all together LSTM Cell Structure</h2>
+<h3 id="1-two-states-memory">1. Two States (Memory)</h3>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cell State</strong> $C_t$</td>
+<td>Long-term memory — carries information across many steps with minimal modification</td>
+</tr>
+<tr>
+<td><strong>Hidden State</strong> $h_t$</td>
+<td>Short-term / working memory — a filtered version of the cell state, used to build the final output</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The key innovation of LSTM is keeping these two streams <strong>separate</strong>. The cell state acts as a highway — information can flow through many steps almost unchanged. The hidden state is a compressed, gated snapshot of that highway.</p>
+</blockquote>
+<hr>
+<h3 id="2-three-gates">2. Three Gates</h3>
+<p>A <strong>gate</strong> controls the flow of information to/from the cell state. Each gate is a sigmoid-activated Dense layer — its output is in $[0, 1]$, acting as a soft switch:</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Controls</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Forget Gate</strong></td>
+<td>What to erase from long-term memory (cell state)</td>
+<td>$f_t = \sigma(U_f X_t + W_f h_{t-1})$</td>
+</tr>
+<tr>
+<td><strong>Input Gate</strong></td>
+<td>What new information to write into long-term memory</td>
+<td>$i_t = \sigma(U_i X_t + W_i h_{t-1})$</td>
+</tr>
+<tr>
+<td><strong>Output Gate</strong></td>
+<td>What from the cell state should be exposed as the hidden state</td>
+<td>$o_t = \sigma(U_o X_t + W_o h_{t-1})$</td>
+</tr>
+</tbody>
+</table>
+<p>Each gate takes the same two inputs — the current word $X_t$ and the previous hidden state $h_{t-1}$ — and independently decides how much of its target to allow through.</p>
+<hr>
+<h3 id="end-to-end-flow-one-time-step">End-to-End Flow (one time step)</h3>
+<p><strong>Input:</strong> $X_t$ (current word), $h_{t-1}$ (prev hidden), $C_{t-1}$ (prev cell state)</p>
+<p><strong>1. Forget Gate</strong> → $[0,1]$ — &quot;what to erase&quot;
+$$f_t = \sigma(U_f \cdot X_t + W_f \cdot h_{t-1})$$</p>
+<p><strong>2. Input Gate</strong> → $[0,1]$ — &quot;how much to write&quot;
+$$i_t = \sigma(U_i \cdot X_t + W_i \cdot h_{t-1})$$</p>
+<p><strong>Candidate cell state</strong> → $[-1,1]$ — &quot;what to write&quot;
+$$\hat{c}<em>t = \tanh(U_c \cdot X_t + W_c \cdot h</em>{t-1})$$</p>
+<p><strong>3. New Cell State</strong> → updated long-term memory
+$$C_t = C_{t-1} \odot f_t + i_t \odot \hat{c}_t$$</p>
+<p><strong>4. Output Gate</strong> → $[0,1]$ — &quot;what to expose&quot;
+$$o_t = \sigma(U_o \cdot X_t + W_o \cdot h_{t-1})$$</p>
+<p><strong>5. Hidden State</strong> → new working memory / output
+$$h_t = o_t \odot \tanh(C_t)$$</p>
+<p><strong>Numerical recap with our example values:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Operation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial</td>
+<td>$C_{t-1}, h_{t-1}$</td>
+<td>$[3,1,0,4,-2],\ [0.5,2,1,0.1,-3]$</td>
+</tr>
+<tr>
+<td>Forget</td>
+<td>$C_{t-1} \odot f_t$</td>
+<td>$[3.0, 0.2, 0, 3.6, -1.0]$</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>$i_t \odot \hat{c}_t$</td>
+<td>$[0.36, 0, -0.27, 0.6, 0.7]$</td>
+</tr>
+<tr>
+<td>New Cell</td>
+<td>$C_t$</td>
+<td>$[3.36, 0.2, -0.27, 4.2, -0.3]$</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>$h_t = o_t \odot \text{ReLU}(C_t)$</td>
+<td>$[0, 0.2, 0, 0.42, 0]$</td>
+</tr>
+</tbody>
+</table>
+<p><img src="image-26.png" alt="alt text">
+<img src="image-27.png" alt="alt text"></p>
+<blockquote>
+<p><strong>LSTM's ability to maintain long-term dependencies</strong> comes from the cell state and gating mechanism. The cell state can carry information across many steps with minimal modification, while the gates allow the model to selectively remember or forget information as needed. This is why LSTMs are much better than standard RNNs at handling long sequences and complex patterns in data.</p>
+</blockquote>
+<h2 id="backpropagation-through-time-bptt-in-lstm">Backpropagation Through Time (BPTT) in LSTM</h2>
+<h3 id="why-lstm-gradient-is-different-from-rnn">Why LSTM Gradient is Different from RNN</h3>
+<h4 id="simple-rnn-gradient">Simple RNN Gradient</h4>
+<p>In a <strong>simple RNN</strong>, the gradient of the loss flows back through the hidden states, and each step multiplies by the <strong>same</strong> weight matrix $W$:</p>
+<p>$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \cdot \frac{dO_{t+3}}{dS_{t+3}} \cdot \underbrace{W \cdot W \cdot W}_{\text{same } W \text{ repeated}} \cdot \frac{dS_t}{dW}$$</p>
+<blockquote>
+<p>Repeatedly multiplying by the same $W$ — if $|W| &lt; 1$, gradients <strong>vanish</strong> to zero → early words contribute nothing. If $|W| &gt; 1$, gradients <strong>explode</strong> → training diverges.</p>
+</blockquote>
+<h4 id="lstm-gradient-cell-state-path">LSTM Gradient (cell state path)</h4>
+<p>In LSTM over 4 steps, the gradient chain through the cell state is:</p>
+<p>$$\frac{dLoss}{dw} = \frac{dLoss}{dO} \cdot \frac{dO}{dh_4} \cdot \frac{dh_4}{dc_4} \cdot \underbrace{\frac{dc_4}{dc_3} \cdot \frac{dc_3}{dc_2} \cdot \frac{dc_2}{dc_1}}_{\text{each} = f_t + \frac{d(i_t \cdot \hat{c}<em>t)}{dc</em>{t-1}} \text{ — different at every step}} \cdot \frac{dc_1}{dw}$$</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Simple RNN</th>
+<th>LSTM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gradient path</td>
+<td>Through hidden state $S_t$</td>
+<td>Through <strong>cell state</strong> $C_t$</td>
+</tr>
+<tr>
+<td>Per-step multiplier</td>
+<td>Same $W$ every step</td>
+<td>$f_t + \text{input term}$ — <strong>different each step</strong></td>
+</tr>
+<tr>
+<td>Value range</td>
+<td>Fixed — depends entirely on $|W|$</td>
+<td>Learned — can be $&lt; 1$ or $&gt; 1$, varies</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>Vanish or explode</td>
+<td>Controlled, stable gradient flow</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The key insight: $\frac{dc_t}{dc_{t-1}} = f_t + \frac{d(i_t \cdot \hat{c}<em>t)}{dc</em>{t-1}}$ is never the same fixed number repeated. Each step is different, which breaks the geometric decay/growth pattern that causes vanishing/exploding gradients in RNNs.</p>
+</blockquote>
+<hr>
+<h3 id="gradient-via-the-cell-state-highway">Gradient via the Cell State Highway</h3>
+<p>In LSTM, gradients travel back through the <strong>cell state</strong> $C_t$ instead of just the hidden state. Starting from $C_t = C_{t-1} \cdot f_t + i_t \cdot \hat{c}<em>t$, differentiating with respect to $C</em>{t-1}$:</p>
+<p>$$\frac{dC_t}{dC_{t-1}} = f_t + \frac{d(i_t \cdot \hat{c}<em>t)}{dC</em>{t-1}}$$</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it is</th>
+<th>Value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$f_t$</td>
+<td>Forget gate output</td>
+<td>$[0, 1]$ — <strong>learned</strong>, varies per step</td>
+</tr>
+<tr>
+<td>$\frac{d(i_t \cdot \hat{c}<em>t)}{dC</em>{t-1}}$</td>
+<td>Additional gradient from input gate</td>
+<td>Can be any value — <strong>different at each time step</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Together, these two terms are never the same fixed number repeated across steps. This is exactly what prevents the repeated-$W$ collapse seen in simple RNNs.</p>
+</blockquote>
+<hr>
+<h3 id="full-lstm-gradient-4-steps-cell-state-path">Full LSTM Gradient (4 steps, cell state path)</h3>
+<p>$$\frac{dLoss}{dw} = \frac{dLoss}{dO} \cdot \frac{dO}{dh_4} \cdot \frac{dh_4}{dc_4} \cdot \underbrace{\frac{dc_4}{dc_3} \cdot \frac{dc_3}{dc_2} \cdot \frac{dc_2}{dc_1}}_{\text{circled — each } = f_t + \text{input term}} \cdot \frac{dc_1}{dw}$$</p>
+<p><img src="image-28.png" alt="alt text"></p>
+<p>Breaking down each term in the chain:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{dLoss}{dO}$</td>
+<td>How wrong was the output prediction?</td>
+</tr>
+<tr>
+<td>$\frac{dO}{dh_4}$</td>
+<td>How did the output depend on the last hidden state?</td>
+</tr>
+<tr>
+<td>$\frac{dh_4}{dc_4}$</td>
+<td>How did the hidden state depend on the cell state at step 4?</td>
+</tr>
+<tr>
+<td>$\frac{dc_4}{dc_3},\ \frac{dc_3}{dc_2},\ \frac{dc_2}{dc_1}$</td>
+<td><strong>Cell state gradients</strong> — each = $f_t + \frac{d(i_t \cdot \hat{c}<em>t)}{dc</em>{t-1}}$, different at each step</td>
+</tr>
+<tr>
+<td>$\frac{dc_1}{dw}$</td>
+<td>How did the earliest cell state depend on $w$ directly?</td>
+</tr>
+</tbody>
+</table>
+<p>The circled terms ($\frac{dc_4}{dc_3} \cdot \frac{dc_3}{dc_2} \cdot \frac{dc_2}{dc_1}$) are the key difference — each one can be <strong>less than 1 or greater than 1</strong>, and each is a <strong>different value</strong> (not the same $W$ repeated). This diversity of values across steps is what reduces the chance of the gradient collapsing to zero.</p>
+<blockquote>
+<p><strong>Together, these gradient terms allow LSTM to reduce the vanishing gradient problem.</strong> The forget gate $f_t$ provides a direct, learned scaling of the gradient at each step — the model can learn to keep $f_t$ close to 1 when it needs to preserve gradient flow over a long range.</p>
+</blockquote>
+<h3 id="application-of-lstm">Application of LSTM:</h3>
+<ul>
+<li>Named Entity Recognition (NER)</li>
+<li>Machine Translation</li>
+<li>Part-of-Speech Tagging</li>
+<li>Question Answering systems</li>
+</ul>
+<hr>
+<h2 id="stacked-lstm">Stacked LSTM</h2>
+<p>To increase the model's capacity, we can stack multiple LSTM layers on top of each other. In a <strong>stacked LSTM</strong>, the hidden state output from one LSTM layer becomes the input to the next LSTM layer at the same time step.</p>
+<p><img src="image-32.png" alt="alt text"></p>
+<hr>
+<h1 id="seq2seq-model-sequence-to-sequence">Seq2Seq Model (Sequence-to-Sequence)</h1>
+<p>A <strong>Seq2Seq model</strong> is used for tasks where both the input and output are sequences of potentially different lengths — the classic example is <strong>machine translation</strong> (e.g., &quot;It is a book.&quot; → &quot;यह किताब है।&quot;).</p>
+<p>It consists of two components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Encoder</strong></td>
+<td>Reads the source sequence word by word and compresses the entire sentence into a single fixed-size vector called the <strong>Sentence Embedding</strong></td>
+</tr>
+<tr>
+<td><strong>Decoder</strong></td>
+<td>Takes the Sentence Embedding and generates the target sequence word by word</td>
+</tr>
+</tbody>
+</table>
+<p>The encoder and decoder are each typically an LSTM (or stacked LSTMs).</p>
+<hr>
+<h2 id="modified-seq2seq--teacher-forcing">Modified Seq2Seq — Teacher Forcing</h2>
+<p>In the basic model, the decoder only receives the sentence embedding from the encoder. This makes training slow and error-prone — if the decoder generates a wrong word, the error compounds through the rest of the sequence.</p>
+<p><strong>The fix:</strong> feed the <strong>target language sequence</strong> as a second input to the decoder during training. This technique is called <strong>Teacher Forcing</strong>.</p>
+<ul>
+<li><strong>Input #1</strong> (Encoder): Source language sequence padded to <code>max sentence length of source language</code><br>
+e.g., <code>&quot;It is a book.&quot;</code> as numbers</li>
+<li><strong>Input #2</strong> (Decoder): Target sequence prefixed with <code>&lt;start&gt;</code> token, padded to <code>max sentence length of target language</code><br>
+e.g., <code>&lt;start&gt; यह किताब है। &lt;end&gt;</code> as numbers</li>
+<li><strong>Output</strong> (Decoder): Target sequence <strong>shifted by one time step</strong> — each position predicts the next word<br>
+e.g., <code>यह किताब है। &lt;end&gt;</code></li>
+</ul>
+<blockquote>
+<p>The decoder receives what the correct output should have been at each step (not its own previous prediction), which stabilises training significantly.</p>
+</blockquote>
+<hr>
+<h2 id="input-and-output-sizes">Input and Output Sizes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>What it is</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input #1</strong></td>
+<td>Source language sequence</td>
+<td><code>max_source_len</code> numbers per example</td>
+</tr>
+<tr>
+<td><strong>Input #2</strong></td>
+<td>Target language sequence (<code>&lt;start&gt;</code> … <code>&lt;end&gt;</code>)</td>
+<td><code>max_target_len</code> numbers per example</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Target language words (shifted by 1 step)</td>
+<td><code>max_target_len × target_vocab_size</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Two key output questions:</strong></p>
+<ol>
+<li><strong>How many words to predict?</strong> — as many as <code>max_target_len</code> (one prediction per time step)</li>
+<li><strong>How many numbers per word prediction?</strong> — as many as <code>target_vocab_size</code> (Softmax over full vocabulary, same logic as any language model)</li>
+</ol>
+<p>So the output is a <strong>3D tensor</strong>: <code>(batch_size, max_target_len, target_vocab_size)</code>.</p>
+<hr>
+<h2 id="training-flow">Training Flow</h2>
+<p><img src="image-29.png" alt="alt text"></p>
+<ul>
+<li><strong>Actual labels</strong> are the target sequence shifted by one step — same shape as the output (<code>max_target_len × target_vocab_size</code>), encoded as one-hot vectors</li>
+<li>The <strong>Loss</strong> (cross-entropy) compares the predicted probability distribution to the actual one-hot label at each time step</li>
+<li>The <strong>Optimizer</strong> uses the loss to update weights in both the encoder and decoder</li>
+</ul>
+<h3 id="building-encoder-model">Building Encoder Model</h3>
+<p>The encoder is a chain of LSTM cells, one per time step of the source sequence. Here's how data flows through it:</p>
+<ol>
+<li><strong>Padded Input Sequences</strong> — the source sentence is padded to <code>max_source_len</code> (e.g. <code>[0, 0, …, 11, 5, 6, 70]</code> = 22 numbers for &quot;It is a book.&quot;)</li>
+<li><strong>Embedding Layer</strong> — each integer token ID is looked up in an embedding matrix and converted to a dense vector (e.g. 128 floats per word). The embedding layer feeds every time step of the LSTM chain</li>
+<li><strong>LSTM chain</strong> — processes the embedded sequence step by step, passing both the <strong>cell state</strong> <code>c</code> and <strong>hidden state</strong> <code>h</code> forward at each step</li>
+<li><strong>Sentence Embedding</strong> — the output is the final <code>c</code> and <code>h</code> from the last LSTM cell. These two vectors together encode the entire source sentence and are passed to the decoder as its initial state</li>
+</ol>
+<blockquote>
+<p><strong>What is the Sentence Embedding?</strong> It is the final cell state <code>C</code> and hidden state <code>h</code> produced by the encoder's last LSTM cell — a compressed representation of the entire source sentence.</p>
+</blockquote>
+<p><img src="image-30.png" alt="alt text"></p>
+<hr>
+<h3 id="building-decoder-model">Building Decoder Model</h3>
+<p>The decoder has the same structure as the encoder — an Embedding Layer followed by a chain of LSTM cells — but with two key differences:</p>
+<ol>
+<li><strong>Input</strong>: Padded target sequences (prefixed with <code>&lt;start&gt;</code>, e.g. <code>&lt;start&gt; यह किताब है। &lt;end&gt;</code> as numbers), fed through an Embedding Layer</li>
+<li><strong>Initial State</strong>: Instead of starting with zeros, the decoder's first LSTM cell is <strong>initialised with the encoder's final <code>C</code> and <code>h</code></strong> (the Sentence Embedding). This is how the source language meaning is transferred to the decoder</li>
+<li><strong>Output at each step</strong>: Each LSTM cell's hidden state <code>h</code> is passed to a Dense + Softmax layer to predict the next target word (one probability distribution over the target vocabulary per time step)</li>
+</ol>
+<pre class="hljs"><code><div>Encoder final state ──→ C ─┐
+                            ├──→ LSTM → LSTM → LSTM → ... → LSTM
+Encoder final state ──→ h ─┘    ↑        ↑        ↑              ↑
+                               emb[t=1] emb[t=2] emb[t=3]   emb[t=n]
+                          (&lt;start&gt;)  (यह)     (किताब)   (है।)
+</div></code></pre>
+<blockquote>
+<p>The decoder never sees the source sequence directly — it only receives the compressed meaning through the initial <code>C</code> and <code>h</code> states. At each step it predicts one word, guided by both the sentence embedding (via the carried state) and the previous correct target word (teacher forcing during training).</p>
+</blockquote>
+<p><img src="image-31.png" alt="alt text"></p>
+<hr>
+<h2 id="bidirectional-lstm-bilstm">Bidirectional LSTM (BiLSTM)</h2>
+<p>A standard LSTM only reads the sequence <strong>left to right</strong> — at any time step $t$, it only knows about words that came before it. But in many tasks (e.g. sentiment analysis, NER, translation encoding), the meaning of a word depends on <strong>both past and future context</strong>.</p>
+<p><strong>Example:</strong> In &quot;I can swim very well&quot; — understanding what &quot;swim&quot; means is helped by knowing &quot;well&quot; comes after it.</p>
+<p>A <strong>Bidirectional LSTM</strong> solves this by running <strong>two separate LSTM chains</strong> over the same sequence simultaneously:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Reads</th>
+<th>Hidden state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Forward LSTM</strong> (→)</td>
+<td>Left to right: I → can → swim → very → well</td>
+<td>$\overrightarrow{h_t}$</td>
+</tr>
+<tr>
+<td><strong>Backward LSTM</strong> (←)</td>
+<td>Right to left: well → very → swim → can → I</td>
+<td>$\overleftarrow{h_t}$</td>
+</tr>
+</tbody>
+</table>
+<p>At each time step, the outputs of both LSTMs are <strong>merged</strong> (concatenated or summed) to produce a single representation that encodes context from both directions:</p>
+<p>$$h_t = [\overrightarrow{h_t};\ \overleftarrow{h_t}]$$</p>
+<p><img src="image-33.png" alt="alt text"></p>
+<blockquote>
+<p>Each word's representation now contains information about everything that came before <strong>and</strong> everything that comes after it. This is why BiLSTMs consistently outperform unidirectional LSTMs on tasks where full-sentence context matters.</p>
+</blockquote>
+<p><strong>Note:</strong> BiLSTMs can only be used where the full sequence is available at once (e.g. the encoder in a Seq2Seq model, or classification tasks). They <strong>cannot</strong> be used for generation/decoding, since future tokens are not yet known at inference time.</p>
+<h3 id="n-gram-language-models">N-Gram Language Models</h3>
+<p>An <strong>N-gram language model</strong> is a type of probabilistic model that predicts the next word in a sequence based on the previous N-1 words. The &quot;N&quot; in N-gram refers to the number of words considered in the context. For example,</p>
+<ul>
+<li>Unigram (N=1): Predicts the next word based on no context (just the overall frequency of words). - &quot;the&quot; &quot;rain&quot; &quot;stopped&quot; &quot;and&quot; &quot;the&quot; &quot;sky&quot; &quot;is&quot;</li>
+<li>Bigram (N=2): Predicts the next word based on the previous word. - &quot;the&quot; → &quot;rain&quot;, &quot;rain&quot; → &quot;stopped&quot;, &quot;stopped&quot; → &quot;and&quot;, etc.</li>
+<li>Trigram (N=3): Predicts the next word based on the previous two words. - &quot;the rain&quot; → &quot;stopped&quot;, &quot;rain stopped&quot; → &quot;and&quot;, etc.</li>
+</ul>
+<p>N-gram models are simple and effective for many tasks, but they have limitations:</p>
+<ul>
+<li>They can only capture local context (up to N-1 words) and miss long-range dependencies.</li>
+<li>They require large amounts of data to estimate probabilities for rare N-grams, leading to sparsity issues.</li>
+<li>They do not generalize well to unseen N-grams, often assigning zero probability to sequences that were not in the training data.</li>
+</ul>
+<h4 id="how-does-the-n-gram-model-work">How does the N-gram model work?</h4>
+<p>N-gram models work by counting the occurrences of N-grams in a large corpus of text and using these counts to estimate the probabilities of word sequences. The probability of a word given its context is calculated as:
+$$P(w_n | w_{n-1}, w_{n-2}, ..., w_{n-N+1}) = \frac{C(w_{n-N+1}, ..., w_{n-1}, w_n)}{C(w_{n-N+1}, ..., w_{n-1})}$$
+Where $C(w_{n-N+1}, ..., w_{n-1}, w_n)$ is the count of the N-gram in the training data, and $C(w_{n-N+1}, ..., w_{n-1})$ is the count of the (N-1)-gram context.</p>
+<h4 id="potential-issues-with-n-gram-models">Potential issues with N-gram models:</h4>
+<ul>
+<li><strong>Sparsity</strong>: As N increases, the number of possible N-grams grows exponentially, leading to many N-grams having zero counts in the training data.</li>
+<li><strong>Lack of long-range context</strong>: N-gram models cannot capture dependencies that span more than N-1 words, which can be crucial for understanding the meaning of a sentence.</li>
+<li><strong>Data inefficiency</strong>: N-gram models require large amounts of data to accurately estimate probabilities, especially for higher-order N-grams.</li>
+</ul>
+<h1 id="sequence-to-sequence-seq2seq-models">Sequence-to-Sequence (Seq2Seq) Models</h1>
+<p>A <strong>Sequence-to-Sequence (Seq2Seq)</strong> model is a type of neural network architecture designed to transform one sequence into another. It consists of two main components:</p>
+<ul>
+<li><strong>Encoder</strong>: Processes the input sequence and encodes it into a fixed-length context vector (or a sequence of vectors).</li>
+<li><strong>Decoder</strong>: Takes the context vector from the encoder and generates the output sequence, one token at a time.</li>
+</ul>
+<h2 id="bidirectional-lstm">Bidirectional LSTM:</h2>
+<p>A <strong>Bidirectional LSTM</strong> is a type of recurrent neural network that processes the input sequence in both forward and backward directions. This allows the model to capture information from both past and future contexts, which can be particularly beneficial for tasks like language modeling, where understanding the full context of a sentence is crucial.</p>
+<p>In a Bidirectional LSTM, there are two separate LSTM layers:</p>
+<ul>
+<li><strong>Forward LSTM</strong>: Processes the sequence from the first token to the last token (left to right).</li>
+<li><strong>Backward LSTM</strong>: Processes the sequence from the last token to the first token (right to left).</li>
+</ul>
+<p>The outputs from both the forward and backward LSTMs are typically concatenated or combined in some way to create a richer representation of the input sequence. This allows the model to leverage information from both directions, improving its ability to understand the context and make predictions.</p>
+<hr>
+<h2 id="deep-bidirectional-lstm">Deep Bidirectional LSTM</h2>
+<p>We can go further by <strong>stacking multiple BiLSTM layers</strong> on top of each other. The first layer reads the raw word embeddings in both directions. The second layer then reads the <em>output of the first layer</em> — so instead of raw words, it sees richer features like phrase-level patterns. Each added layer lets the model pick up more abstract patterns.</p>
+<p><strong>Example:</strong> Translating &quot;The agreement on the European Economic Area was signed in August.&quot;</p>
+<ul>
+<li>Layer 1 BiLSTM: learns which words go together (&quot;European Economic Area&quot;)</li>
+<li>Layer 2 BiLSTM: learns the role of that phrase in the sentence structure (&quot;subject of was signed&quot;)</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Deep BiLSTM is only used in the <strong>encoder</strong> — the decoder still runs left-to-right since it generates words one at a time and can't see future tokens.</p>
+</blockquote>
+<pre class="hljs"><code><div>Input words:    &quot;The&quot;      &quot;agreement&quot;    &quot;was&quot;      &quot;signed&quot;
+                  ↓             ↓            ↓            ↓
+             [Embedding]  [Embedding]  [Embedding]  [Embedding]
+                  ↓             ↓            ↓            ↓
+Layer 1:  →[BiLSTM]→  →[BiLSTM]→  →[BiLSTM]→  →[BiLSTM]→   (forward →)
+          ←[BiLSTM]←  ←[BiLSTM]←  ←[BiLSTM]←  ←[BiLSTM]←   (backward ←)
+                  ↓             ↓            ↓            ↓
+             [concat]     [concat]     [concat]     [concat]   ← richer features
+                  ↓             ↓            ↓            ↓
+Layer 2:  →[BiLSTM]→  →[BiLSTM]→  →[BiLSTM]→  →[BiLSTM]→   (forward →)
+          ←[BiLSTM]←  ←[BiLSTM]←  ←[BiLSTM]←  ←[BiLSTM]←   (backward ←)
+                  ↓             ↓            ↓            ↓
+             [concat]     [concat]     [concat]     [concat]   ← even richer
+                                                        ↓
+                                              → to Decoder (C, h)
+</div></code></pre>
+<hr>
+<h2 id="the-bottleneck-problem">The Bottleneck Problem</h2>
+<p>Even with a deep BiLSTM encoder, there's a fundamental issue: the entire source sentence is squeezed into a <strong>single fixed-size vector</strong> (the final <code>C</code> and <code>h</code>). The decoder then has to unpack a whole translation from just that one vector.</p>
+<p>This works fine for short sentences — but for long or complex sentences, that one vector simply can't hold everything. Important details from early in the sentence get lost by the time the decoder produces the last few words.</p>
+<blockquote>
+<p><strong>Analogy:</strong> Imagine summarising an entire novel into a single tweet, then asking someone to re-write the novel from just that tweet. The longer the novel, the worse the reconstruction.</p>
+</blockquote>
+<p>This is the <strong>bottleneck problem</strong> — and it's the direct motivation for the <strong>Attention Mechanism</strong>.</p>
+<pre class="hljs"><code><div>Long source sentence:
+&quot;The agreement on the European Economic Area was signed in August.&quot;
+   w1       w2      w3      w4        w5       w6   w7    w8    w9
+    ↓        ↓       ↓       ↓         ↓        ↓    ↓     ↓     ↓
+ [LSTM]→ [LSTM]→ [LSTM]→ [LSTM]→  [LSTM]→  [LSTM]→[LSTM]→[LSTM]→[LSTM]
+                                                                    ↓
+                                                          ┌─────────────────┐
+                                                          │  single vector  │  ← all 9 words
+                                                          │   C = [......] │     squeezed here
+                                                          └────────┬────────┘
+                                                                   ↓
+                                                              [Decoder]
+                                                           generates full
+                                                           translation from
+                                                           just this one vector
+
+Early words (w1, w2, w3 ...) → easily forgotten by the time decoder reaches the last output words ❌
+</div></code></pre>
+<hr>
+
+</body>
+</html>
