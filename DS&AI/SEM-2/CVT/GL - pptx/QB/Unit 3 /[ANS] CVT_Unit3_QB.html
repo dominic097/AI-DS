@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>[ANS] CVT_Unit3_QB.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="cvt-unit-3--question-bank-answers">CVT Unit 3 — Question Bank Answers</h1>
+<blockquote>
+<p>Semester Exam Prep | Easy-to-remember answers</p>
+</blockquote>
+<hr>
+<h2 id="q1--q2--active-contours-snakes">Q1 &amp; Q2 — Active Contours (Snakes)</h2>
+<h3 id="a-what-are-active-contours-snakes">a) What are Active Contours (Snakes)?</h3>
+<p>Active contours, also known as snakes, are a powerful technique in image segmentation that involves evolving a curve to fit the boundaries of an object in an image. The curve is influenced by internal forces that maintain its smoothness and external forces derived from the image data that attract it towards features such as edges.</p>
+<p>Think of it as a rubber band placed near an object — it tightens itself around the object's boundary.</p>
+<p><strong>Working Principle:</strong></p>
+<ol>
+<li>Place a curve (snake) near the object boundary</li>
+<li>Three forces act on it:
+<ul>
+<li><strong>Internal Force</strong> → keeps the curve smooth (no sharp bends)</li>
+<li><strong>External Force</strong> → pulls the curve toward edges (high gradient areas)</li>
+<li><strong>Constraint Force</strong> → user-defined guidance</li>
+</ul>
+</li>
+<li>Curve moves to minimize total energy → settles on the object boundary</li>
+</ol>
+<p>Type of Active Contours:</p>
+<ol>
+<li><strong>Parametric Snakes</strong>: The contour is represented explicitly as $\mathbf{v}(s) = (x(s), y(s))$, where $s$ is the arc-length parameter. Control points move under internal (smoothness) and external (edge) forces.</li>
+<li><strong>Geometric Snakes</strong>: The contour is represented implicitly using level set methods, allowing it to handle topological changes like splitting and merging naturally.</li>
+</ol>
+<p>the three main forces that influence the movement of the snake:</p>
+<ol>
+<li><strong>Internal Forces</strong>: These forces maintain the smoothness and continuity of the snake. They include tension (which keeps the snake tight) and rigidity (which prevents it from bending too much).</li>
+<li><strong>External Forces</strong>: These forces attract the snake towards the edges of the object in the image. They are typically derived from the image gradient, which highlights areas of high intensity change (edges).</li>
+<li><strong>Constraint Forces</strong>: These forces can be added to guide the snake towards specific features or to prevent it from moving in certain directions.</li>
+</ol>
+<h3 id="internal-bending-energy-of-the-contour">Internal Bending Energy of the Contour</h3>
+<p>The internal energy is split into two constraints — both measure how much the contour position $\mathbf{v}$ changes on every iteration:</p>
+<p>$$E_{contour} = \alpha \cdot \text{Elastic} + \beta \cdot \text{Smooth}$$</p>
+<p><strong>Elastic</strong> (first-order / first derivative of the contour vector):</p>
+<p>$$\text{Elastic} = \left| \frac{\partial \mathbf{v}}{\partial t} \right|^2 = \sum_{i=1}^{n} \left[ (x_{i+1} - x_i)^2 + (y_{i+1} - y_i)^2 \right]$$</p>
+<blockquote>
+<p>Measures how much adjacent points stretch — penalizes long gaps between control points.</p>
+</blockquote>
+<p><strong>Smooth</strong> (second-order / second derivative of the contour vector):</p>
+<p>$$\text{Smooth} = \left| \frac{\partial^2 \mathbf{v}}{\partial t^2} \right|^2 = \sum_{i=1}^{n} \left[ (x_{i+1} - 2x_i + x_{i-1})^2 + (y_{i+1} - 2y_i + y_{i-1})^2 \right]$$</p>
+<blockquote>
+<p>Measures how much the contour bends — penalizes sharp corners (uses finite differences).</p>
+</blockquote>
+<p>Both are computed using <strong>finite differences</strong> at each iteration.</p>
+<hr>
+<h3 id="total-energy">Total Energy</h3>
+<p>$$E_{Total} = E_{contour} + E_{image}$$</p>
+<p>where $E_{image} = -\text{(Sum of Gradient Magnitude Squared)}$</p>
+<blockquote>
+<p>The negative sign means the snake is attracted to <strong>strong edges</strong> (high gradient = low energy).</p>
+</blockquote>
+<p><strong>Goal: minimize $E_{Total}$</strong> — the snake settles where the contour is smooth AND sits on strong edges.</p>
+<hr>
+<h3 id="mathematical-formulation">Mathematical Formulation</h3>
+<p>The contour is represented as a parametric curve:</p>
+<p>$$C(s) = (x(s),\ y(s)), \quad s \in [0, 1]$$</p>
+<p>where $s$ is the contour parameter.</p>
+<p><strong>Energy Function</strong> — the snake moves to minimize:</p>
+<p>$$E_{snake} = E_{internal} + E_{external}$$</p>
+<p><strong>Internal Energy</strong> ($E_{internal}$) — ensures smoothness:</p>
+<p>$$E_{internal} = \alpha \left| C'(s) \right|^2 + \beta \left| C''(s) \right|^2$$</p>
+<ul>
+<li>$\alpha$ controls <strong>elasticity</strong> (resistance to stretching / length preservation)</li>
+<li>$\beta$ controls <strong>rigidity</strong> (resistance to bending / curvature smoothness)</li>
+</ul>
+<p><strong>External Energy</strong> ($E_{external}$) — attracts the snake to object boundaries:</p>
+<p>$$E_{external} = -\nabla I(x, y)^2$$</p>
+<p>where $\nabla I(x, y)$ is the image gradient. Higher gradient values pull the snake towards edges.</p>
+<hr>
+<h3 id="numerical-example">Numerical Example</h3>
+<p><strong>Setup:</strong> A simple 3-point contour with two control points:</p>
+<p>$$C = {(2, 3),\ (5, 7),\ (8, 5)}$$</p>
+<p>Parameters: $\alpha = 0.5$ (elasticity), $\beta = 0.2$ (smoothness).<br>
+Image gradient values: $\nabla I(2,3) = 4$, $\nabla I(5,7) = 5$, $\nabla I(8,5) = -1$.<br>
+Weighted total energy: $\mathbf{-4.7}$.</p>
+<p><strong>Step 1: Compute Internal Energy</strong></p>
+<p><em>Elasticity term</em> (first derivative):</p>
+<p>$$E_{elastic} = 0.5 \times \sum |C_i - C_{i-1}|$$</p>
+<p>$$= 0.5 \times \left(\sqrt{(5-2)^2 + (7-3)^2} + \sqrt{(8-5)^2 + (5-7)^2}\right)$$</p>
+<p>$$= 0.5 \times \left(\sqrt{9+16} + \sqrt{9+4}\right) = 0.5 \times (5 + \sqrt{13})$$</p>
+<p>$$= 0.5 \times 8.60 \approx \mathbf{3.04}$$</p>
+<p><em>Curvature term</em> (second derivative):</p>
+<p>$$E_{curvature} = 0.2 \times \sum |C_{i+1} - 2C_i + C_{i-1}|$$</p>
+<p>$$= 0.2 \times |(8,5) - 2(5,7) + (2,3)|$$</p>
+<p>$$= 0.2 \times |(8 - 10 + 2,\ 5 - 14 + 3)|$$</p>
+<p>$$= 0.2 \times |(0, -6)| = 0.2 \times 6 = \mathbf{0.2}$$</p>
+<p><strong>Step 2: Compute External Energy</strong></p>
+<p>$$E_{external} = -\sum |\nabla I(C_i)|$$</p>
+<p>$$= -( |4| + |-5| + |-1|) \times (-0.1) = \mathbf{-10.5}\ \text{(weighted)}$$</p>
+<p><strong>Step 3: Compute Total Energy</strong></p>
+<p>$$E_{snake} = E_{internal} + E_{external} = (3.04 + 0.2) + (-10.5) = 3.24 - 10.5 = \mathbf{-7.66}$$</p>
+<blockquote>
+<p>A <strong>lower (more negative) total energy</strong> means the snake is well-positioned on strong edges with a smooth shape.</p>
+</blockquote>
+<hr>
+<h3 id="problems-with-basic-active-contours">Problems with Basic Active Contours</h3>
+<ul>
+<li><strong>Never sees strong edges that are far away</strong>
+<ul>
+<li>Fixed by: creating a gradient vector field (GVF) over the entire image</li>
+</ul>
+</li>
+<li><strong>Noisy images create many local gradients</strong> (snake gets stuck in wrong minima)
+<ul>
+<li>Fixed by: smoothing the image before applying the snake</li>
+</ul>
+</li>
+<li><strong>Cannot wrap around multiple closed objects</strong></li>
+<li><strong>Cannot detect holes</strong> (single contour topology)</li>
+</ul>
+<blockquote>
+<p>These limitations motivated modern methods like <strong>Level Sets</strong>, which handle topology changes naturally.</p>
+</blockquote>
+<hr>
+<h3 id="b-energy-function-of-snakes">b) Energy Function of Snakes</h3>
+<p><strong>Total Energy:</strong>
+$$E_{snake} = E_{internal} + E_{external}$$</p>
+<p><strong>Internal Energy</strong> (keeps curve smooth):
+$$E_{internal} = \alpha |C'(s)|^2 + \beta |C''(s)|^2$$</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Name</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\alpha |C'(s)|^2$</td>
+<td>Elasticity</td>
+<td>Resists stretching — keeps curve tight</td>
+</tr>
+<tr>
+<td>$\beta |C''(s)|^2$</td>
+<td>Rigidity</td>
+<td>Resists bending — prevents sharp corners</td>
+</tr>
+</tbody>
+</table>
+<p><strong>External Energy</strong> (pulls toward edges):
+$$E_{external} = -|\nabla I(x, y)|^2$$</p>
+<blockquote>
+<p>Negative sign = snake is attracted to <strong>strong edges</strong> (high gradient = low energy = snake moves there)</p>
+</blockquote>
+<p><strong>Goal:</strong> Minimize $E_{snake}$ → curve is smooth AND sits on strong edges.</p>
+<hr>
+<h3 id="c-applications-of-snakes">c) Applications of Snakes</h3>
+<ul>
+<li>
+<p><strong>Medical Imaging</strong> — One of the most impactful uses of snakes is in medical image segmentation. Snakes are placed around a region of interest (e.g., a tumor, organ, or tissue boundary) in MRI or CT scans. The contour then evolves under image gradient forces to tightly fit the boundary. This allows doctors and software to precisely measure organ size, monitor tumor growth over time, and plan surgeries or radiation therapy with accurate delineation.</p>
+</li>
+<li>
+<p><strong>Object Tracking</strong> — In video analysis, the snake contour is initialized around a target object in the first frame. As frames progress, the contour re-evolves using the current frame's image forces, effectively &quot;following&quot; the object as it moves, deforms, or rotates. This makes snakes suitable for tracking faces, hands, or vehicles in surveillance and motion capture systems where shape deformation occurs naturally.</p>
+</li>
+<li>
+<p><strong>Photo Editing</strong> — Snakes form the algorithmic basis of intelligent selection tools found in software like Adobe Photoshop (magnetic lasso tool) and GIMP. The user roughly draws a path near an object's edge, and the contour snaps to the nearest strong edge automatically. This dramatically speeds up object cutout, background removal, and region-based editing tasks by reducing the need for pixel-perfect manual tracing.</p>
+</li>
+<li>
+<p><strong>Shape Analysis</strong> — In biological and agricultural applications, snakes are used to extract the exact contour of objects like leaves, plant cells, or human organs. The extracted shape (as a set of contour points) is then used to compute geometric descriptors such as area, perimeter, curvature, and aspect ratio. These features are fed into classifiers to identify species, detect diseases (e.g., leaf blight), or recognize anatomical anomalies.</p>
+</li>
+</ul>
+<hr>
+<h2 id="q3--split-and-merge-algorithm">Q3 — Split and Merge Algorithm</h2>
+<h3 id="a-split-and-merge-with-flowchart">a) Split and Merge with Flowchart</h3>
+<p>split and merge is a region-based segmentation technique that recursively divides an image into smaller regions (split) and then merges adjacent regions that are similar (merge). The process continues until all regions are homogeneous according to a specified criterion.</p>
+<p>Steps in Split and Merge:</p>
+<ol>
+<li><strong>Start</strong> with the entire image as one region.</li>
+<li><strong>Check homogeneity</strong> of the region (e.g., variance of pixel intensities).</li>
+<li>If the region is <strong>not homogeneous</strong> (variance &gt; threshold), <strong>split</strong> it into 4 quadrants.</li>
+</ol>
+<ul>
+<li>Mathematical condition for splitting: $\text{Var}(R) &gt; \theta$</li>
+<li>Where,
+<ul>
+<li>$R$ = current region</li>
+<li>$\text{Var}(R)$ = variance of pixel intensities in region $R$</li>
+<li>$\theta$ = predefined variance threshold</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>Repeat</strong> the homogeneity check and splitting for each new region until all regions are homogeneous.</li>
+<li>After splitting, <strong>merge</strong> adjacent homogeneous regions that are similar (e.g., mean intensity difference &lt; δ).</li>
+</ol>
+<ul>
+<li>Mathematical condition for merging: $|\bar{I}(R_i) - \bar{I}(R_j)| &lt; \delta$</li>
+<li>Where,
+<ul>
+<li>$R_i, R_j$ = adjacent regions</li>
+<li>$\bar{I}(R)$ = mean intensity of region $R$</li>
+<li>$\delta$ = predefined similarity threshold</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li><strong>Stop</strong> when no more splits or merges are possible.</li>
+</ol>
+<p>Split and Merge is implemented using a <strong>quadtree</strong> — a tree data structure where each internal node represents a region that was split into exactly <strong>4 quadrants</strong>.</p>
+<pre class="hljs"><code><div>         [Entire Image]
+               |
+     ┌────┬────┬────┐
+    [Q1] [Q2] [Q3] [Q4]
+               |
+          ┌────┬────┬────┐
+         [Q3a][Q3b][Q3c][Q3d]
+</div></code></pre>
+<ul>
+<li><strong>Root</strong> = the whole image</li>
+<li>Each <strong>internal node</strong> = a region that failed the homogeneity test → split into 4 children</li>
+<li>Each <strong>leaf node</strong> = a uniform region (passed the test) → no further splitting</li>
+<li><strong>Merge step</strong> = after the tree is built, adjacent leaf nodes with similar properties are merged</li>
+</ul>
+<p><img src="../../../Unit 3&amp;4/image.png" alt="alt text"></p>
+<blockquote>
+<p>The image above shows the spatial partition of the image at each level of the quadtree.</p>
+</blockquote>
+<p><img src="../../../Unit 3&amp;4/image-1.png" alt="alt text"></p>
+<blockquote>
+<p>Regions that are too heterogeneous (high variance) get subdivided further.</p>
+</blockquote>
+<p><img src="../../../Unit 3&amp;4/image-2.png" alt="alt text"></p>
+<blockquote>
+<p>After splitting, adjacent similar regions are merged — reducing over-segmentation.</p>
+</blockquote>
+<p><img src="../../../Unit 3&amp;4/image-3.png" alt="alt text"></p>
+<blockquote>
+<p>The final segmentation result after all split and merge passes.</p>
+</blockquote>
+<pre class="hljs"><code><div>[Start: Whole Image]
+        ↓
+[Check: Var(R) &gt; threshold?]
+   Yes → Split into 4 quadrants → repeat
+   No  → Keep as leaf region
+        ↓
+[Merge adjacent regions if |mean(R1) - mean(R2)| &lt; δ]
+        ↓
+[Stop: All regions are uniform]
+</div></code></pre>
+<hr>
+<h3 id="b-quadtree-representation">b) Quadtree Representation</h3>
+<p>A <strong>quadtree</strong> is the data structure used by Split and Merge:</p>
+<ul>
+<li><strong>Root</strong> = entire image</li>
+<li><strong>Internal node</strong> = a region that failed homogeneity test → split into 4 quadrants</li>
+<li><strong>Leaf node</strong> = a region that passed homogeneity test → no further splitting</li>
+<li>Each internal node has exactly <strong>4 children</strong> (4 quadrants)</li>
+</ul>
+<pre class="hljs"><code><div>         [Entire Image]
+               |
+     ┌────┬────┬────┐
+    [Q1] [Q2] [Q3] [Q4]
+               |
+          ┌────┬────┬────┐
+         [Q3a][Q3b][Q3c][Q3d]
+</div></code></pre>
+<p><strong>Split condition:</strong> $\text{Var}(R) &gt; \theta$<br>
+<strong>Merge condition:</strong> $|\bar{I}(R_i) - \bar{I}(R_j)| &lt; \delta$</p>
+<hr>
+<h3 id="c-advantages--limitations">c) Advantages &amp; Limitations</h3>
+<p><strong>Advantages:</strong></p>
+<ol>
+<li><strong>Adaptive region sizes</strong> — regions grow or shrink based on local image content, unlike fixed-size methods.</li>
+<li><strong>Works on varying textures</strong> — the variance-based split criterion naturally handles regions with different texture complexity.</li>
+<li><strong>Simple to implement</strong> — the quadtree structure is straightforward to build recursively.</li>
+<li><strong>Good for structured scenes</strong> — well-defined objects with clear intensity boundaries are segmented cleanly.</li>
+</ol>
+<p><strong>Limitations:</strong></p>
+<ol>
+<li><strong>Blocky/square boundaries</strong> — the quadtree forces all splits to be axis-aligned rectangles, producing artificial square edges at region borders.</li>
+<li><strong>Sensitive to threshold choice</strong> — a poor variance threshold $\theta$ leads to either over-segmentation (too many small regions) or under-segmentation (large non-uniform regions).</li>
+<li><strong>Computationally expensive for large images</strong> — recursive splitting and neighbour-checking during merging can be slow on high-resolution images.</li>
+<li><strong>May over-segment complex images</strong> — textured or noisy regions keep failing the homogeneity test, producing unnecessarily many tiny leaf regions.</li>
+</ol>
+<hr>
+<h2 id="q4--mean-shift-algorithm">Q4 — Mean Shift Algorithm</h2>
+<h3 id="a-mean-shift--definition--steps">a) Mean Shift — Definition &amp; Steps</h3>
+<p>Mean shift clustering is a method used to find clusters in data without specifying the number of clusters beforehand. Mean shift clustering is a non-parametric, reiterative algorithm that seeks to identify groups in a dataset by discovering the sharper peaks in a density function, when, unlike other clustering algorithms, it does not require a piece of prior knowledge on the number of categories.</p>
+<p><strong>Mean Shift is non-parametric</strong> = you don't need to specify the number of clusters.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Place a window (circle) around a point</li>
+<li>Compute the <strong>centroid</strong> of all points inside the window</li>
+<li><strong>Shift</strong> the window to that centroid</li>
+<li>Repeat until the shift is smaller than threshold ε → <strong>converged at a mode</strong></li>
+<li>All points converging to the same mode = same cluster</li>
+</ol>
+<pre class="hljs"><code><div>Start → Compute centroid in window → Shift window → Repeat → Converge at Mode
+</div></code></pre>
+<hr>
+<h3 id="b-mode-finding-in-feature-space">b) Mode Finding in Feature Space</h3>
+<p>Feature space is a multi-dimensional space where each dimension corresponds to a feature of the data. Every data point is represented as a vector in this space. For example, in a dataset tracking customer behavior, feature space might be two-dimensional:</p>
+<p>Mode, in statistical terms, is the point in feature space where the data density is highest. It represents a natural cluster center.</p>
+<p>The Concept of Mode Finding is central to mean shift clustering. The algorithm iteratively shifts data points towards the nearest mode, effectively climbing the gradient of the density function.</p>
+<p><strong>Mode</strong> = peak of the data density = natural cluster center.</p>
+<p>For images, each pixel is represented in <strong>feature space</strong> = (color + position).</p>
+<ul>
+<li>Mean shift &quot;climbs the hill&quot; of density</li>
+<li>Pixels that converge to the <strong>same peak</strong> → belong to the <strong>same segment</strong></li>
+<li>No need to pre-set number of clusters — modes are discovered automatically</li>
+</ul>
+<hr>
+<h3 id="c-applications-of-mean-shift">c) Applications of Mean Shift</h3>
+<ul>
+<li>
+<p><strong>Image Segmentation</strong> — Mean shift groups pixels by clustering them in a joint color-spatial feature space. Each pixel is represented as a vector combining its color values (RGB or Lab) and its spatial coordinates (x, y). The algorithm shifts each pixel toward the nearest density peak, and all pixels that converge to the same mode are assigned the same segment label. This produces perceptually meaningful regions without requiring a predefined number of segments, making it effective for natural scenes with smooth color gradients.</p>
+</li>
+<li>
+<p><strong>Object Tracking</strong> — In video analysis, the target object's color histogram is treated as a probability distribution in feature space. The mode of this distribution corresponds to the most likely location of the object in the current frame. Mean shift iteratively shifts a search window from the previous frame's position toward the new mode — effectively tracking the object across frames. This approach is robust to gradual appearance changes, partial occlusions, and lighting variations.</p>
+</li>
+<li>
+<p><strong>Clustering</strong> — Unlike K-Means, mean shift does not require you to specify the number of clusters in advance. The algorithm automatically discovers all density peaks (modes) in the data, and each mode becomes a cluster center. Data points are assigned to the cluster whose mode they converge to. This makes mean shift suitable for exploratory data analysis where the cluster count is unknown, and for datasets where clusters have irregular shapes or varying densities.</p>
+</li>
+<li>
+<p><strong>Medical Imaging</strong> — In MRI and CT scans, different tissue types (e.g., white matter, grey matter, cerebrospinal fluid, tumors) have distinct intensity and texture profiles. Mean shift clusters voxels based on these features, naturally separating tissue regions without requiring manual labeling or a fixed number of tissue classes. This is particularly useful for brain tissue segmentation, lesion detection, and quantifying tissue volumes for diagnosis or treatment monitoring.</p>
+</li>
+</ul>
+<hr>
+<h2 id="q5--graph-based-segmentation--normalized-cuts">Q5 — Graph-Based Segmentation &amp; Normalized Cuts</h2>
+<h3 id="a-graph-based-segmentation--normalized-cut-criterion">a) Graph-Based Segmentation &amp; Normalized Cut Criterion</h3>
+<p>Graph-based segmentation treats the image as a graph where pixels are nodes and edges represent similarity between pixels. The goal is to partition the graph into segments that correspond to meaningful regions in the image.</p>
+<p>The Graph structure is defined as $G = (V, E)$ where:</p>
+<ul>
+<li>$V$ = set of nodes (pixels)</li>
+<li>$E$ = set of edges connecting nodes</li>
+<li>$w(u, v)$ = weight of edge between nodes $u$ and $v$ (similarity measure)</li>
+</ul>
+<p><strong>Segmentation goal:</strong> here the segmentation goal is to cut the graph into groups where:</p>
+<ul>
+<li>Pixels <strong>within</strong> a group are very similar (high edge weights)</li>
+<li>Pixels <strong>between</strong> groups are very different (low edge weights)</li>
+</ul>
+<p><strong>Normalized cut (NCut)</strong> is a criterion for evaluating the quality of a graph partition. It measures the total dissimilarity between different groups while also considering the total similarity within each group.</p>
+<p>It prevents the algorithm from making small, isolated cuts by dividing the cut cost by the total weight of connections in each group — so both sides of the partition must be well-connected, not just small.</p>
+<p>$$NCut(A, B) = \frac{cut(A,B)}{assoc(A,V)} + \frac{cut(A,B)}{assoc(B,V)}$$</p>
+<ul>
+<li>$cut(A,B)$ = total weight of edges crossing the cut</li>
+<li>$assoc(A,V)$ = total weight of all edges from group A to all nodes</li>
+<li><strong>Minimizing NCut</strong> → balanced partitions with strong internal connections</li>
+</ul>
+<hr>
+<h3 id="b-normalized-cut-equation-derivation-summary">b) Normalized Cut Equation (Derivation Summary)</h3>
+<p>The Normalized Cut (Ncut) equation is derived by modifying the standard graph &quot;cut&quot; to remove the bias toward small, isolated segments. The goal is to define a measure that balances dissimilarity between groups with similarity within groups.</p>
+<p><strong>Step 1 — Standard Cut</strong></p>
+<p>For a graph $G = (V, E)$ partitioned into two disjoint sets $A$ and $B$, the cut is the sum of weights of all edges connecting the two sets:</p>
+<p>$$cut(A, B) = \sum_{u \in A,\ v \in B} w(u, v)$$</p>
+<p>Minimizing this value alone leads to unbalanced cuts — a single node with fewer edges can be cheaply isolated, which is not a useful segmentation.</p>
+<p><strong>Step 2 — Normalized Cut</strong></p>
+<p>To fix this, the cut cost is normalized by the total connection weight (the &quot;volume&quot; or &quot;association&quot;) of each segment to the entire graph:</p>
+<p>$$NCut(A, B) = \frac{cut(A,B)}{assoc(A,V)} + \frac{cut(A,B)}{assoc(B,V)}$$</p>
+<p>where:</p>
+<ul>
+<li>$cut(A,B)$ = total weight of edges crossing the cut</li>
+<li>$assoc(A,V) = \sum_{u \in A,\ v \in V} w(u,v)$ = total weight of all edges from group $A$ to the whole graph</li>
+</ul>
+<p><strong>Step 3 — Relation to Normalized Association (Nasso)</strong></p>
+<p>The &quot;goodness&quot; of a partition can also be measured by how tightly connected nodes are within each segment — called <strong>Normalized Association</strong>:</p>
+<p>$$Nasso(A, B) = \frac{assoc(A,A)}{assoc(A,V)} + \frac{assoc(B,B)}{assoc(B,V)}$$</p>
+<p>Since $assoc(A, V) = assoc(A, A) + cut(A, B)$, substituting into the NCut formula:</p>
+<p>$$NCut(A, B) = \frac{assoc(A,V) - assoc(A,A)}{assoc(A,V)} + \frac{assoc(B,V) - assoc(B,B)}{assoc(B,V)}$$</p>
+<p>$$NCut(A, B) = \left(1 - \frac{assoc(A,A)}{assoc(A,V)}\right) + \left(1 - \frac{assoc(B,B)}{assoc(B,V)}\right)$$</p>
+<p>$$\boxed{NCut(A, B) = 2 - Nasso(A, B)}$$</p>
+<blockquote>
+<p>This proves that <strong>minimizing NCut</strong> (disassociation between segments) is exactly equivalent to <strong>maximizing Nasso</strong> (association within segments) — the two objectives are the same problem. Minimizing NCut leads to a <strong>generalized eigenvalue problem</strong> solved via the graph Laplacian matrix.</p>
+</blockquote>
+<hr>
+<h3 id="c-normalized-cut-vs-minimum-cut">c) Normalized Cut vs Minimum Cut</h3>
+<table>
+<thead>
+<tr>
+<th>Minimum Cut</th>
+<th>Normalized Cut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cuts cheapest edges</td>
+<td>Balanced partition</td>
+</tr>
+<tr>
+<td>Often isolates single nodes</td>
+<td>Considers whole group connectivity</td>
+</tr>
+<tr>
+<td>Biased toward small regions</td>
+<td>Fair to both halves</td>
+</tr>
+<tr>
+<td>Simple but poor results</td>
+<td>Better perceptual segmentation</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="q6--graph-cuts-for-image-segmentation">Q6 — Graph Cuts for Image Segmentation</h2>
+<h3 id="a-graph-cuts-for-segmentation">a) Graph Cuts for Segmentation</h3>
+<p>An image is encoded as an undirected graph $G = (V, E)$ where:</p>
+<ul>
+<li>$V$ contains one <strong>vertex for each pixel</strong></li>
+<li>$E$ contains an <strong>edge between pixels $i$ and $j$</strong> if $i$ and $j$ are neighbors (4-connected or 8-connected grid)</li>
+</ul>
+<p><strong>Image Segmentation Problem:</strong></p>
+<p>We add parameters to model the separation of neighboring pixels. For every neighboring pair ${i, j}$, we define:</p>
+<ul>
+<li>$p_{ij}$ = penalty for placing one of $i, j$ in foreground and the other in background</li>
+</ul>
+<p>The goal is to <strong>partition pixels into two sets $A$ (foreground) and $B$ (background)</strong> to maximize:</p>
+<p>$$q(A, B) = \sum_{i \in A} a_i + \sum_{j \in B} b_j - \sum_{\substack{(i,j) \in E \ i,j \text{ separated}}} p_{ij}$$</p>
+<p>where:</p>
+<ul>
+<li>$a_i$ = likelihood that pixel $i$ is in the <strong>foreground</strong></li>
+<li>$b_i$ = likelihood that pixel $i$ is in the <strong>background</strong></li>
+<li>$p_{ij}$ = boundary penalty for separating neighboring pixels $i$ and $j$</li>
+</ul>
+<p>The first two terms reward pixels being assigned to their most likely label; the third term penalizes cuts that split strongly connected neighbors — encouraging smooth boundaries.</p>
+<p>To represent this as a graph cut problem, we introduce two special nodes:</p>
+<ul>
+<li><strong>Source (S)</strong> = foreground label</li>
+<li><strong>Sink (T)</strong> = background label</li>
+</ul>
+<p>Every pixel gets connected to both S and T. The algorithm finds the <strong>minimum cut</strong> that separates foreground from background.</p>
+<p><strong>Cut</strong> = set of edges removed to disconnect S from T.<br>
+<strong>Minimum cut</strong> = cut with lowest total weight = optimal segmentation boundary.</p>
+<hr>
+<h3 id="b-energy-minimization-framework">b) Energy Minimization Framework</h3>
+<p>Energy-based segmentation methods frame the labeling problem as an <strong>optimization task</strong>: find the assignment of labels to pixels that minimizes a total energy (cost) function. The energy function is designed with two competing objectives:</p>
+<ul>
+<li><strong>Data fidelity</strong> — how well the assigned label (foreground/background) matches what the image evidence suggests for that pixel (e.g., based on color histograms or intensity models)</li>
+<li><strong>Smoothness</strong> — how regular the segmentation boundary is; neighboring pixels with different labels incur a penalty, discouraging jagged or noisy boundaries</li>
+</ul>
+<p>This is formalized as a <strong>Markov Random Field (MRF)</strong>, where each pixel's label depends only on its neighbors. The total energy to minimize is:</p>
+<p>$$E(\mathbf{x}) = \underbrace{\sum_i D_i(x_i)}<em>{\text{data term}} + \underbrace{\sum</em>{(i,j) \in \mathcal{N}} V_{ij}(x_i, x_j)}_{\text{smoothness term}}$$</p>
+<p><strong>Data term</strong> $D_i(x_i)$: The cost of assigning label $x_i$ (foreground or background) to pixel $i$. This is derived from a color/intensity model — if pixel $i$ strongly matches the foreground color model, $D_i(\text{foreground})$ is low.</p>
+<p><strong>Smoothness term</strong> $V_{ij}(x_i, x_j)$: The penalty for assigning different labels to neighboring pixels $i$ and $j$. Typically defined as:</p>
+<p>$$V_{ij}(x_i, x_j) = \begin{cases} 0 &amp; \text{if } x_i = x_j \ w_{ij} &amp; \text{if } x_i \neq x_j \end{cases}$$</p>
+<p>where $w_{ij}$ is high when pixels $i$ and $j$ are similar (discouraging cuts between similar pixels) and low when they are dissimilar (allowing cuts at natural boundaries).</p>
+<p><strong>Goal:</strong> Find the labeling $\mathbf{x}^* = \arg\min E(\mathbf{x})$ — the assignment that best fits the image data while keeping the boundary smooth. Graph cuts solve this exactly and efficiently via the max-flow min-cut theorem.</p>
+<hr>
+<h3 id="c-max-flow-min-cut-theorem">c) Max-Flow Min-Cut Theorem</h3>
+<p><strong>Theorem:</strong> The maximum flow that can be sent from Source (S) to Sink (T) in a flow network equals the capacity of the minimum cut separating S from T.</p>
+<p>$$\text{Max-Flow}(S \to T) = \text{Min-Cut capacity}$$</p>
+<p><strong>Concept — Flow Network Analogy:</strong></p>
+<p>The image graph is modeled as a flow network where each edge is treated as a pipe with a capacity equal to its edge weight. Flow is pushed from the Source (S = foreground) to the Sink (T = background). The maximum amount of flow that can travel from S to T is limited by a set of bottleneck edges — these bottleneck edges form the minimum cut.</p>
+<p><strong>Why this solves segmentation:</strong></p>
+<p>When max-flow is computed, the edges that are fully saturated (carrying flow equal to their capacity) and cannot pass any more flow form the minimum cut. Removing these edges disconnects S from T, partitioning the image into two regions:</p>
+<ul>
+<li>All nodes reachable from S → <strong>foreground</strong></li>
+<li>All nodes reachable from T → <strong>background</strong></li>
+</ul>
+<p>The minimum cut naturally falls along weak edges (low similarity between pixels) — which correspond to object boundaries — and avoids cutting strong edges (highly similar neighboring pixels inside a region).</p>
+<p><strong>Connection to Energy Minimization:</strong></p>
+<p>Minimizing the graph cut capacity is equivalent to minimizing the MRF (Markov Random Field) energy function. The data term $D_i$ is encoded in the edge weights between pixels and the S/T terminals, and the smoothness term $V_{ij}$ is encoded in the edges between neighboring pixels. Solving max-flow therefore simultaneously minimizes both terms optimally.</p>
+<p><strong>Algorithm (Ford-Fulkerson / Push-Relabel):</strong></p>
+<ol>
+<li>Initialize flow on all edges to 0</li>
+<li>Find an <strong>augmenting path</strong> from S to T (a path with remaining capacity)</li>
+<li>Push flow along this path equal to the bottleneck capacity</li>
+<li>Repeat until no augmenting path exists</li>
+<li>The saturated edges crossing from S-side to T-side form the <strong>minimum cut = segmentation boundary</strong></li>
+</ol>
+<blockquote>
+<p><strong>Max-flow = Min-cut</strong> → solving max-flow gives the globally optimal foreground/background segmentation in polynomial time.</p>
+</blockquote>
+<hr>
+<h2 id="q7--2d-feature-detection-matching--alignment">Q7 — 2D Feature Detection, Matching &amp; Alignment</h2>
+<h3 id="a-feature-detection--matching-in-2d">a) Feature Detection &amp; Matching in 2D</h3>
+<p><strong>Definition:</strong>
+Feature detection is the process of finding distinctive, repeatable points or regions in an image — called <strong>keypoints</strong> — that can be reliably located even when the image is scaled, rotated, or has changed lighting. Feature matching then finds corresponding keypoints across two or more images to understand the geometric relationship between them.</p>
+<p><strong>Why Features?</strong>
+Comparing images pixel-by-pixel is fragile and slow. Instead, a small set of distinctive keypoints (corners, blobs, edges) captures the structure of an image compactly and can be matched across views robustly.</p>
+<hr>
+<p><strong>Step 1 — Feature Detection</strong></p>
+<p>A detector scans the image for points with strong, unique local structure. Common detectors:</p>
+<ul>
+<li><strong>Harris Corner Detector</strong> — finds corners by looking for large intensity changes in all directions. A corner has high gradient magnitude in multiple directions.</li>
+<li><strong>SIFT (Scale-Invariant Feature Transform)</strong> — detects blob-like regions at multiple scales using a Difference-of-Gaussian (DoG) pyramid. Invariant to scale and rotation.</li>
+<li><strong>SURF (Speeded-Up Robust Features)</strong> — faster approximation of SIFT using integral images and Haar wavelets.</li>
+<li><strong>ORB (Oriented FAST and Rotated BRIEF)</strong> — real-time detector/descriptor combining FAST keypoints with BRIEF descriptors. Used in mobile and embedded systems.</li>
+</ul>
+<p><strong>Step 2 — Feature Description</strong></p>
+<p>Each detected keypoint is described by a <strong>descriptor</strong> — a numerical vector that summarizes the local image appearance around the keypoint. A good descriptor is invariant to rotation, scale, and illumination changes.</p>
+<ul>
+<li>SIFT descriptor: 128-dimensional vector of gradient orientations in a 16×16 patch</li>
+<li>ORB descriptor: 256-bit binary string (much faster to compute and compare)</li>
+</ul>
+<p><strong>Step 3 — Feature Matching</strong></p>
+<p>Descriptors from two images are compared to find corresponding keypoints. The most common strategy is <strong>nearest-neighbor matching</strong>: for each keypoint in image 1, find the keypoint in image 2 whose descriptor is closest (using Euclidean distance for SIFT, Hamming distance for ORB).</p>
+<p>To reject ambiguous matches, <strong>Lowe's ratio test</strong> is applied:
+$$\frac{d_1}{d_2} &lt; 0.75$$
+A match is accepted only if the best match is significantly closer than the second-best.</p>
+<p><strong>Step 4 — Outlier Rejection with RANSAC</strong></p>
+<p>Even after ratio testing, some matches are wrong (outliers). <strong>RANSAC (Random Sample Consensus)</strong> robustly estimates the transformation by:</p>
+<ol>
+<li>Randomly sampling a minimal set of matches (e.g., 4 for homography)</li>
+<li>Computing the transformation from that sample</li>
+<li>Counting <strong>inliers</strong> — matches consistent with this transformation (reprojection error &lt; threshold)</li>
+<li>Repeating many times and keeping the transformation with the most inliers</li>
+</ol>
+<p>The final transformation is re-estimated using all inliers.</p>
+<hr>
+<h3 id="b-transformation-models">b) Transformation Models</h3>
+<p>When two images of the same scene are taken from different viewpoints or with different camera settings, a <strong>geometric transformation</strong> relates the coordinates of one image to the other. These transformations differ in the number of degrees of freedom (DOF) and in what geometric properties they preserve.</p>
+<hr>
+<p><strong>1. Translation (2 DOF)</strong></p>
+<p>The simplest transformation — shifts every point by a fixed amount:</p>
+<p>$$x' = x + t_x, \quad y' = y + t_y$$</p>
+<p>$$\begin{bmatrix} x' \ y' \end{bmatrix} = \begin{bmatrix} x \ y \end{bmatrix} + \begin{bmatrix} t_x \ t_y \end{bmatrix}$$</p>
+<ul>
+<li>Preserves: shape, size, orientation, parallel lines, distances</li>
+<li>Use case: aligning images taken from the same viewpoint with a slight shift (e.g., video stabilization)</li>
+</ul>
+<hr>
+<p><strong>2. Rotation (1 DOF)</strong></p>
+<p>Rotates the image by angle $\theta$ around the origin:</p>
+<p>$$x' = x\cos\theta - y\sin\theta, \quad y' = x\sin\theta + y\cos\theta$$</p>
+<p>$$\begin{bmatrix} x' \ y' \end{bmatrix} = \begin{bmatrix} \cos\theta &amp; -\sin\theta \ \sin\theta &amp; \cos\theta \end{bmatrix} \begin{bmatrix} x \ y \end{bmatrix}$$</p>
+<ul>
+<li>Preserves: shape, size, distances (isometry)</li>
+<li>Use case: correcting camera tilt</li>
+</ul>
+<hr>
+<p><strong>3. Rigid Transform (3 DOF = Rotation + Translation)</strong></p>
+<p>Combines rotation and translation. Preserves all distances and angles:</p>
+<p>$$\begin{bmatrix} x' \ y' \end{bmatrix} = R \begin{bmatrix} x \ y \end{bmatrix} + \begin{bmatrix} t_x \ t_y \end{bmatrix}$$</p>
+<ul>
+<li>Preserves: distances, angles, shape</li>
+<li>Use case: aligning scans of the same object from slightly different positions</li>
+</ul>
+<hr>
+<p><strong>4. Affine Transform (6 DOF)</strong></p>
+<p>A general linear transformation followed by translation. It can represent rotation, scale, shear, and reflection simultaneously:</p>
+<p>$$\begin{bmatrix} x' \ y' \end{bmatrix} = \begin{bmatrix} a &amp; b \ c &amp; d \end{bmatrix} \begin{bmatrix} x \ y \end{bmatrix} + \begin{bmatrix} t_x \ t_y \end{bmatrix}$$</p>
+<ul>
+<li>Preserves: <strong>parallel lines</strong> (parallel lines remain parallel after transformation)</li>
+<li>Does NOT preserve: distances, angles</li>
+<li>Use case: correcting camera tilt + zoom + slight skew; satellite image alignment</li>
+</ul>
+<p>Requires at least <strong>3 point correspondences</strong> to solve (6 unknowns, 2 equations per point).</p>
+<hr>
+<p><strong>5. Homography (8 DOF)</strong></p>
+<p>The most general 2D-to-2D transformation for planar scenes, also called a <strong>projective transform</strong>:</p>
+<p>$$\begin{bmatrix} x' \ y' \ 1 \end{bmatrix} \sim \begin{bmatrix} h_{11} &amp; h_{12} &amp; h_{13} \ h_{21} &amp; h_{22} &amp; h_{23} \ h_{31} &amp; h_{32} &amp; 1 \end{bmatrix} \begin{bmatrix} x \ y \ 1 \end{bmatrix}$$</p>
+<ul>
+<li>Preserves: straight lines (but NOT parallel lines)</li>
+<li>Models the full perspective change when the camera moves around a planar scene</li>
+<li>Requires at least <strong>4 point correspondences</strong></li>
+<li>Use case: image stitching, AR marker tracking, document scanning</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Transform</th>
+<th>DOF</th>
+<th>Preserves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Translation</td>
+<td>2</td>
+<td>Distances, angles, shape</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>1</td>
+<td>Distances, angles</td>
+</tr>
+<tr>
+<td>Rigid</td>
+<td>3</td>
+<td>Distances, angles</td>
+</tr>
+<tr>
+<td>Affine</td>
+<td>6</td>
+<td>Parallel lines</td>
+</tr>
+<tr>
+<td>Homography</td>
+<td>8</td>
+<td>Straight lines only</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="c-applications-in-image-stitching">c) Applications in Image Stitching</h3>
+<p><strong>What is Image Stitching?</strong></p>
+<p>Image stitching is the process of combining multiple photographs with overlapping fields of view into a single wide-angle or panoramic image. It is used when a single image cannot capture the full scene.</p>
+<p><strong>How Feature Matching and Transformation Models are Used:</strong></p>
+<p><strong>Step 1 — Capture overlapping images</strong>
+Two or more photos are taken with overlapping regions (typically 20–40% overlap) so features can be found in common between them.</p>
+<p><strong>Step 2 — Detect and describe features</strong>
+SIFT or ORB detects keypoints in each image and computes descriptors for each keypoint.</p>
+<p><strong>Step 3 — Match features across images</strong>
+Descriptors are matched between image pairs. Only matches in the overlapping region are correct; RANSAC filters out wrong matches.</p>
+<p><strong>Step 4 — Estimate homography</strong>
+Using the inlier matches, a homography matrix $H$ is computed that maps the coordinates of one image onto the coordinate system of the other:
+$$p_2 \sim H \cdot p_1$$</p>
+<p><strong>Step 5 — Warp images</strong>
+One image is geometrically warped (transformed) using the homography so that it aligns with the other. This is done using inverse warping + bilinear interpolation to avoid holes.</p>
+<p><strong>Step 6 — Blend the seam</strong>
+The overlapping regions are blended (e.g., using linear blending or multi-band blending) to hide the seam and produce a seamless panorama.</p>
+<p><strong>Real-World Uses:</strong></p>
+<ul>
+<li><strong>Google Street View</strong> — 360° panoramas stitched from multiple camera feeds</li>
+<li><strong>Drone mapping</strong> — aerial images stitched into orthomosaic maps for agriculture and surveying</li>
+<li><strong>Medical imaging</strong> — stitching microscope images to produce a full-slide view</li>
+<li><strong>Virtual tours</strong> — real estate and museum virtual tours use stitched panoramic photography</li>
+<li><strong>Satellite imagery</strong> — multiple satellite passes stitched to build large-area maps</li>
+</ul>
+<hr>
+<h2 id="q8--3d-point-cloud-alignment--icp">Q8 — 3D Point Cloud Alignment &amp; ICP</h2>
+<h3 id="a-3d-point-cloud-alignment">a) 3D Point Cloud Alignment</h3>
+<p>A <strong>point cloud</strong> is a collection of points in 3D space, where each point represents a location on a physical surface. Point clouds are captured using sensors like <strong>LiDAR</strong> (Light Detection and Ranging), <strong>depth cameras</strong> (e.g., Microsoft Kinect), or <strong>stereo cameras</strong>. Each point has coordinates $(x, y, z)$ and sometimes additional attributes like color or surface normal.</p>
+<p>When the same object or scene is scanned from different positions or angles, each scan produces a separate point cloud. These clouds overlap in 3D space but are not aligned — they are in different coordinate systems. <strong>Point cloud alignment</strong> (also called <strong>registration</strong>) is the process of finding the rigid transformation (rotation + translation) that maps one point cloud onto the other so they represent the same geometry in a common coordinate frame.</p>
+<p>$$P' = R \cdot P + t$$</p>
+<p>where $R$ is the rotation matrix and $t$ is the translation vector that best aligns the source cloud $P$ to the target cloud $P'$.</p>
+<hr>
+<h3 id="b-icp-iterative-closest-point-algorithm">b) ICP (Iterative Closest Point) Algorithm</h3>
+<p><strong>ICP</strong> is the most widely used algorithm for aligning two point clouds when no known feature correspondences exist. The core idea is simple: repeatedly find which point in the target cloud is closest to each point in the source cloud, compute the best transformation to reduce that distance, apply it, and repeat until the clouds are aligned.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><strong>Initialize</strong> — Start with an initial guess for the alignment (often the identity transform, or a rough manual alignment). A good starting point speeds up convergence.</li>
+<li><strong>Find Correspondences</strong> — For each point in the source cloud, find its nearest neighbor in the target cloud. These pairs are the assumed correspondences for this iteration.</li>
+<li><strong>Estimate Transform</strong> — Compute the rotation $R$ and translation $t$ that minimizes the total squared distance between all correspondence pairs. This is solved exactly using <strong>SVD (Singular Value Decomposition)</strong>.</li>
+<li><strong>Apply Transform</strong> — Move the source cloud using the computed $R$ and $t$. The source cloud is now closer to the target than before.</li>
+<li><strong>Check Convergence</strong> — Measure how much the cloud moved. If the change is smaller than a threshold (i.e., the clouds are close enough), stop. Otherwise go back to step 2 with the updated source cloud.</li>
+</ol>
+<p><strong>Key limitation:</strong> ICP always converges, but it may converge to a <strong>local minimum</strong> — a wrong alignment that looks locally optimal. This is why a good initial alignment matters. Techniques like <strong>random restarts</strong> or <strong>coarse-to-fine alignment</strong> are used to avoid this.</p>
+<hr>
+<h3 id="c-applications">c) Applications</h3>
+<ul>
+<li>
+<p><strong>3D Reconstruction</strong> — When scanning an object or room from multiple angles (e.g., with a handheld depth camera), each scan covers only a portion of the surface. ICP aligns all partial scans together into a single complete 3D model. This is used in heritage preservation, reverse engineering, and VFX.</p>
+</li>
+<li>
+<p><strong>Autonomous Vehicles</strong> — Self-driving cars use LiDAR to build a map of the environment. As the car moves, each new LiDAR scan must be aligned with the previous ones to track the vehicle's position and update the map. ICP (or its variants) performs this real-time scan matching.</p>
+</li>
+<li>
+<p><strong>Robotics — SLAM</strong> — In Simultaneous Localization and Mapping, a robot builds a map of an unknown environment while tracking its own location within it. ICP aligns successive point cloud scans to estimate how far the robot has moved and in what direction.</p>
+</li>
+<li>
+<p><strong>Medical Imaging</strong> — Surgeons sometimes need to align a pre-operative 3D scan (e.g., MRI or CT) with an intra-operative scan or physical tracker. ICP registers these two 3D datasets so that surgical tools can be accurately guided to the correct anatomical location.</p>
+</li>
+</ul>
+<hr>
+<hr>
+<h2 id="q9--pose-estimation">Q9 — Pose Estimation</h2>
+<h3 id="a-pose-estimation--definition--importance">a) Pose Estimation — Definition &amp; Importance</h3>
+<p><strong>Pose estimation</strong> is the task of determining the <strong>position and orientation</strong> of an object (or camera) in 3D space. An object's pose has <strong>6 degrees of freedom (DOF)</strong>: 3 for rotation (how it is tilted/rotated along each axis) and 3 for translation (where it is in space along X, Y, Z).</p>
+<p>In simpler terms: given a photo of an object, pose estimation answers — <em>where exactly is this object, and which direction is it facing, relative to the camera?</em></p>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li><strong>Robotics</strong> — A robotic arm needs to know the exact position and orientation of an object to grasp it correctly. Grabbing a cup requires knowing both where the cup is and which way its handle is pointing.</li>
+<li><strong>Augmented Reality (AR/VR)</strong> — Virtual objects must be placed at precisely the right position and angle in the real-world scene. If the pose is slightly wrong, virtual furniture appears to float or clip through the floor.</li>
+<li><strong>Autonomous Vehicles</strong> — The car must estimate the orientation of other vehicles and pedestrians to predict their movement and plan a safe path around them.</li>
+<li><strong>Face Recognition</strong> — Before comparing faces, the head pose (looking left, right, down) must be estimated to normalize the face to a frontal view.</li>
+</ul>
+<hr>
+<h3 id="b-perspective-n-point-pnp-problem">b) Perspective-n-Point (PnP) Problem</h3>
+<p>The <strong>PnP problem</strong> is the standard mathematical formulation of pose estimation. The setup is:</p>
+<p>You already know the 3D coordinates of certain points on the object (from a CAD model or prior measurement). You also know where those same points appear as 2D pixels in a photo. Given this set of 3D–2D correspondences, PnP finds the rotation and translation of the camera (or equivalently the object) that explains all the projections simultaneously.</p>
+<p>$$p_i = K [R | t] P_i$$</p>
+<p>where $K$ is the camera's intrinsic matrix (lens properties like focal length), $R$ and $t$ are the rotation and translation to find, $P_i$ is a 3D world point, and $p_i$ is its observed 2D image projection.</p>
+<p><strong>Methods — how many point pairs are needed:</strong></p>
+<ul>
+<li><strong>P3P</strong> — Uses the minimum possible: just 3 point correspondences. Fast, but gives up to 4 ambiguous solutions; a 4th point is used to pick the correct one. Used when speed is critical.</li>
+<li><strong>EPnP (Efficient PnP)</strong> — Works with 4 or more points. Expresses all 3D points as weighted combinations of 4 virtual control points, making the algebra much simpler. Runs in near-linear time regardless of how many points are used.</li>
+<li><strong>Iterative PnP</strong> — Starts from an initial estimate (e.g., EPnP result) and refines it using non-linear optimization, minimizing the <strong>reprojection error</strong> — the pixel distance between the observed and projected points. Most accurate, but slower.</li>
+</ul>
+<p><strong>In practice:</strong> OpenCV's <code>solvePnP()</code> handles all of this automatically, choosing the right method based on the number of points provided.</p>
+<hr>
+<h3 id="c-applications-1">c) Applications</h3>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AR/VR</td>
+<td>Place virtual objects in correct real-world position</td>
+</tr>
+<tr>
+<td>Robotics</td>
+<td>Grasp objects at correct angle</td>
+</tr>
+<tr>
+<td>Autonomous Driving</td>
+<td>Detect vehicle orientation, pedestrian pose</td>
+</tr>
+<tr>
+<td>Face Recognition</td>
+<td>Head pose for face alignment</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="q10--comparison-of-all-segmentation-techniques">Q10 — Comparison of All Segmentation Techniques</h2>
+<h3 id="a-snakes-vs-level-sets-vs-graph-cuts-vs-mean-shift">a) Snakes vs Level Sets vs Graph Cuts vs Mean Shift</h3>
+<p><strong>Snakes (Active Contours)</strong> work by placing a curve on the image and letting it deform under two forces: an internal force that keeps the curve smooth, and an external force that pulls it toward edges. The curve is represented explicitly as a set of connected points. Because of this, Snakes cannot handle topology changes — if the object splits or has a hole, the snake cannot split or merge accordingly. They require the user to place the initial curve reasonably close to the object boundary, so they are semi-automatic. Snakes work best when the target boundary is smooth and you already have a rough idea of where it is.</p>
+<p><strong>Level Sets</strong> solve the topology problem by representing the contour implicitly — as the zero-level of a function defined over the entire image. When the shape splits or merges, the function simply updates automatically without any special handling. This makes level sets far more flexible for complex or changing shapes. The tradeoff is computational cost — updating the function across the whole image is slower than moving a curve. Like Snakes, level sets also require the user to set an initial region, making them semi-automatic. They extend naturally to 3D because the same implicit representation works in any number of dimensions.</p>
+<p><strong>Graph Cuts</strong> represent the image as a graph where every pixel is a node and edges connect neighboring pixels. Segmentation is posed as finding the minimum-cost cut that separates a foreground group of nodes from a background group. The user provides <strong>seed points</strong> — a few pixels manually marked as foreground and background — and the algorithm finds the globally optimal boundary from those seeds. Because it uses max-flow, it is fast and gives a guaranteed global optimum (not just a local one). Graph Cuts can handle any shape but needs user seeds to define what foreground and background mean.</p>
+<p><strong>Mean Shift</strong> is the most automatic of the four — it requires no user input at all. It works by finding regions of high pixel density in a color or feature space. Each pixel is assigned to the nearest density peak (called a mode), and all pixels belonging to the same peak form a segment. Mean Shift is particularly good at segmenting images based on color similarity, and it naturally discovers the number of segments rather than requiring you to specify it. The downside is that it is slower than Graph Cuts, and the result depends heavily on the bandwidth parameter that controls the size of the search window.</p>
+<p><strong>In summary:</strong> Use Snakes when you have a smooth known boundary shape. Use Level Sets when the shape is complex or may change topology. Use Graph Cuts when you need fast, globally optimal foreground/background separation and can provide seeds. Use Mean Shift when you want fully automatic color-based segmentation without any prior knowledge.</p>
+<hr>
+<h3 id="b-how-segmentation-helps-in-feature-alignment--pose-estimation">b) How Segmentation Helps in Feature Alignment &amp; Pose Estimation</h3>
+<p><strong>Segmentation → Feature Alignment:</strong></p>
+<ul>
+<li>Segmentation isolates the object of interest → reduces false feature matches</li>
+<li>Only features within the segmented region are used for alignment → more accurate homography/transform estimation</li>
+<li>Example: Segment a building from background, then match features only on the building for stitching</li>
+</ul>
+<p><strong>Segmentation → Pose Estimation:</strong></p>
+<ul>
+<li>Segment the object first → extract its 2D boundary/keypoints</li>
+<li>Use those keypoints as the ${p_i}$ correspondences for PnP</li>
+<li>Without segmentation, background clutter causes wrong correspondences → wrong pose</li>
+<li>Example: Segment a car → detect corners → estimate 3D pose of the car</li>
+</ul>
+<blockquote>
+<p><strong>Pipeline:</strong> Segment → Detect features → Match → Estimate transformation/pose</p>
+</blockquote>
+<hr>
+<h2 id="problems--solutions">Problems — Solutions</h2>
+<h3 id="problem-1-energy-function-in-snakes">Problem 1: Energy Function in Snakes</h3>
+<p><strong>Given:</strong> 5 points: $(1,2), (2,3), (3,5), (4,4), (5,3)$<br>
+$\alpha = 0.5$, $\beta = 0.3$, External energy = $[2, 1, 3, 2, 1]$</p>
+<p><strong>Step 1: Elasticity (first derivative — distance between consecutive points)</strong></p>
+<p>$$E_{elastic} = \alpha \sum_{i=2}^{5} \sqrt{(x_i - x_{i-1})^2 + (y_i - y_{i-1})^2}$$</p>
+<table>
+<thead>
+<tr>
+<th>Pair</th>
+<th>Distance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(1,2)→(2,3)$</td>
+<td>$\sqrt{1+1} = \sqrt{2} \approx 1.41$</td>
+</tr>
+<tr>
+<td>$(2,3)→(3,5)$</td>
+<td>$\sqrt{1+4} = \sqrt{5} \approx 2.24$</td>
+</tr>
+<tr>
+<td>$(3,5)→(4,4)$</td>
+<td>$\sqrt{1+1} = \sqrt{2} \approx 1.41$</td>
+</tr>
+<tr>
+<td>$(4,4)→(5,3)$</td>
+<td>$\sqrt{1+1} = \sqrt{2} \approx 1.41$</td>
+</tr>
+</tbody>
+</table>
+<p>Sum $= 1.41 + 2.24 + 1.41 + 1.41 = 6.47$<br>
+$E_{elastic} = 0.5 \times 6.47 = \mathbf{3.24}$</p>
+<p><strong>Step 2: Rigidity (second derivative — curvature)</strong></p>
+<p>$$E_{rigid} = \beta \sum_{i=2}^{4} \sqrt{(x_{i+1}-2x_i+x_{i-1})^2 + (y_{i+1}-2y_i+y_{i-1})^2}$$</p>
+<table>
+<thead>
+<tr>
+<th>Triple</th>
+<th>Curvature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(1,2),(2,3),(3,5)$</td>
+<td>$</td>
+</tr>
+<tr>
+<td>$(2,3),(3,5),(4,4)$</td>
+<td>$</td>
+</tr>
+<tr>
+<td>$(3,5),(4,4),(5,3)$</td>
+<td>$</td>
+</tr>
+</tbody>
+</table>
+<p>Sum $= 1 + 3 + 0 = 4$<br>
+$E_{rigid} = 0.3 \times 4 = \mathbf{1.2}$</p>
+<p><strong>Step 3: Internal Energy</strong>
+$$E_{internal} = E_{elastic} + E_{rigid} = 3.24 + 1.2 = \mathbf{4.44}$$</p>
+<p><strong>Step 4: External Energy</strong>
+$$E_{external} = -(2 + 1 + 3 + 2 + 1) = \mathbf{-9}$$</p>
+<p><strong>Step 5: Total Energy</strong>
+$$E_{snake} = E_{internal} + E_{external} = 4.44 + (-9) = \mathbf{-4.56}$$</p>
+<hr>
+<h3 id="problem-2-split-and-merge">Problem 2: Split and Merge</h3>
+<p><strong>Given:</strong> Variance threshold $\theta = 10$</p>
+<p><strong>Part a) Which regions split?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Variance</th>
+<th>Split?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>15</td>
+<td><strong>Yes</strong> (15 &gt; 10)</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>8</td>
+<td>No (8 &lt; 10)</td>
+</tr>
+</tbody>
+</table>
+<p>→ <strong>R1 is split</strong> into 4 subregions.</p>
+<p><strong>Part b) Subregions of R1 = [5, 6, 12, 4]</strong></p>
+<table>
+<thead>
+<tr>
+<th>Subregion</th>
+<th>Variance</th>
+<th>Split?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1a</td>
+<td>5</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R1b</td>
+<td>6</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R1c</td>
+<td>12</td>
+<td><strong>Yes</strong> (12 &gt; 10)</td>
+</tr>
+<tr>
+<td>R1d</td>
+<td>4</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>→ <strong>R1c is split further.</strong></p>
+<hr>
+<h3 id="problem-3-max-flow-min-cut">Problem 3: Max-Flow Min-Cut</h3>
+<p><strong>Given graph:</strong></p>
+<pre class="hljs"><code><div>S → A = 10
+S → B = 5
+A → B = 15
+A → T = 10
+B → T = 10
+</div></code></pre>
+<p>Each edge has a <strong>capacity</strong> — think of it as a pipe that can carry at most that much flow. Flow starts at the Source (S) and must reach the Sink (T). The goal is to find the maximum total flow that can travel from S to T without exceeding any pipe's capacity.</p>
+<hr>
+<p><strong>Part a) Maximum Flow from S to T</strong></p>
+<p>To find the max flow, we look for all distinct paths from S to T and see how much flow each can carry. The flow along any path is limited by its <strong>bottleneck</strong> — the edge with the smallest capacity on that path.</p>
+<p><strong>Path 1: S → A → T</strong></p>
+<p>The edges on this path are S→A (capacity 10) and A→T (capacity 10). The bottleneck is min(10, 10) = <strong>10</strong>. So we can push 10 units of flow along this path. After doing this, both edges S→A and A→T are fully used (saturated).</p>
+<p><strong>Path 2: S → B → T</strong></p>
+<p>The edges on this path are S→B (capacity 5) and B→T (capacity 10). The bottleneck is min(5, 10) = <strong>5</strong>. So we can push 5 units of flow along this path. After doing this, S→B is fully saturated. B→T still has 5 units of remaining capacity.</p>
+<p><strong>Can we find any more paths?</strong></p>
+<p>After the two paths above, S→A is saturated (10/10) and S→B is saturated (5/5). There is no more flow that can leave S — both outgoing edges are full. So no more augmenting paths exist.</p>
+<p>$$\text{Total Max Flow} = 10 + 5 = \mathbf{15}$$</p>
+<hr>
+<p><strong>Part b) Minimum Cut</strong></p>
+<p>A <strong>cut</strong> is a set of edges whose removal disconnects S from T completely. The <strong>minimum cut</strong> is the cut with the smallest total capacity. By the Max-Flow Min-Cut theorem, the minimum cut capacity always equals the maximum flow.</p>
+<p>To find the minimum cut, we identify which edges are fully saturated (bottlenecks that stopped us from pushing more flow):</p>
+<ul>
+<li><strong>S → A = 10</strong> — fully saturated (10/10 used) ✓</li>
+<li><strong>S → B = 5</strong> — fully saturated (5/5 used) ✓</li>
+</ul>
+<p>If we remove these two edges, there is no way to get any flow from S to T at all — S becomes completely isolated. So the minimum cut is the set ${S \to A,\ S \to B}$.</p>
+<p>$$\text{Min-Cut capacity} = 10 + 5 = \mathbf{15}$$</p>
+<blockquote>
+<p><strong>Min-Cut = Max-Flow = 15</strong> ✓<br>
+This confirms the Max-Flow Min-Cut theorem: the maximum flow equals the capacity of the minimum cut. In image segmentation, this minimum cut corresponds to the optimal boundary between foreground and background.</p>
+</blockquote>
+<hr>
+<h2 id="quick-revision-cheat-sheet">Quick Revision Cheat Sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Key Formula / Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snakes</td>
+<td>$E = \alpha|C'|^2 + \beta|C''|^2 - |\nabla I|^2$</td>
+</tr>
+<tr>
+<td>Level Sets</td>
+<td>Contour = zero of $\phi(x,t)$; evolves via PDE</td>
+</tr>
+<tr>
+<td>Intelligent Scissors</td>
+<td>Dijkstra on pixel graph; high gradient = low cost</td>
+</tr>
+<tr>
+<td>Split &amp; Merge</td>
+<td>Var &gt; θ → split;</td>
+</tr>
+<tr>
+<td>Mean Shift</td>
+<td>Slide window to centroid until converged → mode</td>
+</tr>
+<tr>
+<td>Normalized Cut</td>
+<td>$NCut = \frac{cut}{assoc(A)} + \frac{cut}{assoc(B)}$</td>
+</tr>
+<tr>
+<td>Graph Cuts</td>
+<td>Min-cut = segmentation boundary; Max-flow = Min-cut</td>
+</tr>
+<tr>
+<td>ICP</td>
+<td>Match → Fit → Transform → Repeat until aligned</td>
+</tr>
+<tr>
+<td>PnP Problem</td>
+<td>Given 3D-2D pairs, find $R$ and $t$</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

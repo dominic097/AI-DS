@@ -184,6 +184,11 @@ This eliminates the vanishing gradient problem entirely and enables **massive pa
 | **GRU** | Good | No | Simplified gating |
 | **Transformer** | Excellent | Yes | Self-attention |
 
+---
+> ---
+>> ---
+
+
 
 # RNN - Recurrent Neural Networks
 
@@ -390,7 +395,7 @@ $$\text{Loss} \rightarrow O_{t+3} \rightarrow S_{t+3} \rightarrow S_{t+2} \right
 
 Applying the **chain rule** across every link in that path gives:
 
-$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \ast \frac{dO_{t+3}}{dS_{t+3}} \ast \frac{dS_{t+3}}{dS_{t+2}} \ast \frac{dS_{t+2}}{dS_{t+1}} \ast \frac{dS_{t+1}}{dS_t} \ast \frac{dS_t}{dW}$$
+$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \cdot \frac{dO_{t+3}}{dS_{t+3}} \cdot \frac{dS_{t+3}}{dS_{t+2}} \cdot \frac{dS_{t+2}}{dS_{t+1}} \cdot \frac{dS_{t+1}}{dS_t} \cdot \frac{dS_t}{dW}$$
 
 Each term $\frac{dS_{t+1}}{dS_t}$ involves the derivative of $\tanh$ multiplied by $W$ — a number typically less than 1. Multiply several of these together across many steps, and the gradient **shrinks exponentially** toward zero as it travels back through early time steps. This is the **Vanishing Gradient Problem** — the RNN stops learning anything about words seen far back in the sequence.
 
@@ -402,7 +407,7 @@ $$\frac{dS_{t+n}}{dS_{t+n-1}} = W \quad \text{(multiplied by the tanh gradient)}
 
 So the full chain collapses to repeated multiplications by $W$:
 
-$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \ast \frac{dO_{t+3}}{dS_{t+3}} \ast W \ast W \ast W \ast \frac{dS_t}{dW}$$
+$$\frac{dLoss}{dW} = \frac{dLoss}{dO_{t+3}} \cdot \frac{dO_{t+3}}{dS_{t+3}} \cdot W \cdot W \cdot W \cdot \frac{dS_t}{dW}$$
 
 ```
 Loss

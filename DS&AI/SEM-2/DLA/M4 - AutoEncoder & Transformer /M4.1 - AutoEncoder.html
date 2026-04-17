@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>M4.1 - AutoEncoder.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="auto-encoder">Auto Encoder</h1>
+<p>An autoencoder is a type of neural network architecture that is designed to learn efficient compressed representations of data, typically for the purpose of dimensionality reduction or feature learning. It consists of two main components: an encoder and a decoder.</p>
+<p>It tries to reconstruct the input data from a compressed representation, which is often referred to as the &quot;latent space&quot; or &quot;bottleneck&quot;. The encoder maps the input data to this latent space, while the decoder maps it back to the original input space. The goal of training an autoencoder is to minimize the difference between the input and the reconstructed output, often using a loss function such as mean squared error.</p>
+<p><img src="image.png" alt="alt text"></p>
+<p>An Auto-Encoder neural network typically consists of three main layers:</p>
+<p><img src="image-1.png" alt="alt text"></p>
+<ol>
+<li><strong>Input Layer</strong>: This layer receives the original data that we want to compress and reconstruct. The number of neurons in this layer corresponds to the dimensionality of the input data.</li>
+<li><strong>Hidden Layer (Latent Space)</strong>: This layer is where the compressed representation of the input data is created. The number of neurons in this layer is usually less than the number of neurons in the input layer, which forces the network to learn a more compact representation of the data. The activation function used in this layer can vary, but common choices include ReLU or sigmoid.</li>
+<li><strong>Output Layer</strong>: This layer attempts to reconstruct the original input data from the compressed representation. The number of neurons in this layer is the same as the number of neurons in the input layer, and the activation function is often linear or sigmoid, depending on the nature of the input data.</li>
+</ol>
+<h2 id="key-facts-about-the-auto-encoder">key Facts about the Auto-Encoder</h2>
+<ul>
+<li>Autoencoders are unsupervised learning models, meaning they do not require labeled data for training. They learn to encode and decode the input data based solely on the structure of the data itself.</li>
+<li>The latent space in an autoencoder can capture important features and patterns in the data, making it useful for tasks such as dimensionality reduction, anomaly detection, and data generation.</li>
+<li>Autoencoders can be used for various applications, including image compression, denoising, and feature extraction.</li>
+</ul>
+<h2 id="properties-of-auto-encoders">Properties of Auto-Encoders:</h2>
+<ul>
+<li>unsupervised learning: Autoencoders learn to encode and decode data without the need for labeled examples.</li>
+<li>dimensionality reduction: Autoencoders can compress high-dimensional data into a lower-dimensional latent space, which can be useful for visualization and feature extraction.</li>
+<li>non-linear transformations: Autoencoders can learn complex, non-linear relationships in the data, making them more powerful than linear dimensionality reduction techniques like PCA.</li>
+<li>regularization: Autoencoders can be regularized to prevent overfitting and encourage the learning of more meaningful representations. Common regularization techniques include adding noise to the input (denoising autoencoders) or enforcing sparsity in the latent space (sparse autoencoders).</li>
+<li>generative capabilities: Variational autoencoders (VAEs) are a type of autoencoder that can generate new data samples by sampling from the latent space, making them useful for tasks like image generation and data augmentation.</li>
+</ul>
+<h2 id="training-an-auto-encoder">Training an Auto-Encoder</h2>
+<p>Training an autoencoder follows the standard supervised learning loop — the only difference is that the <strong>target output is the input itself</strong>. The model learns by minimising the reconstruction error between the original input $x$ and the decoded output $\hat{x}$.</p>
+<h3 id="training-steps">Training Steps</h3>
+<ol>
+<li><strong>Data Preparation</strong> — Normalise or standardise the input data (e.g., scale pixel values to $[0, 1]$). Split into training and validation sets.</li>
+<li><strong>Forward Pass</strong> — Feed input $x$ through the encoder to get latent code $z$, then through the decoder to get reconstruction $\hat{x}$.</li>
+<li><strong>Compute Loss</strong> — Measure reconstruction error (see loss function choices below).</li>
+<li><strong>Backward Pass</strong> — Backpropagate the loss gradient through both decoder and encoder.</li>
+<li><strong>Weight Update</strong> — Update all weights using an optimiser (SGD, Adam, etc.).</li>
+<li><strong>Repeat</strong> — Iterate over the dataset for multiple epochs until the loss converges.
+<img src="image-2.png" alt="alt text"></li>
+</ol>
+<h3 id="key-hyperparameters">Key Hyperparameters</h3>
+<table>
+<thead>
+<tr>
+<th>Hyperparameter</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Code Size</strong></td>
+<td>Size of the latent layer. Smaller → more compression, higher information loss risk</td>
+</tr>
+<tr>
+<td><strong>Number of Layers</strong></td>
+<td>Deeper encoders/decoders learn more abstract representations</td>
+</tr>
+<tr>
+<td><strong>Nodes per Layer</strong></td>
+<td>Symmetric &quot;sandwich&quot; structure — encoder narrows, decoder mirrors it back</td>
+</tr>
+<tr>
+<td><strong>Loss Function</strong></td>
+<td>MSE for continuous data; Binary Cross-Entropy for binary/image data</td>
+</tr>
+</tbody>
+</table>
+<h3 id="loss-functions">Loss Functions</h3>
+<ul>
+<li><strong>Mean Squared Error (MSE)</strong> — used when input values are continuous (e.g., normalised sensor data):</li>
+</ul>
+<p>$$\mathcal{L} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2$$</p>
+<ul>
+<li><strong>Binary Cross-Entropy</strong> — used when inputs are binary or in $[0,1]$ (e.g., images after sigmoid):</li>
+</ul>
+<p>$$\mathcal{L} = -\frac{1}{n} \sum_{i=1}^{n} \left[ x_i \log \hat{x}_i + (1 - x_i) \log(1 - \hat{x}_i) \right]$$</p>
+<blockquote>
+<p>[!NOTE]
+Stacked autoencoders (deep autoencoders) are built by adding more hidden layers on each side of the bottleneck. The architecture mirrors itself — if the encoder has layers $[784 \to 256 \to 64]$, the decoder has $[64 \to 256 \to 784]$. This &quot;sandwich&quot; structure is what gives stacked autoencoders their name.</p>
+</blockquote>
+<p><img src="image-3.png" alt="alt text">
+<img src="image-4.png" alt="alt text">
+<img src="image-5.png" alt="alt text"></p>
+<h1 id="regularized-autoencoders">Regularized Autoencoders</h1>
+<p>Regularized autoencoders are a class of autoencoders that incorporate additional constraints or penalties during training to encourage the model to learn more meaningful and robust representations. These regularization techniques help prevent overfitting and can lead to better generalization on unseen data.</p>
+<p><img src="image-6.png" alt="alt text"></p>
+<p>The Loss Function is modified to include a regularization term:
+$$\mathcal{L} = |x - \hat{x}|^2 + \lambda R(h)$$</p>
+<p>where $|x - \hat{x}|^2$ is the reconstruction loss, $R(h)$ is the regularization term applied to the latent representation $h$, and $\lambda$ is a hyperparameter that controls the strength of the regularization.</p>
+<p>Some common types of regularized autoencoders include:</p>
+<ol>
+<li><strong>Denoising Autoencoders (DAE)</strong>: A DAE learns to reconstruct <strong>clean input data from a corrupted (noisy) version</strong> of it. Instead of simply copying input → output, it learns to remove noise and recover the original signal.</li>
+</ol>
+<ul>
+<li>Input: Noisy data $\tilde{x} = x + \text{noise}$</li>
+<li>Output: Clean reconstruction $\hat{x} \approx x$</li>
+<li>Benefits:
+<ul>
+<li>Learns robust representations that are less sensitive to noise.</li>
+<li>Handles real-world noisy data better.</li>
+</ul>
+</li>
+</ul>
+<h3 id="components-of-dae">Components of DAE</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>(a) Input with Noise</strong></td>
+<td>Original data $x$ is corrupted</td>
+<td>$\tilde{x} = x + \text{noise}$</td>
+</tr>
+<tr>
+<td><strong>(b) Encoder</strong></td>
+<td>Maps noisy input → latent representation</td>
+<td>$h = f(\tilde{x})$</td>
+</tr>
+<tr>
+<td><strong>(c) Bottleneck</strong></td>
+<td>Learns compressed, noise-invariant features</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>(d) Decoder</strong></td>
+<td>Reconstructs clean data from latent code</td>
+<td>$\hat{x} = g(h)$</td>
+</tr>
+<tr>
+<td><strong>(e) Loss Function</strong></td>
+<td>Compare reconstruction with <strong>original clean input</strong></td>
+<td>$\mathcal{L} = |x - \hat{x}|^2$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="working-principle">Working Principle</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 1: Add Noise</strong></td>
+<td>Corrupt input $x \to \tilde{x}$</td>
+</tr>
+<tr>
+<td><strong>Step 2: Encode</strong></td>
+<td>Extract features from noisy data</td>
+</tr>
+<tr>
+<td><strong>Step 3: Learn Representation</strong></td>
+<td>Model learns the underlying structure, not the noise</td>
+</tr>
+<tr>
+<td><strong>Step 4: Decode</strong></td>
+<td>Reconstruct clean data</td>
+</tr>
+<tr>
+<td><strong>Step 5: Compute Loss</strong></td>
+<td>Compare reconstruction with original $x$</td>
+</tr>
+<tr>
+<td><strong>Step 6: Backpropagation</strong></td>
+<td>Optimise weights to reduce reconstruction error</td>
+</tr>
+</tbody>
+</table>
+<pre><code>![alt text](image-7.png)
+</code></pre>
+<ol start="2">
+<li><strong>Sparse Autoencoders</strong>: These autoencoders encourage sparsity in the latent representation by adding a sparsity penalty to the loss function. This forces the model to learn a more compact and interpretable representation of the data, where only a few neurons in the latent space are active for any given input.</li>
+</ol>
+<ul>
+<li>Only a few neurons should be active</li>
+<li>Benefits:
+<ul>
+<li>Learns more interpretable features.</li>
+<li>Can capture more meaningful patterns in the data.</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>Contractive Autoencoders</strong>: The model is penalised if a small change in the input causes a big change in the latent code. In other words — the encoding should stay <em>stable</em> even when the input changes slightly.</li>
+</ol>
+<ul>
+<li>Think of it like: if you slightly rotate an image of a cat, the latent code should still look almost the same.</li>
+<li>Benefits:
+<ul>
+<li>Learns stable, noise-resistant representations.</li>
+<li>Ignores small irrelevant changes in the input.</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>Variational Autoencoders (VAEs): These autoencoders are designed to learn a probabilistic latent space. Instead of encoding the input into a single point in the latent space, VAEs encode it as a distribution (usually Gaussian). During training, the model learns to generate new data samples by sampling from this latent distribution, making VAEs useful for generative tasks.</li>
+</ol>
+<ul>
+<li>Encodes input as a distribution (mean and variance) rather than a single point.</li>
+<li>Benefits:
+<ul>
+<li>Can generate new data samples by sampling from the latent space.</li>
+<li>Useful for tasks like image generation and data augmentation.</li>
+</ul>
+</li>
+</ul>
+<h3 id="applications-of-regularized-autoencoders">Applications of Regularized Autoencoders</h3>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>What it does</th>
+<th>Used in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Image Denoising</strong></td>
+<td>Removes noise from corrupted images; learns underlying patterns</td>
+<td>Medical imaging, satellite image processing</td>
+</tr>
+<tr>
+<td><strong>Dimensionality Reduction</strong></td>
+<td>Compresses high-dimensional data → low-dimensional representation; alternative to PCA</td>
+<td>Data visualisation (2D/3D plots), preprocessing for ML models</td>
+</tr>
+<tr>
+<td><strong>Feature Extraction</strong></td>
+<td>Automatically learns important features from raw data</td>
+<td>Image classification, text processing, speech recognition</td>
+</tr>
+<tr>
+<td><strong>Anomaly Detection</strong></td>
+<td>Trained on normal data — high reconstruction error signals an anomaly</td>
+<td>Fraud detection, intrusion detection, fault detection in machines</td>
+</tr>
+<tr>
+<td><strong>Data Compression</strong></td>
+<td>Compresses data into compact latent form; reconstructs on demand</td>
+<td>Image compression, signal compression</td>
+</tr>
+<tr>
+<td><strong>Medical Applications</strong></td>
+<td>Denoising MRI/CT scans, disease detection, patient data representation</td>
+<td>Improves diagnosis accuracy and image clarity</td>
+</tr>
+<tr>
+<td><strong>Speech &amp; Audio Processing</strong></td>
+<td>Noise reduction in audio signals; feature extraction for speech recognition</td>
+<td>Voice assistants, speech enhancement systems</td>
+</tr>
+<tr>
+<td><strong>Image Generation &amp; Reconstruction</strong></td>
+<td>Generates new data samples; fills missing parts of images</td>
+<td>Variational Autoencoder (VAE) based applications</td>
+</tr>
+<tr>
+<td><strong>Recommendation Systems</strong></td>
+<td>Learns user-item interaction patterns for personalisation</td>
+<td>Movie recommendations, e-commerce</td>
+</tr>
+<tr>
+<td><strong>Natural Language Processing</strong></td>
+<td>Sentence embedding and text representation</td>
+<td>Chatbots, document clustering</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="generative-adversarial-networks-gan">Generative Adversarial Networks (GAN)</h1>
+<p>A <strong>GAN</strong> is a generative model made up of two neural networks competing against each other:</p>
+<ul>
+<li><strong>Generator (G)</strong> — creates fake data from random noise, trying to fool the discriminator</li>
+<li><strong>Discriminator (D)</strong> — tries to tell apart real data from fake data produced by the generator</li>
+</ul>
+<pre class="hljs"><code><div>Random Noise z  →  [Generator G]  →  Fake data
+                                           ↓
+Real data   ──────────────────────→  [Discriminator D]  →  Real / Fake?
+</div></code></pre>
+<p>They are trained together in an <strong>adversarial loop</strong> — the generator gets better at fooling, the discriminator gets better at detecting, and both improve over time.</p>
+<h3 id="how-gan-works--the-objective-function">How GAN Works — The Objective Function</h3>
+<p>$$V(D, G) = \mathbb{E}<em>{x \sim P</em>{\text{data}}(x)}[\log D(x)] + \mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))]$$</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$G$</td>
+<td>Generator network</td>
+</tr>
+<tr>
+<td>$D$</td>
+<td>Discriminator network</td>
+</tr>
+<tr>
+<td>$x$</td>
+<td>A sample from real data</td>
+</tr>
+<tr>
+<td>$z$</td>
+<td>A random noise sample fed into the generator</td>
+</tr>
+<tr>
+<td>$P_{\text{data}}(x)$</td>
+<td>Distribution of real data</td>
+</tr>
+<tr>
+<td>$p_z(z)$</td>
+<td>Distribution of the generator (noise)</td>
+</tr>
+<tr>
+<td>$D(x)$</td>
+<td>Discriminator's output for real data (wants this → 1)</td>
+</tr>
+<tr>
+<td>$G(z)$</td>
+<td>Generator's output (a fake sample)</td>
+</tr>
+<tr>
+<td>$D(G(z))$</td>
+<td>Discriminator's output for fake data (Generator wants this → 1, Discriminator wants this → 0)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In plain terms:</strong></p>
+<ul>
+<li>The <strong>Discriminator</strong> tries to <strong>maximise</strong> $V$ — correctly label real as real ($D(x) \approx 1$) and fake as fake ($D(G(z)) \approx 0$)</li>
+<li>The <strong>Generator</strong> tries to <strong>minimise</strong> $V$ — make its fakes so good that $D(G(z)) \approx 1$</li>
+</ul>
+<p>This is called a <strong>minimax game</strong>: $\min_G \max_D , V(D, G)$</p>
+<h3 id="applications-of-gans">Applications of GANs</h3>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prediction of Next Frame in a Video</strong></td>
+<td>Given a few frames (e.g., a pitcher mid-throw), the GAN generates the next frame — used in video prediction and synthesis</td>
+</tr>
+<tr>
+<td><strong>Text to Image Generation</strong></td>
+<td>Given a text prompt, the generator creates a realistic image matching the description</td>
+</tr>
+<tr>
+<td><strong>Image Super-Resolution</strong></td>
+<td>Upscale low-resolution images to high resolution (used in SRGAN)</td>
+</tr>
+<tr>
+<td><strong>Data Augmentation</strong></td>
+<td>Generate synthetic training samples to balance datasets</td>
+</tr>
+<tr>
+<td><strong>Face Generation / Style Transfer</strong></td>
+<td>Generate photorealistic faces (StyleGAN) or transfer artistic styles</td>
+</tr>
+<tr>
+<td><strong>Medical Image Synthesis</strong></td>
+<td>Generate MRI/CT scans for training diagnostic models</td>
+</tr>
+<tr>
+<td><strong>Image-to-Image Translation</strong></td>
+<td>CycleGAN: convert MRI → CT, or sketch → photo (Pix2Pix)</td>
+</tr>
+</tbody>
+</table>
+<p>Transformers abandon the sequential step-by-step approach entirely. Instead, they process the <strong>whole sequence at once</strong> using <strong>self-attention</strong> — letting every word directly attend to every other word, regardless of distance.</p>
+<pre class="hljs"><code><div>  &quot;The  cat  sat  on  the  mat&quot;
+    ↕    ↕    ↕   ↕    ↕    ↕
+   [  Self-Attention across all positions  ]
+</div></code></pre>
+<p><img src="image-8.png" alt="alt text"></p>
+<blockquote>
+<p><strong>Self-attention</strong> assigns a weight to every word in the sequence relative to the current word being processed — so when encoding &quot;sat&quot;, the model can directly look at &quot;cat&quot; (subject) and &quot;mat&quot; (location) without having to pass through intermediate hidden states.</p>
+</blockquote>
+<p>This eliminates the vanishing gradient problem entirely and enables <strong>massive parallelism</strong> during training, which is why Transformers (GPT, BERT, etc.) now dominate NLP.</p>
+<h3 id="comparison-at-a-glance">Comparison at a Glance</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Handles long deps?</th>
+<th>Parallel training?</th>
+<th>Key idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RNN</strong></td>
+<td>Poor</td>
+<td>No</td>
+<td>Hidden state loop</td>
+</tr>
+<tr>
+<td><strong>LSTM</strong></td>
+<td>Good</td>
+<td>No</td>
+<td>Gated cell memory</td>
+</tr>
+<tr>
+<td><strong>GRU</strong></td>
+<td>Good</td>
+<td>No</td>
+<td>Simplified gating</td>
+</tr>
+<tr>
+<td><strong>Transformer</strong></td>
+<td>Excellent</td>
+<td>Yes</td>
+<td>Self-attention</td>
+</tr>
+</tbody>
+</table>
+<h1 id="generative-adversarial-networks-gans">Generative Adversarial Networks (GANs)</h1>
+<p>Generative Adversarial Networks (GANs) are a class of machine learning frameworks designed for generative modeling. They consist of two neural networks, the <strong>generator</strong> and the <strong>discriminator</strong>, that are trained simultaneously through an adversarial process. The generator creates synthetic data samples, while the discriminator evaluates them against real data samples to determine their authenticity.</p>
+<h2 id="key-components-of-gans">Key Components of GANs</h2>
+<ol>
+<li><strong>Generator</strong>: The generator takes random noise as input and produces synthetic data samples that resemble the real data distribution. Its goal is to generate data that can fool the discriminator into classifying it as real.</li>
+<li><strong>Discriminator</strong>: The discriminator takes both real data samples and synthetic samples from the generator as input and outputs a probability indicating whether the input is real or fake. Its goal is to correctly classify real and fake samples.</li>
+<li><strong>Adversarial Training</strong>: The generator and discriminator are trained in a competitive manner. The generator tries to minimize the discriminator's ability to distinguish between real and fake samples, while the discriminator tries to maximize its accuracy in classification.</li>
+</ol>
+<p><img src="image-9.png" alt="alt text"></p>
+<h2 id="training-process">Training Process</h2>
+<ol>
+<li><strong>Initialization</strong>: Both the generator and discriminator are initialized with random weights.</li>
+<li><strong>Adversarial Loop</strong>:
+<ul>
+<li><strong>Step 1</strong>: The generator creates a batch of synthetic data samples from random noise.</li>
+<li><strong>Step 2</strong>: The discriminator is trained on a batch of real data samples and the synthetic samples from the generator, updating its weights to improve classification accuracy.</li>
+<li><strong>Step 3</strong>: The generator is trained to produce better synthetic samples by updating its weights to minimize the discriminator's ability to classify them as fake.</li>
+</ul>
+</li>
+<li><strong>Repeat</strong>: This process is repeated for many iterations until the generator produces high-quality synthetic data that can effectively fool the discriminator.</li>
+</ol>
+
+</body>
+</html>

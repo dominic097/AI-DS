@@ -1,0 +1,2 @@
+Syllabus Topics:
+> Introduction  to  Apache,  Kafka-Cluster  Architecture –Kafka  messaging  –components  in  messaging  –  creating  and  deleting  kafkaTopic-  Creating  multiple  brokers-  Kafka  producers-  API  for  a  kafka producers-Producer implementation – Three ways to send kafka message- Kafka consumers – Consumer group- API for kafka Consumer-Consumer Implementation-Integration with Spark, Apache, Airflow- Directed Acyclic Graph – CLI commands 
