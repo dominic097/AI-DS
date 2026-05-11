@@ -68,8 +68,10 @@ Kubernetes setup details
 
 username# root
 
-Password# msys#123
+Password# [REDACTED - keep outside git]
 
+AWS Access Key ID# [REDACTED - keep outside git]
+AWS Secret Access Key# [REDACTED - keep outside git]
 
-AWS_ACCESS_KEY_ID=<redacted>
-AWS_SECRET_ACCESS_KEY=<redacted>
+Email# dominic@aziro.com
+Email Password# [REDACTED - keep outside git]

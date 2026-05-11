@@ -1,0 +1,65 @@
+CT 2 Lab Component (Units 3 and 4)
+
+Q1. Feature Engineering with Spark MLlib
+Use Case: Preprocessing e‑commerce transaction data for fraud detection.
+Procedure:
+1.​ Load a sample dataset (CSV of transactions) into Spark DataFrame.
+2.​ Apply preprocessing: handle missing values, normalize numerical features, encode
+categorical variables.
+3.​ Use Spark MLlib’s VectorAssembler to combine features into a single vector.
+4.​ Save the transformed dataset for model training.
+Deliverables:
+●​ Preprocessed dataset in Spark DataFrame.
+●​ Feature vector file ready for MLlib models.
+
+Q2. Classification Model with Spark MLlib
+Use Case: Predicting customer churn in a telecom dataset.
+Procedure:
+1.​ Load telecom customer dataset into Spark.
+2.​ Split into training and test sets.
+3.​ Train a classification model (e.g., Logistic Regression or Decision Tree) using Spark
+MLlib.
+4.​ Evaluate accuracy, precision, recall, and F1 score.
+Deliverables:
+●​ Trained classification model.
+●​ Performance metrics report.
+
+🔹 Moderate Level
+
+Q3. Regression Model with Spark MLlib
+Use Case: Predicting house prices using real estate dataset.
+Procedure:
+1.​ Load housing dataset (features: area, bedrooms, location index, etc.) into Spark.
+
+2.​ Apply feature engineering (scaling, encoding).
+3.​ Train a regression model (Linear Regression or Random Forest Regressor).
+4.​ Evaluate using RMSE and R² metrics.
+Deliverables:
+●​ Regression model file.
+●​ Prediction results with error metrics.
+
+Q4. Stream Processing with Kafka + Spark Streaming
+Use Case: Real‑time monitoring of IoT sensor data (temperature readings).
+Procedure:
+1.​ Set up Kafka producer to stream sensor data.
+2.​ Configure Spark Streaming to consume Kafka topics.
+3.​ Apply transformations (filter abnormal readings, compute moving averages).
+4.​ Output alerts for anomalies into another Kafka topic or dashboard.
+Deliverables:
+●​ Kafka topic with processed stream.
+●​ Real‑time anomaly detection logs.
+
+Q5. Workflow Orchestration with Airflow
+Use Case: Automating ETL pipeline for daily sales data.
+Procedure:
+1.​ Define Airflow DAG with tasks:
+○​ Extract sales data from source (CSV/DB).
+○​ Transform data (cleaning, aggregation in Spark).
+○​ Load into data warehouse (Hive/BigQuery).
+2.​ Schedule DAG to run daily at midnight.
+3.​ Monitor execution via Airflow UI.
+Deliverables:
+●​ Airflow DAG script.
+●​ Execution logs showing successful ETL runs.
+
+
