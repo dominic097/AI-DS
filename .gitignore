@@ -63,3 +63,5 @@ dataset/
 datasets/
 models/
 DS&AI/SEM-2/DLA/socofing/
+DS&AI/SEM-2/NLP/HK/bert_checkpoints/
+DS&AI/SEM-2/NLP/HK/deberta_ckpt/

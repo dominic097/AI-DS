@@ -5,6 +5,7 @@
 
 - Computer vision has applications in various domains, including image recognition, object detection, facial recognition, autonomous vehicles, medical imaging, and more. The goal of computer vision is to enable machines to see and understand the visual world in a way that is similar to human vision.
 
+
 # Common Computer Vision Tasks
 - Image Classification: Assigning a label or category to an entire image based on its content.
 
